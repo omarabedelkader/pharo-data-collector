@@ -10,6 +10,13 @@
 # Pharo Smalltalk Debug log file
 PharoDebug.log
 
+# Pharo test artifacts
+*.fuel
+*-Test.xml
+Pharo64-*.xml
+crash.dmp
+progress.log
+
 # Squeak Smalltalk Debug log file
 SqueakDebug.log
 

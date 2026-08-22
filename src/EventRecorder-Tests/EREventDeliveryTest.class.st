@@ -14,7 +14,7 @@ Class {
 
 { #category : #converting }
 EREventDeliveryTest >> assertSemaphore [
-	self deny: (semaphore waitTimeoutMSecs: 200)
+	self deny: (semaphore waitTimeoutMilliseconds: 200)
 ]
 
 { #category : #testing }

@@ -46,7 +46,6 @@ EREventRecorderDelegateTest >> setUp [
 		followRedirects: false;
 		numberOfRetries: 0;
 		enforceHttpSuccess: true;
-		logToTranscript;
 		yourself.
 ]
 
@@ -205,10 +204,10 @@ EREventRecorderDelegateTest >> testHandlePutOfEventRecorder [
 	collector category: #testingCategory.
 	recorder addCollector: collector.
 	collector add: 42.
-	[	self deny: (semaphore waitTimeoutMSecs: 200).
+	[	self deny: (semaphore waitTimeoutMilliseconds: 200).
 		recorder deliverNow.	
-		self deny: (semaphore waitTimeoutMSecs: 200).
-		self deny: (semaphore waitTimeoutMSecs: 200) ] ensure: [ recorder deactivateDelivery ].
+		self deny: (semaphore waitTimeoutMilliseconds: 200).
+		self deny: (semaphore waitTimeoutMilliseconds: 200) ] ensure: [ recorder deactivateDelivery ].
 	files := (fileSystem workingDirectory / 'files' / 'testingCategory') allFiles.
 	self assert: files size equals: 1.
 	contents := EREventUnpacking default unpackFile: files first.

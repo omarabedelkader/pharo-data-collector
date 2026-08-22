@@ -22,7 +22,7 @@ Class {
 
 { #category : #asserting }
 EREventRecorderPutHandlerTest >> assertReceiverSemaphore [
-	self deny: (receiverSemaphore waitTimeoutMSecs: 200)
+	self deny: (receiverSemaphore waitTimeoutMilliseconds: 200)
 ]
 
 { #category : #accessing }
@@ -53,7 +53,6 @@ EREventRecorderPutHandlerTest >> setUp [
 		followRedirects: false;
 		numberOfRetries: 0;
 		enforceHttpSuccess: true;
-		logToTranscript;
 		yourself.
 ]
 

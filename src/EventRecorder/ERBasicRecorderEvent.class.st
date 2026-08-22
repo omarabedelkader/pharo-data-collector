@@ -123,7 +123,13 @@ ERBasicRecorderEvent >> obfuscated: aBoolean [
 
 { #category : #'accessing - announcement info' }
 ERBasicRecorderEvent >> sessionCreationTime [
-	^ self infoAt: #sessionCreationTime ifAbsent: [ SmalltalkImage current session creationTime ]
+	^ self
+		  infoAt: #sessionCreationTime
+		  ifAbsent: [ | session |
+			  session := SmalltalkImage current session.
+			  (session respondsTo: #creationTime)
+				  ifTrue: [ session creationTime ]
+				  ifFalse: [ nil ] ]
 ]
 
 { #category : #accessing }

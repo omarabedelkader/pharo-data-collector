@@ -26,7 +26,7 @@ EREventRecorderTestServer >> initializeUsingDelegate: aDelegate semaphore: aSema
 										ifTrue: [ aSemaphore signal ] ]
 							for: self.
 	server start.
-	[ (aSemaphore waitTimeoutMSecs: 200) not ] assert.
+	[ (aSemaphore waitTimeoutMilliseconds: 200) not ] assert.
 	ZnLogEvent announcer removeSubscription: subscription.
 	url := ZnUrl new
 		scheme: #http;

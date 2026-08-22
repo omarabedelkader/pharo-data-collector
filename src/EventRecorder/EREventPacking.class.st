@@ -42,9 +42,29 @@ EREventPacking >> buildAnnouncementFor: anEREventCollector [
 		imageVersion: SystemVersion current version;
 		latestUpdate: SystemVersion current commitHash;
 		computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
-		sessionUUID: SmalltalkImage current session id asString;
-		sessionCreationTime: SmalltalkImage current session creationTime.
+		sessionUUID: self currentSessionUUID;
+		sessionCreationTime: self currentSessionCreationTime.
 	^ anEREventCollector updateAnnouncement: announcement
+]
+
+{ #category : #private }
+EREventPacking >> currentSessionCreationTime [
+
+	| session |
+	session := SmalltalkImage current session.
+	^ (session respondsTo: #creationTime)
+		  ifTrue: [ session creationTime ]
+		  ifFalse: [ nil ]
+]
+
+{ #category : #private }
+EREventPacking >> currentSessionUUID [
+
+	| session |
+	session := SmalltalkImage current session.
+	^ (session respondsTo: #id)
+		  ifTrue: [ session id asString ]
+		  ifFalse: [ session identityHash asString ]
 ]
 
 { #category : #private }

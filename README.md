@@ -1,16 +1,6 @@
-# Pharo-XP EventRecorder
+# pharo-data-collector
 
-A single repository containing the EventRecorder core and the Pharo-XP client/server extensions.
-
-The original two-repository dependency has been removed: `BaselineOfPharoXPEventRecorder` now loads every required package from this checkout. The default configuration is intentionally local-first and writes data under `var/data`.
-
-## Requirements
-
-- macOS or Linux
-- `bash` and `curl`
-- Internet access for the first bootstrap only (to install Pharo 13)
-
-The bootstrap script uses the official Pharo 13 zeroconf installer and keeps the VM/image inside `.pharo/`, which is ignored by Git.
+This repo collect data from the pharo-image in an anonymous way.
 
 ## Run locally
 
@@ -18,6 +8,8 @@ The bootstrap script uses the official Pharo 13 zeroconf installer and keeps the
 ./scripts/run-local.sh
 ```
 
+
+### What happens ?
 On the first run this installs Pharo 13, loads the `Server` group from `src/`, and starts the service.
 
 Defaults:

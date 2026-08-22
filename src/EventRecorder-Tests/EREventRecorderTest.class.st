@@ -20,17 +20,17 @@ Class {
 
 { #category : #asserting }
 EREventRecorderTest >> assertReceiverSemaphore [
-	self deny: (receiverSemaphore waitTimeoutMSecs: 200)
+	self deny: (receiverSemaphore waitTimeoutMilliseconds: 200)
 ]
 
 { #category : #asserting }
 EREventRecorderTest >> assertSemaphore [
-	self deny: (semaphore waitTimeoutMSecs: 200)
+	self deny: (semaphore waitTimeoutMilliseconds: 200)
 ]
 
 { #category : #asserting }
 EREventRecorderTest >> denyReceiverSemaphore [
-	self assert: (receiverSemaphore waitTimeoutMSecs: 200)
+	self assert: (receiverSemaphore waitTimeoutMilliseconds: 200)
 ]
 
 { #category : #'server handling' }

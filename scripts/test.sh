@@ -10,12 +10,12 @@ if [[ ! -x "$PHARO" || ! -f "$IMAGE" ]]; then
   "$ROOT_DIR/scripts/bootstrap-local.sh"
 fi
 
-LOAD_EXPRESSION="Metacello new baseline: 'PharoXPEventRecorder'; repository: 'tonel://./src'; load: 'Tests'. Smalltalk snapshot: true andQuit: true"
+LOAD_EXPRESSION="Metacello new baseline: 'PharoXPEventRecorder'; repository: 'tonel://./src'; load: #( 'Tests' 'EventRecorder-Fuel-Tests' ). Smalltalk snapshot: true andQuit: true"
 (
   cd "$ROOT_DIR"
   "$PHARO" "$IMAGE" eval "$LOAD_EXPRESSION"
 )
 
 cd "$ROOT_DIR"
-"$PHARO" "$IMAGE" test 'EventRecorder-.*'
-"$PHARO" "$IMAGE" test 'Pharo-XP-EventRecorder-.*'
+"$PHARO" "$IMAGE" test --fail-on-failure 'EventRecorder-.*'
+"$PHARO" "$IMAGE" test --fail-on-failure 'Pharo-XP-EventRecorder-.*'

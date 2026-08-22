@@ -64,6 +64,7 @@ BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 			'Pharo-XP-EventRecorder-Server' );
 		group: 'Tests' with: #(
 			'EventRecorder-Tests'
+			'EventRecorder-Fuel-Tests'
 			'EventRecorder-Server-Tests'
 			'Pharo-XP-EventRecorder-Client-Tests'
 			'Pharo-XP-EventRecorder-Server-Tests' );
