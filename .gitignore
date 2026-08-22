@@ -32,3 +32,6 @@ github-*.zip
 
 
 .DS_Store
+
+
+.pharo/

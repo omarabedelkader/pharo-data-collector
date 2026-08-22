@@ -69,8 +69,8 @@ From a Pharo image whose working directory is this repository:
 
 ```smalltalk
 Metacello new
+    githubUser: 'omarabedelkader' project: 'pharo-data-collector' commitish: 'main' path: 'src';
     baseline: 'PharoXPEventRecorder';
-    repository: 'tonel://./src';
     load: 'Server'.
 
 PXServer start.
