@@ -1,0 +1,17 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'PharoXPEventRecorder',
+      #directory : 'src',
+      #load : [ 'Tests' ],
+      #platforms : [ #pharo ],
+      #onConflict : #useIncoming,
+      #onUpgrade : #useIncoming
+    }
+  ],
+  #testing : {
+    #include : {
+      #packages : [ 'EventRecorder.*', 'Pharo-XP-EventRecorder.*' ]
+    }
+  }
+}
