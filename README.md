@@ -133,22 +133,6 @@ Each accepted request is written below the configured data directory as:
 
 The server accepts only non-empty string metadata and restricts path segments to alphanumeric characters plus `-`, `_`, `.`, and `@`. This prevents request metadata from traversing outside the configured data directory.
 
-## Merge and cleanup notes
-
-The merged codebase makes the following integration changes:
-
-- removes the remote EventRecorder dependency from the Pharo-XP baseline;
-- gives the project one authoritative local baseline and explicit load groups;
-- makes the PX client endpoint configurable, with localhost as the default;
-- keeps experiment/participant/task metadata when consolidating event collectors, preventing events from different experiments from being merged together;
-- encodes PX request metadata as JSON and validates it before persistence;
-- rejects raw octet-stream uploads on the PX endpoint because PX storage requires metadata;
-- validates metadata-derived filesystem path segments;
-- gives `PXServer` its own Zinc server instance instead of changing Zinc's global default server;
-- factors EventRecorder server initialization into overridable hooks instead of duplicating superclass initialization in the PX delegate;
-- adds configuration, protocol, storage, routing, consolidation, and HTTP integration tests;
-- preserves both upstream MIT licenses under `LICENSES/`.
-
 ## Before exposing it on a public server
 
 The localhost build is intentionally an ingestion service, not a complete public-edge deployment. Before exposing it to the Internet, put it behind TLS and authentication/authorization, set request/body limits at the proxy, use a persistent data volume with backups, and decide on retention/consent rules for experiment data. Do not expose the current unauthenticated Zinc endpoint directly to the public Internet.
