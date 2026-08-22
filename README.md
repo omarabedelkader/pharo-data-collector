@@ -51,13 +51,13 @@ Pharo test suite:
 ./scripts/test.sh
 ```
 
-The test load includes the EventRecorder core/server tests plus the Pharo-XP client/server tests. The Pharo-XP server suite includes an HTTP integration test that sends a real multipart request to a Zinc server on a random local port and verifies the stored payload.
+The test load includes the EventRecorder core/server tests, the Pharo-XP client/server tests, and the dispatcher tests. The Pharo-XP server suite includes an HTTP integration test that sends a real multipart request to a Zinc server on a random local port and verifies the stored payload.
 
 The repository also contains `.smalltalk.ston` for smalltalkCI.
 
 ## Load manually in a Pharo image
 
-From a Pharo image whose working directory is this repository:
+From a Pharo image with network access:
 
 ```smalltalk
 Metacello new
@@ -81,9 +81,10 @@ Available load groups:
 | `Core` | EventRecorder core only |
 | `Client` | Core plus Pharo-XP collection/client code |
 | `Server` | Client plus EventRecorder and Pharo-XP server code; this is the default |
+| `Dispatcher` | HTTP forwarding server that routes requests from one public endpoint to configured target services |
 | `Tests` | Core/server and Pharo-XP test suites |
 | `Optional` | Legacy download/tooling, Fuel, Help, Inspector, and UI packages retained from EventRecorder |
-| `all` | Server, tests, and optional legacy packages |
+| `all` | Server, dispatcher, tests, and optional legacy packages |
 
 The legacy download helper and other optional packages are deliberately not part of the default local server load. They are retained for source completeness but should be treated separately when modernizing old UI/Inspector integrations.
 

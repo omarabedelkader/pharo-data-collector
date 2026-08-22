@@ -11,7 +11,19 @@ BaselineOfPharoXPEventRecorder >> baseline: spec [
 	spec for: #common do: [
 		self defineEventRecorderPackagesOn: spec.
 		self definePharoXPPackagesOn: spec.
+		self defineDispatcherPackagesOn: spec.
 		self defineGroupsOn: spec ]
+]
+
+{ #category : #baselines }
+BaselineOfPharoXPEventRecorder >> defineDispatcherPackagesOn: spec [
+
+	spec package: 'Phex-Data-Dispatcher'.
+	spec
+		package: 'Phex-Data-Dispatcher-Tests'
+		with: [ spec requires: #(
+			'Phex-Data-Dispatcher'
+			'EventRecorder-Tests' ) ]
 ]
 
 { #category : #baselines }
@@ -62,10 +74,12 @@ BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 			'Client'
 			'EventRecorder-Server'
 			'Pharo-XP-EventRecorder-Server' );
+		group: 'Dispatcher' with: #( 'Phex-Data-Dispatcher' );
 		group: 'Tests' with: #(
 			'EventRecorder-Tests'
 			'EventRecorder-Fuel-Tests'
 			'EventRecorder-Server-Tests'
+			'Phex-Data-Dispatcher-Tests'
 			'Pharo-XP-EventRecorder-Client-Tests'
 			'Pharo-XP-EventRecorder-Server-Tests' );
 		group: 'Optional' with: #(
@@ -77,7 +91,7 @@ BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 			'EventRecorder-UI'
 			'EventRecorder-UI-Tests' );
 		group: 'default' with: #( 'Server' );
-		group: 'all' with: #( 'Server' 'Tests' 'Optional' )
+		group: 'all' with: #( 'Server' 'Dispatcher' 'Tests' 'Optional' )
 ]
 
 { #category : #baselines }

@@ -3,7 +3,7 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'PharoXPEventRecorder',
       #directory : 'src',
-      #load : [ 'Tests' ],
+      #load : [ 'Tests', 'Dispatcher' ],
       #platforms : [ #pharo ],
       #onConflict : #useIncoming,
       #onUpgrade : #useIncoming
@@ -11,7 +11,7 @@ SmalltalkCISpec {
   ],
   #testing : {
     #include : {
-      #packages : [ 'EventRecorder.*', 'Pharo-XP-EventRecorder.*' ]
+      #packages : [ 'EventRecorder.*', 'Phex-Data-Dispatcher.*', 'Pharo-XP-EventRecorder.*' ]
     }
   }
 }

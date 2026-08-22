@@ -16,7 +16,7 @@ if [[ ! -x "$PHARO" || ! -f "$IMAGE" ]]; then
   )
 fi
 
-LOAD_EXPRESSION="Metacello new baseline: 'PharoXPEventRecorder'; repository: 'tonel://./src'; load: 'Server'. Smalltalk snapshot: true andQuit: true"
+LOAD_EXPRESSION="(Smalltalk globals at: #BaselineOfPharoXPEventRecorder ifAbsent: [ nil ]) ifNotNil: [ :baseline | baseline package removeFromSystem ]. Metacello new baseline: 'PharoXPEventRecorder'; repository: 'tonel://./src'; load: 'Server'. Smalltalk snapshot: true andQuit: true"
 
 (
   cd "$ROOT_DIR"

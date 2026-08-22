@@ -10,7 +10,7 @@ if [[ ! -x "$PHARO" || ! -f "$IMAGE" ]]; then
   "$ROOT_DIR/scripts/bootstrap-local.sh"
 fi
 
-LOAD_EXPRESSION="Metacello new baseline: 'PharoXPEventRecorder'; repository: 'tonel://./src'; load: #( 'Tests' 'EventRecorder-Fuel-Tests' ). Smalltalk snapshot: true andQuit: true"
+LOAD_EXPRESSION="(Smalltalk globals at: #BaselineOfPharoXPEventRecorder ifAbsent: [ nil ]) ifNotNil: [ :baseline | baseline package removeFromSystem ]. Metacello new baseline: 'PharoXPEventRecorder'; repository: 'tonel://./src'; load: #( 'Tests' 'EventRecorder-Fuel-Tests' 'Dispatcher' ). Smalltalk snapshot: true andQuit: true"
 (
   cd "$ROOT_DIR"
   "$PHARO" "$IMAGE" eval "$LOAD_EXPRESSION"
@@ -18,4 +18,5 @@ LOAD_EXPRESSION="Metacello new baseline: 'PharoXPEventRecorder'; repository: 'to
 
 cd "$ROOT_DIR"
 "$PHARO" "$IMAGE" test --fail-on-failure 'EventRecorder-.*'
+"$PHARO" "$IMAGE" test --fail-on-failure 'Phex-Data-Dispatcher-.*'
 "$PHARO" "$IMAGE" test --fail-on-failure 'Pharo-XP-EventRecorder-.*'
