@@ -40,7 +40,7 @@ PXServerDelegate >> handleRequest: request [
 PXServerDelegate >> initializeDispatcher [
 
 	| okResponse |
-	okResponse := [ :request :response | ZnResponse ok: (ZnEntity text: 'OK') ].
+	okResponse := [ :request :response | ZnResponse ok: (ZnEntity textCRLF: 'OK') ].
 	dispatcher
 		map: '/' to: okResponse;
 		map: '/events' to: putHandler;

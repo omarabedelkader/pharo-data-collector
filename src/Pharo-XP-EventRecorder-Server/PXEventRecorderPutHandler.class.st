@@ -58,3 +58,11 @@ PXEventRecorderPutHandler >> metadataFromParts: aCollection [
 		on: Error
 		do: [ nil ]
 ]
+
+{ #category : #evaluating }
+PXEventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
+
+	aZnRequest method = #GET ifTrue: [
+		^ ZnResponse ok: (ZnEntity textCRLF: 'OK') ].
+	^ super value: aZnRequest value: aZnResponse
+]

@@ -16,6 +16,7 @@ PharoDebug.log
 Pharo64-*.xml
 crash.dmp
 progress.log
+/var/run/
 
 # Squeak Smalltalk Debug log file
 SqueakDebug.log

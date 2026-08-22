@@ -43,7 +43,15 @@ PXServerIntegrationTest >> testHealthCheck [
 
 	client path: '/'; get.
 	self assert: client isSuccess.
-	self assert: client contents equals: 'OK'
+	self assert: client contents equals: 'OK', String crlf
+]
+
+{ #category : #tests }
+PXServerIntegrationTest >> testEventsHealthCheck [
+
+	client path: '/events'; get.
+	self assert: client isSuccess.
+	self assert: client contents equals: 'OK', String crlf
 ]
 
 { #category : #tests }
