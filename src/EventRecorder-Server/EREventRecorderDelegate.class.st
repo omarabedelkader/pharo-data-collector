@@ -3,47 +3,48 @@ I dispatch EventRecorder HTTP requests. Subclasses customize the handler,
 storage, directories, and route map through small factory/configuration hooks.
 "
 Class {
-	#name : #EREventRecorderDelegate,
-	#superclass : #Object,
+	#name : 'EREventRecorderDelegate',
+	#superclass : 'Object',
 	#instVars : [
 		'dispatcher',
 		'putHandler',
 		'zipHandler'
 	],
-	#category : #'EventRecorder-Server'
+	#category : 'EventRecorder-Server',
+	#package : 'EventRecorder-Server'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 EREventRecorderDelegate >> dataDirectory: aFileReference [
 
 	putHandler directory: aFileReference
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 EREventRecorderDelegate >> defaultDataDirectory [
 
 	^ FileLocator home / 'gt' / 'events'
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 EREventRecorderDelegate >> defaultZipRootURL [
 
 	^ 'http://gc.dcc.uchile.cl/' asZnUrl
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 EREventRecorderDelegate >> fileStorageClass [
 
 	^ EREventRecorderFileStorage
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 EREventRecorderDelegate >> handleRequest: request [
 
 	^ dispatcher handleRequest: request
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorderDelegate >> initialize [
 
 	super initialize.
@@ -53,7 +54,7 @@ EREventRecorderDelegate >> initialize [
 	self initializeDispatcher
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorderDelegate >> initializeDispatcher [
 
 	| okResponse |
@@ -69,7 +70,7 @@ EREventRecorderDelegate >> initializeDispatcher [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorderDelegate >> initializePutHandler [
 
 	putHandler := self putHandlerClass new.
@@ -78,7 +79,7 @@ EREventRecorderDelegate >> initializePutHandler [
 		yourself)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorderDelegate >> initializeZipHandler [
 
 	zipHandler := EREventRecorderZipHandler new.
@@ -88,19 +89,19 @@ EREventRecorderDelegate >> initializeZipHandler [
 		archiver: EREventRecorderExternalZipScript new
 ]
 
-{ #category : #defaults }
-EREventRecorderDelegate >> putHandlerClass [
-
-	^ EREventRecorderPutHandler
-]
-
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderDelegate >> putHandler [
 
 	^ putHandler
 ]
 
-{ #category : #accessing }
+{ #category : 'defaults' }
+EREventRecorderDelegate >> putHandlerClass [
+
+	^ EREventRecorderPutHandler
+]
+
+{ #category : 'accessing' }
 EREventRecorderDelegate >> zipHandler [
 
 	^ zipHandler

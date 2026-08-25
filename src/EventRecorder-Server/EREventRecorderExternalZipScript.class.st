@@ -4,27 +4,28 @@ I use a Bash script, ZIP and some other Linux commands.
 
 "
 Class {
-	#name : #EREventRecorderExternalZipScript,
-	#superclass : #Object,
-	#category : #'EventRecorder-Server'
+	#name : 'EREventRecorderExternalZipScript',
+	#superclass : 'Object',
+	#category : 'EventRecorder-Server',
+	#package : 'EventRecorder-Server'
 }
 
-{ #category : #public }
+{ #category : 'public' }
 EREventRecorderExternalZipScript >> compress: aFileReference [ 
 	"Compress aFileReference directory and return ZIP file name."
 	| command |
-	command := 'gt-compress-category.sh {1}' format: { aFileReference basename asString }.
+	command := 'compress-category.sh {1}' format: { aFileReference basename asString }.
 	self system: command.
-	^ 'gt-events-', aFileReference basename asString, '.zip'
+	^ 'events-', aFileReference basename asString, '.zip'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderExternalZipScript >> script [
-	"This is an expected gt-compress-category.sh content."
+	"This is an expected compress-category.sh content."
 '
 #!/bin/bash
-# Compress a directory for a given category-name that indicates a subdirectory in ~/gt/events directory.
-# USAGE: gt-compress-category.sh <category-name>
+# Compress a directory for a given category-name that indicates a subdirectory in ~.../events directory.
+# USAGE: compress-category.sh <category-name>
 
 CATEGORY_NAME="$1"
 if [ -z "$CATEGORY_NAME" ] ; then
@@ -32,13 +33,14 @@ if [ -z "$CATEGORY_NAME" ] ; then
 fi
 
 # Where category directories start
-ROOT_GT_EVENTS="gt/events"
+ROOT_EVENTS="gt/events"
 # Category directory that should be compressed
-CATEGORY_DIR="${ROOT_GT_EVENTS}/${CATEGORY_NAME}"
+CATEGORY_DIR="${ROOT_EVENTS}/${CATEGORY_NAME}"
 # Temporary ZIP filename that is used for the compression
-TMP_ZIP_FILE="$HOME/gc_www_root/gt-events-${CATEGORY_NAME}-tmp.zip"
+TMP_ZIP_FILE="$HOME/gc_www_root/events-${CATEGORY_NAME}-tmp.zip"
 # ZIP filename to which CATEGORY_DIR is compressed
-ZIP_FILE="$HOME/gc_www_root/gt-events-${CATEGORY_NAME}.zip"
+# Path to be changed around here :)
+ZIP_FILE="$HOME/gc_www_root/events-${CATEGORY_NAME}.zip"
 
 # remove duplicated files
 # Fdupes -q -r -d -N ~/gt
@@ -52,7 +54,7 @@ cd "$HOME" \
 '
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderExternalZipScript >> system: command [
 	"Call external command."
 	^ self ffiCall: #(#int #system #(#char #* #command)) module: LibC

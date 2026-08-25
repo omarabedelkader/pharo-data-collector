@@ -2,17 +2,19 @@
 A GTEventRecorderFileStorageTest is a test class for testing the behavior of GTEventRecorderFileStorage
 "
 Class {
-	#name : #EREventRecorderFileStorageTest,
-	#superclass : #TestCase,
+	#name : 'EREventRecorderFileStorageTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'fileSystem',
 		'storage'
 	],
-	#category : #'EventRecorder-Server-Tests'
+	#category : 'EventRecorder-Server-Tests',
+	#package : 'EventRecorder-Server-Tests'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventRecorderFileStorageTest >> assertLocation: location input: input [
+
 	| file output |
 	file := storage directory resolveString: location.
 	self assert: file exists.
@@ -20,7 +22,7 @@ EREventRecorderFileStorageTest >> assertLocation: location input: input [
 	self assert: output equals: input
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderFileStorageTest >> setUp [
 	super setUp.
 	fileSystem := FileSystem memory.
@@ -28,8 +30,9 @@ EREventRecorderFileStorageTest >> setUp [
 	storage directory: fileSystem workingDirectory.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderFileStorageTest >> testAtCategoryPut [
+
 	| location input category |
 	input := #[1 2 3 4].
 	category := 'category1'.
@@ -37,14 +40,16 @@ EREventRecorderFileStorageTest >> testAtCategoryPut [
 	self assertLocation: location input: input
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderFileStorageTest >> testDirectory [
+
 	self assert: storage directory exists.
 	self assert: storage directory isWritable.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderFileStorageTest >> testPut [
+
 	| location input |
 	input := #[ 1 2 3 4 ].
 	location := storage put: input.

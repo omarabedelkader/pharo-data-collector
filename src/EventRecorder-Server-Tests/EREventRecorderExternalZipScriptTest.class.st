@@ -2,19 +2,20 @@
 A GTEventRecorderExternalZipScriptTest is a test class for testing the behavior of GTEventRecorderExternalZipScript
 "
 Class {
-	#name : #EREventRecorderExternalZipScriptTest,
-	#superclass : #TestCase,
-	#category : #'EventRecorder-Server-Tests'
+	#name : 'EREventRecorderExternalZipScriptTest',
+	#superclass : 'TestCase',
+	#category : 'EventRecorder-Server-Tests',
+	#package : 'EventRecorder-Server-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderExternalZipScriptTest >> testSystem [
 	| result |
 	result := EREventRecorderExternalZipScript new system: 'ls .'.
 	self assert: result isZero.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderExternalZipScriptTest >> testSystem2 [
 	"Calling a command incorrectly"
 	| result |
@@ -22,7 +23,7 @@ EREventRecorderExternalZipScriptTest >> testSystem2 [
 	self deny: result isZero.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderExternalZipScriptTest >> testSystem3 [
 	"Calling a non existent command"
 	| result |

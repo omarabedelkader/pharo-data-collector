@@ -1,13 +1,14 @@
 Class {
-	#name : #EREventRecorderFileStorage,
-	#superclass : #Object,
+	#name : 'EREventRecorderFileStorage',
+	#superclass : 'Object',
 	#instVars : [
 		'directory'
 	],
-	#category : #'EventRecorder-Server'
+	#category : 'EventRecorder-Server',
+	#package : 'EventRecorder-Server'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderFileStorage >> atCategory: aString put: aByteArray [
 	| subDirectory date monthDirectoryName monthDirectory fileName file |
 	subDirectory := (self directory / aString) ensureCreateDirectory; yourself.
@@ -25,17 +26,17 @@ EREventRecorderFileStorage >> atCategory: aString put: aByteArray [
 	^ aString, '/', monthDirectoryName, '/', fileName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderFileStorage >> directory [
 	^ directory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderFileStorage >> directory: anObject [
 	directory := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderFileStorage >> put: aByteArray [
 	^ self atCategory: #unspecified put: aByteArray
 ]

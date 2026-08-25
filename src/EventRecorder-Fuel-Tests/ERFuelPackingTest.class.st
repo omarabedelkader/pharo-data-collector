@@ -1,26 +1,27 @@
 Class {
-	#name : #ERFuelPackingTest,
-	#superclass : #EREventPackingTest,
-	#category : #'EventRecorder-Fuel-Tests'
+	#name : 'ERFuelPackingTest',
+	#superclass : 'EREventPackingTest',
+	#category : 'EventRecorder-Fuel-Tests',
+	#package : 'EventRecorder-Fuel-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERFuelPackingTest >> packingClass [
 	^ ERFuelPacking
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ERFuelPackingTest >> removeMigrationFixtureClass [
 	(Smalltalk globals includesKey: #ERFuelPackingMigrationFixture)
 		ifTrue: [ (Smalltalk globals at: #ERFuelPackingMigrationFixture) removeFromSystem ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ERFuelPackingTest >> testMigration [
 	| oldClass oldObject |
 	self removeMigrationFixtureClass.
 	[
-		oldClass := Object subclass: #ERFuelPackingMigrationFixture.
+		oldClass := (Object << #ERFuelPackingMigrationFixture) install.
 		oldObject := oldClass new.
 		collector := EREventCollector new.
 		collector add: oldObject.
@@ -31,12 +32,12 @@ ERFuelPackingTest >> testMigration [
 		ensure: [ self removeMigrationFixtureClass ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ERFuelPackingTest >> testMigration2 [
 	| oldClass oldClassName oldObject |
 	self removeMigrationFixtureClass.
 	[
-		oldClass := Object subclass: #ERFuelPackingMigrationFixture.
+		oldClass := (Object << #ERFuelPackingMigrationFixture) install.
 		oldClassName := oldClass name asSymbol.
 		oldObject := oldClass new.
 		collector := EREventCollector new.

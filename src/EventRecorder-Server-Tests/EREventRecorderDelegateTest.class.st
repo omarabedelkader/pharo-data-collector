@@ -2,8 +2,8 @@
 A GTEventRecorderDelegateTest is a test class for testing the behavior of GTEventRecorderDelegate
 "
 Class {
-	#name : #EREventRecorderDelegateTest,
-	#superclass : #TestCase,
+	#name : 'EREventRecorderDelegateTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'serverSemaphore',
 		'delegate',
@@ -11,10 +11,11 @@ Class {
 		'client',
 		'fileSystem'
 	],
-	#category : #'EventRecorder-Server-Tests'
+	#category : 'EventRecorder-Server-Tests',
+	#package : 'EventRecorder-Server-Tests'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 EREventRecorderDelegateTest >> assertLocation: location input: input [
 	| file output |
 	file := fileSystem workingDirectory resolveString: location.
@@ -23,12 +24,12 @@ EREventRecorderDelegateTest >> assertLocation: location input: input [
 	self assert: output equals: input
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderDelegateTest >> compress: aFileReference [
 	^ (aFileReference basename, '.zip')
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderDelegateTest >> setUp [
 	super setUp.
 	serverSemaphore := Semaphore new.
@@ -49,14 +50,14 @@ EREventRecorderDelegateTest >> setUp [
 		yourself.
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderDelegateTest >> tearDown [
 	super tearDown.
 	server stop.
 	server unsubscribeAll.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromEvents [
 	| contents |
 	client path: '/gt/events'; get.
@@ -66,7 +67,7 @@ EREventRecorderDelegateTest >> testHandleGetFromEvents [
 	self assert: contents equals: 'OK'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromEvents2 [
 	| contents |
 	client path: '/gt/events/'; get.
@@ -76,7 +77,7 @@ EREventRecorderDelegateTest >> testHandleGetFromEvents2 [
 	self assert: contents equals: 'OK'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromGT [
 	| contents |
 	client path: '/gt'; get.
@@ -86,7 +87,7 @@ EREventRecorderDelegateTest >> testHandleGetFromGT [
 	self assert: contents equals: 'OK'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromGT2 [
 	| contents |
 	client path: '/gt/'; get.
@@ -96,7 +97,7 @@ EREventRecorderDelegateTest >> testHandleGetFromGT2 [
 	self assert: contents equals: 'OK'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromRoot [
 	| contents |
 	client get.
@@ -106,7 +107,7 @@ EREventRecorderDelegateTest >> testHandleGetFromRoot [
 	self assert: contents equals: 'OK'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromRoot2 [
 	| contents |
 	client path: '/'; get.
@@ -116,7 +117,7 @@ EREventRecorderDelegateTest >> testHandleGetFromRoot2 [
 	self assert: contents equals: 'OK'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromZip [
 	"It returns 404 if a category does not exist."
 	client 
@@ -129,7 +130,7 @@ EREventRecorderDelegateTest >> testHandleGetFromZip [
 	self assert: client contents equals: 'Category Not Found categoryOne', String crlf
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromZip2 [
 	"It returns 200 if a category does exist."
 	| directory |
@@ -144,7 +145,7 @@ EREventRecorderDelegateTest >> testHandleGetFromZip2 [
 	self assert: client response location equals: 'http://localhost/gt/zip/categoryOne.zip'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromZip3 [
 	"It returns 404 if a category is not specified."
 	client 
@@ -156,7 +157,7 @@ EREventRecorderDelegateTest >> testHandleGetFromZip3 [
 	self assert: client contents equals: '?category=<category-name> is missing in /gt/zip', String crlf
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandlePut [
 	| data entity |
 	data := #[1 2 3 4].
@@ -172,7 +173,7 @@ EREventRecorderDelegateTest >> testHandlePut [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandlePut2 [
 	| data entity |
 	data := #[1 2 3 4].
@@ -187,7 +188,7 @@ EREventRecorderDelegateTest >> testHandlePut2 [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandlePutOfEventRecorder [
 	| recorder collector semaphore files contents unpackedData |
 	semaphore := Semaphore new.

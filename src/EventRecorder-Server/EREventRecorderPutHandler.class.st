@@ -1,18 +1,19 @@
 Class {
-	#name : #EREventRecorderPutHandler,
-	#superclass : #Object,
+	#name : 'EREventRecorderPutHandler',
+	#superclass : 'Object',
 	#instVars : [
 		'storage'
 	],
-	#category : #'EventRecorder-Server'
+	#category : 'EventRecorder-Server',
+	#package : 'EventRecorder-Server'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderPutHandler >> directory: aFileReference [ 
 	self storage directory: aFileReference
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRecorderPutHandler >> hasCategoryAndDataParts: aCollection [
 	aCollection pairsDo: [ :aCategoryPart :aDataPart |
 		aCategoryPart fieldName = 'category' ifFalse: [ ^ false ].
@@ -23,12 +24,12 @@ EREventRecorderPutHandler >> hasCategoryAndDataParts: aCollection [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRecorderPutHandler >> isApplicationOctetStream: aZnRequest [
 	^ aZnRequest hasEntity and: [ aZnRequest contentType matches: ZnMimeType applicationOctetStream ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRecorderPutHandler >> isMultiPartFormData: aZnRequest [
 	^ aZnRequest hasEntity 
 		and: [ (aZnRequest contentType matches: ZnMimeType multiPartFormData)
@@ -37,21 +38,21 @@ EREventRecorderPutHandler >> isMultiPartFormData: aZnRequest [
 		and: [ self hasCategoryAndDataParts: aZnRequest entity parts ] ] ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderPutHandler >> saveByteArray: aByteArray [
 	"storage is responsible for storing aByteArray.
 	It returns location."
 	^ self storage put: aByteArray.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderPutHandler >> saveByteArray: aByteArray category: aString [ 
 	"storage is responsible for storing aByteArray.
 	It returns location."
 	^ self storage atCategory: aString put: aByteArray.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderPutHandler >> saveMultiPartFormData: anEntity [
 	"storage is responsible for storing aByteArray.
 	It returns location."
@@ -64,17 +65,17 @@ EREventRecorderPutHandler >> saveMultiPartFormData: anEntity [
 	^ keys size printString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderPutHandler >> storage [
 	^ storage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderPutHandler >> storage: anObject [
 	storage := anObject
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 EREventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 	| badRequest key |
 	badRequest := [ ^ ZnResponse badRequest: aZnRequest ].

@@ -7,43 +7,44 @@ See value:value: method. This is an entry point to a corresponding HTTP request.
 I am used by EREventRecorderDelegate.
 "
 Class {
-	#name : #EREventRecorderZipHandler,
-	#superclass : #Object,
+	#name : 'EREventRecorderZipHandler',
+	#superclass : 'Object',
 	#instVars : [
 		'fileDirectory',
 		'zipDirectory',
 		'zipRootUrl',
 		'archiver'
 	],
-	#category : #'EventRecorder-Server'
+	#category : 'EventRecorder-Server',
+	#package : 'EventRecorder-Server'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderZipHandler >> archiver [
 	"Return an object that is responsible for compressing files."
 	^ archiver ifNil: [ archiver := EREventRecorderExternalZipScript new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderZipHandler >> archiver: anObject [
 	"Set an object that is responsible for compressing files.
 	It should understand #compress: directory method that returns compressed filename."
 	^ archiver := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderZipHandler >> categoryUrlFor: aString [ 
 	"Return a public URL for a given category ZIP file."
 	^ self zipRootUrl / aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderZipHandler >> compress: aFileReference [ 
 	"Compress aFileReference directory and return ZIP file name."
 	^ self archiver compress: aFileReference
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderZipHandler >> compressCategory: aString request: aZnRequest response: aZnResponse [ 
 	| directory fileName url |
 	directory := self fileDirectory / aString.
@@ -61,19 +62,19 @@ EREventRecorderZipHandler >> compressCategory: aString request: aZnRequest respo
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderZipHandler >> fileDirectory [
 	"Return a FileReference object where unpacked data are stored."
 	^ fileDirectory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderZipHandler >> fileDirectory: anObject [
 	"Set a FileReference object where unpacked data are stored."
 	fileDirectory := anObject asFileReference
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventRecorderZipHandler >> handleGetRequest: aZnRequest response: aZnResponse [ 
 	"Handle GET request. aZnRequest should have category value and 
 	we should compress a corresponding files and return a ZIP URL."
@@ -86,7 +87,7 @@ EREventRecorderZipHandler >> handleGetRequest: aZnRequest response: aZnResponse 
 	^ self compressCategory: category request: aZnRequest response: aZnResponse.
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 EREventRecorderZipHandler >> value: aZnRequest value: aZnResponse [
 	"Process GET request. The other requests are invalid."
 	aZnRequest method = #GET ifTrue: [ ^ self handleGetRequest: aZnRequest response: aZnResponse ].
@@ -96,13 +97,13 @@ EREventRecorderZipHandler >> value: aZnRequest value: aZnResponse [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderZipHandler >> zipRootUrl [
 	"Return a ZnUrl object from which compressed ZIP files are available on the Internet."
 	^ zipRootUrl
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderZipHandler >> zipRootUrl: anObject [
 	"Set a ZnUrl object from which compressed ZIP files are available on the Internet."
 	zipRootUrl := anObject asZnUrl

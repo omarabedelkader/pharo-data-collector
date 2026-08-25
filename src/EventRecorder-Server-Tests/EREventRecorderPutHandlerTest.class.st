@@ -2,8 +2,8 @@
 A GTERServerDelegateTest is a test class for testing the behavior of GTERServerDelegate
 "
 Class {
-	#name : #EREventRecorderPutHandlerTest,
-	#superclass : #TestCase,
+	#name : 'EREventRecorderPutHandlerTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'receivedContents',
 		'receiverSemaphore',
@@ -17,20 +17,21 @@ Class {
 		'storage',
 		'entity'
 	],
-	#category : #'EventRecorder-Server-Tests'
+	#category : 'EventRecorder-Server-Tests',
+	#package : 'EventRecorder-Server-Tests'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventRecorderPutHandlerTest >> assertReceiverSemaphore [
 	self deny: (receiverSemaphore waitTimeoutMilliseconds: 200)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderPutHandlerTest >> atCategory: aString put: aByteArray [ 
 	^ self put: aString -> aByteArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderPutHandlerTest >> put: aByteArray [ 
 	| key |
 	key := (receivedContents size + 1) printString.
@@ -39,12 +40,12 @@ EREventRecorderPutHandlerTest >> put: aByteArray [
 	^ key
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderPutHandlerTest >> server [
 	^ server
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderPutHandlerTest >> setUp [
 	super setUp.
 	self setUpServer.
@@ -56,7 +57,7 @@ EREventRecorderPutHandlerTest >> setUp [
 		yourself.
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderPutHandlerTest >> setUpServer [
 	receivedContents := WaitfreeQueue new.
 	receiverSemaphore := Semaphore new.
@@ -71,7 +72,7 @@ EREventRecorderPutHandlerTest >> setUpServer [
 		addPathSegment: 'events'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderPutHandlerTest >> storage [
 	storage ifNil: [ storage := Dictionary new ].
 	receivedContents flush: [ :association |
@@ -79,15 +80,16 @@ EREventRecorderPutHandlerTest >> storage [
 	^ storage
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderPutHandlerTest >> tearDown [
 	super tearDown.
 	server stop.
 	server unsubscribeAll.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderPutHandlerTest >> testPutByteArrayEntity [
+
 	data := #[1 2 3 4].
 	entity := ZnByteArrayEntity bytes: data.
 	client
@@ -100,8 +102,9 @@ EREventRecorderPutHandlerTest >> testPutByteArrayEntity [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderPutHandlerTest >> testPutMultiPartFormDataEntity [
+
 	data := #[1 2 3 4].
 	entity := ZnMultiPartFormDataEntity new.
 	entity 
@@ -118,8 +121,9 @@ EREventRecorderPutHandlerTest >> testPutMultiPartFormDataEntity [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderPutHandlerTest >> testPutMultiPartFormDataEntity2 [
+
 	| data2 data3 |
 	data := #[1 2 3 4].
 	data2 := #[5 6].
