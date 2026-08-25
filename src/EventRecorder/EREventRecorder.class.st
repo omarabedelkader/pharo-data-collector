@@ -99,6 +99,7 @@ EREventRecorder >> activateDeliveryIfAvailable [
 
 { #category : 'adding' }
 EREventRecorder >> addCollector: anEventCollector [
+
 	self activateDeliveryIfAvailable.
 	^ collectors add: anEventCollector
 ]
