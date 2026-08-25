@@ -19,34 +19,26 @@ EREventCollectorTest >> setUp [
 ]
 
 { #category : 'tests' }
-EREventCollectorTest >> testBundle [
-	self assert: collector bundle isEmpty
-]
+EREventCollectorTest >> testBundleActuallyCollectAndFlush [
 
-{ #category : 'tests' }
-EREventCollectorTest >> testBundle2 [
+	| collected |
 	collector add: ERDummyEvent new.
 	collector add: ERDummyEvent new.
-	self assert: collector bundle size equals: 2.
+	collected := collector bundle.
+	self assert: collected size equals: 2.
 	self assert: collector bundle isEmpty.
 ]
 
 { #category : 'tests' }
-EREventCollectorTest >> testCategory [
-	self assert: collector category equals: collector defaultCategory
+EREventCollectorTest >> testBundleOfANewCollectorIsEmpty [
+
+	self assert: collector bundle isEmpty
 ]
 
 { #category : 'tests' }
-EREventCollectorTest >> testIsLiberated [
-	"By default it is liberated."
+EREventCollectorTest >> testByDefaultCollectorLiberated [
+
 	self assert: collector isLiberated
-]
-
-{ #category : 'tests' }
-EREventCollectorTest >> testIsLiberated2 [
-	"The collection of events has to be empty."
-	collector add: 42.
-	self deny: collector isLiberated.
 ]
 
 { #category : 'tests' }
@@ -91,4 +83,20 @@ EREventCollectorTest >> testUpdateAnnouncement [
 EREventCollectorTest >> testUrl [
 	self assert: collector url notNil.
 	self assert: collector url equals: ERPrivacySettings url.
+]
+
+{ #category : 'tests' }
+EREventCollectorTest >> testWhenDataIsSetAndNotConsumedTheCollectorIsNotLiberated [
+	"The collection of events has to be empty."
+	
+	collector add: 42.
+	self deny: collector isLiberated.
+]
+
+{ #category : 'tests' }
+EREventCollectorTest >> testWhenNotSetCategoryIsDefault [
+
+	self 
+		assert: collector category 
+		equals: collector defaultCategory
 ]

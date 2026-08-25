@@ -4,12 +4,13 @@ Metadata is encoded as JSON and every value is normalized to a string before
 it is sent to the server.
 "
 Class {
-	#name : #PXEventMultiBundle,
-	#superclass : #EREventMultiBundle,
-	#category : #'Pharo-XP-EventRecorder-Client'
+	#name : 'PXEventMultiBundle',
+	#superclass : 'EREventMultiBundle',
+	#category : 'Pharo-XP-EventRecorder-Client',
+	#package : 'Pharo-XP-EventRecorder-Client'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventMultiBundle class >> allFieldNames [
 
 	^ {
@@ -20,25 +21,25 @@ PXEventMultiBundle class >> allFieldNames [
 		self dataFieldName }
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventMultiBundle class >> categoryFieldName [
 
 	^ 'category'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventMultiBundle class >> dataFieldName [
 
 	^ 'data'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventMultiBundle class >> experienceIdFieldName [
 
 	^ 'experienceId'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventMultiBundle class >> metaDataFieldNames [
 
 	^ {
@@ -48,19 +49,19 @@ PXEventMultiBundle class >> metaDataFieldNames [
 		self taskOrSurveyIdFieldName }
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventMultiBundle class >> participantUUIDFieldName [
 
 	^ 'participantUUID'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventMultiBundle class >> taskOrSurveyIdFieldName [
 
 	^ 'taskOrSurveyId'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXEventMultiBundle >> metadataFor: aSingleBundle [
 
 	^ Dictionary new
@@ -75,14 +76,14 @@ PXEventMultiBundle >> metadataFor: aSingleBundle [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXEventMultiBundle >> metadataStringFrom: anObject field: fieldName [
 
 	anObject ifNil: [ self error: 'Missing PX metadata: ', fieldName ].
 	^ anObject asString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXEventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity forSingleBundle: aSingleBundle [
 
 	| metadata |

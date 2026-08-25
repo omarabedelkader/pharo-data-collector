@@ -1,13 +1,14 @@
 Class {
-	#name : #PXEventMultiBundleTest,
-	#superclass : #EREventMultiBundleTest,
+	#name : 'PXEventMultiBundleTest',
+	#superclass : 'EREventMultiBundleTest',
 	#instVars : [
 		'pxBundle'
 	],
-	#category : #'Pharo-XP-EventRecorder-Client-Tests'
+	#category : 'Pharo-XP-EventRecorder-Client-Tests',
+	#package : 'Pharo-XP-EventRecorder-Client-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 PXEventMultiBundleTest >> setUp [
 
 	super setUp.
@@ -22,7 +23,7 @@ PXEventMultiBundleTest >> setUp [
 	multiBundle := PXEventMultiBundle new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventMultiBundleTest >> testMissingMetadataFailsBeforeSending [
 
 	pxBundle participantUUID: nil.
@@ -31,7 +32,7 @@ PXEventMultiBundleTest >> testMissingMetadataFailsBeforeSending [
 		raise: Error
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventMultiBundleTest >> testUpdateEntityForSingleBundle [
 
 	| metadata |

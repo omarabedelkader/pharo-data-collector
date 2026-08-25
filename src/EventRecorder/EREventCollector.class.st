@@ -87,14 +87,17 @@ EREventCollector >> addIfAvailable: anEvent [
 	^ self add: anEvent
 ]
 
-{ #category : 'accessing' }
+{ #category : 'actions' }
 EREventCollector >> bundle [
 	"It returns all collected events that are supposed to be sent. If you need to send just a portion of the collected events, this is the place to overwrite."
+	
 	^ self bundle: OrderedCollection new.
 ]
 
-{ #category : 'accessing' }
+{ #category : 'actions' }
 EREventCollector >> bundle: aCollection [
+	"bundle and flush collection into the argument"
+	
 	recordedEvents flush: [ :eachEvent | aCollection addLast: eachEvent ].
 	^ aCollection
 ]
@@ -125,8 +128,9 @@ EREventCollector >> flush [
 
 { #category : 'initialization' }
 EREventCollector >> initialize [
+
 	super initialize.
-	recordedEvents := WaitfreeQueue new.
+	recordedEvents := WaitfreeQueue new
 ]
 
 { #category : 'testing' }

@@ -3,35 +3,36 @@ I collect events for a Pharo-XP experiment and attach the experiment,
 participant, and task/survey identifiers required by the PX server.
 "
 Class {
-	#name : #PXEventCollector,
-	#superclass : #EREventCollector,
+	#name : 'PXEventCollector',
+	#superclass : 'EREventCollector',
 	#instVars : [
 		'experienceId',
 		'participantUUID',
 		'taskOrSurveyId'
 	],
-	#category : #'Pharo-XP-EventRecorder-Client'
+	#category : 'Pharo-XP-EventRecorder-Client',
+	#package : 'Pharo-XP-EventRecorder-Client'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventCollector >> experienceId [
 
 	^ experienceId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventCollector >> experienceId: anObject [
 
 	experienceId := anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PXEventCollector >> newBundle [
 
 	^ PXEventBundle new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PXEventCollector >> newBundleForPacking [
 
 	| bundle |
@@ -43,37 +44,37 @@ PXEventCollector >> newBundleForPacking [
 	^ bundle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventCollector >> participantUUID [
 
 	^ participantUUID
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventCollector >> participantUUID: anObject [
 
 	participantUUID := anObject
 ]
 
-{ #category : #'tools registry' }
+{ #category : 'tools registry' }
 PXEventCollector >> register [
 
 	PXEventRecorder uniqueInstance addCollector: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventCollector >> taskOrSurveyId [
 
 	^ taskOrSurveyId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventCollector >> taskOrSurveyId: anObject [
 
 	taskOrSurveyId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventCollector >> url [
 
 	^ url ifNil: [ url := PXEventRecorder endpoint ]

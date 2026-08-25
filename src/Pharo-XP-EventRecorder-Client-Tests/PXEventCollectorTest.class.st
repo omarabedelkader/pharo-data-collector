@@ -1,10 +1,11 @@
 Class {
-	#name : #PXEventCollectorTest,
-	#superclass : #EREventCollectorTest,
-	#category : #'Pharo-XP-EventRecorder-Client-Tests'
+	#name : 'PXEventCollectorTest',
+	#superclass : 'EREventCollectorTest',
+	#category : 'Pharo-XP-EventRecorder-Client-Tests',
+	#package : 'Pharo-XP-EventRecorder-Client-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 PXEventCollectorTest >> setUp [
 
 	super setUp.
@@ -16,14 +17,14 @@ PXEventCollectorTest >> setUp [
 	collector participantUUID: #participantUUID
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventCollectorTest >> testNewBundle [
 	self assert: collector newBundle class equals: PXEventBundle 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventCollectorTest >> testNewBundleForPacking [
-	|bundle|
+	| bundle |
 	bundle := collector newBundleForPacking.
 	self assert: bundle url equals: collector url.
 	self assert: bundle category equals: collector category.

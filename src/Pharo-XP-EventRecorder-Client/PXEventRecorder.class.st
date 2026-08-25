@@ -6,46 +6,47 @@ The client endpoint is configurable. Local development defaults to
 http://localhost:8008/events.
 "
 Class {
-	#name : #PXEventRecorder,
-	#superclass : #EREventRecorder,
+	#name : 'PXEventRecorder',
+	#superclass : 'EREventRecorder',
 	#classInstVars : [
 		'endpoint'
 	],
-	#category : #'Pharo-XP-EventRecorder-Client'
+	#category : 'Pharo-XP-EventRecorder-Client',
+	#package : 'Pharo-XP-EventRecorder-Client'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXEventRecorder class >> defaultEndpoint [
 
 	^ 'http://localhost:8008/events' asZnUrl
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXEventRecorder class >> endpoint [
 
 	^ endpoint ifNil: [ endpoint := self defaultEndpoint ]
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXEventRecorder class >> endpoint: aUrl [
 
 	endpoint := aUrl asZnUrl
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXEventRecorder class >> resetEndpoint [
 
 	endpoint := nil
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 PXEventRecorder >> activateDelivery [
 
 	delivery standardDuration: 1 second.
 	^ delivery activate
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 PXEventRecorder >> eventConsolidatorClass [
 
 	^ PXEventConsolidate

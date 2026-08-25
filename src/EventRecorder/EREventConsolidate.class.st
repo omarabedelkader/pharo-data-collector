@@ -41,7 +41,8 @@ EREventConsolidate >> consolidated [
 
 { #category : 'private' }
 EREventConsolidate >> consolidationKeyFor: aCollector [
-
+	"Returns the keys on which data can be merged together. 
+	Here spread data can be regrouped (consolidated) based either on the url or the category."
 	^ {
 		aCollector url.
 		aCollector category }

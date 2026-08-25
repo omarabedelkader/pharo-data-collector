@@ -1,10 +1,11 @@
 Class {
-	#name : #PXEventBundleTest,
-	#superclass : #EREventBundleTest,
-	#category : #'Pharo-XP-EventRecorder-Client-Tests'
+	#name : 'PXEventBundleTest',
+	#superclass : 'EREventBundleTest',
+	#category : 'Pharo-XP-EventRecorder-Client-Tests',
+	#package : 'Pharo-XP-EventRecorder-Client-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventBundleTest >> testNewMultiBundle [
 	self assert: PXEventBundle new newMultiBundle class equals: PXEventMultiBundle
 ]

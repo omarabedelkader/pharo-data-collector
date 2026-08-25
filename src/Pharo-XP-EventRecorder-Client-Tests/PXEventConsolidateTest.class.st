@@ -1,10 +1,11 @@
 Class {
-	#name : #PXEventConsolidateTest,
-	#superclass : #TestCase,
-	#category : #'Pharo-XP-EventRecorder-Client-Tests'
+	#name : 'PXEventConsolidateTest',
+	#superclass : 'TestCase',
+	#category : 'Pharo-XP-EventRecorder-Client-Tests',
+	#package : 'Pharo-XP-EventRecorder-Client-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 PXEventConsolidateTest >> collectorForParticipant: participantId [
 
 	^ PXEventCollector new
@@ -16,7 +17,7 @@ PXEventConsolidateTest >> collectorForParticipant: participantId [
 		yourself
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventConsolidateTest >> testCollectorsWithDifferentMetadataAreNotMerged [
 
 	| first second consolidated |
@@ -33,7 +34,7 @@ PXEventConsolidateTest >> testCollectorsWithDifferentMetadataAreNotMerged [
 	self assert: (consolidated collect: #participantUUID) asSet size equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventConsolidateTest >> testCollectorsWithSameMetadataAreMerged [
 
 	| first second consolidated |

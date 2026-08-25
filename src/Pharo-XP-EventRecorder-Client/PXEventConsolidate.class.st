@@ -4,23 +4,13 @@ Collectors from different experiments, participants, tasks, categories, or
 endpoints must never be merged.
 "
 Class {
-	#name : #PXEventConsolidate,
-	#superclass : #EREventConsolidate,
-	#category : #'Pharo-XP-EventRecorder-Client'
+	#name : 'PXEventConsolidate',
+	#superclass : 'EREventConsolidate',
+	#category : 'Pharo-XP-EventRecorder-Client',
+	#package : 'Pharo-XP-EventRecorder-Client'
 }
 
-{ #category : #private }
-PXEventConsolidate >> consolidationKeyFor: aCollector [
-
-	^ {
-		aCollector url.
-		aCollector category.
-		aCollector experienceId.
-		aCollector participantUUID.
-		aCollector taskOrSurveyId }
-]
-
-{ #category : #'accessing - computed' }
+{ #category : 'accessing - computed' }
 PXEventConsolidate >> consolidated [
 
 	| consolidatedCollectors |
@@ -34,4 +24,16 @@ PXEventConsolidate >> consolidated [
 			eachCollector bundle do: [ :eachEvent |
 				targetCollector add: eachEvent ] ] ].
 	^ consolidatedCollectors values asArray
+]
+
+{ #category : 'private' }
+PXEventConsolidate >> consolidationKeyFor: aCollector [
+	"Returns the keys on which data can be merged together. 
+	Here spread data can be regrouped (consolidated) based either on the url or the category, experienceId,...."
+	^ {
+		aCollector url.
+		aCollector category.
+		aCollector experienceId.
+		aCollector participantUUID.
+		aCollector taskOrSurveyId }
 ]

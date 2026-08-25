@@ -1,17 +1,18 @@
 Class {
-	#name : #PXEventRecorderConfigurationTest,
-	#superclass : #TestCase,
-	#category : #'Pharo-XP-EventRecorder-Client-Tests'
+	#name : 'PXEventRecorderConfigurationTest',
+	#superclass : 'TestCase',
+	#category : 'Pharo-XP-EventRecorder-Client-Tests',
+	#package : 'Pharo-XP-EventRecorder-Client-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 PXEventRecorderConfigurationTest >> tearDown [
 
 	PXEventRecorder resetEndpoint.
 	super tearDown
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventRecorderConfigurationTest >> testCollectorUsesLocalEndpointByDefault [
 
 	self
@@ -19,7 +20,7 @@ PXEventRecorderConfigurationTest >> testCollectorUsesLocalEndpointByDefault [
 		equals: 'http://localhost:8008/events' asZnUrl
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 PXEventRecorderConfigurationTest >> testEndpointCanBeConfigured [
 
 	PXEventRecorder endpoint: 'https://example.test/events'.

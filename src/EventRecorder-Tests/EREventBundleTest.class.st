@@ -7,8 +7,6 @@ Class {
 	#instVars : [
 		'bundle',
 		'data',
-		'category',
-		'url',
 		'entity'
 	],
 	#category : 'EventRecorder-Tests-Support',
@@ -21,20 +19,18 @@ EREventBundleTest >> setUp [
 	super setUp.
 	bundle := EREventBundle new.
 	data := #[1 2 3 4].
-	category := #category1.
-	url := 'http://localhost/gt/events' asZnUrl.
 	
 ]
 
 { #category : 'tests' }
-EREventBundleTest >> testData [
+EREventBundleTest >> testBundleDataIsIdenticalToItself [
 	"It is really important that it is the same object."
 	bundle data: data.
 	self assert: bundle data == bundle data.
 ]
 
 { #category : 'tests' }
-EREventBundleTest >> testEntity [
+EREventBundleTest >> testDataIsEncodedWhenRequestedAsEntity [
 	bundle data: data.
 	entity := bundle entity.
 	self assert: (entity isKindOf: ZnByteArrayEntity).

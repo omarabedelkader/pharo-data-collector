@@ -2,52 +2,53 @@
 I specialize EREventBundle to use a dedicated multi bundle in order to serialize data related to PX experiments.
 "
 Class {
-	#name : #PXEventBundle,
-	#superclass : #EREventBundle,
+	#name : 'PXEventBundle',
+	#superclass : 'EREventBundle',
 	#instVars : [
 		'experienceId',
 		'participantUUID',
 		'taskOrSurveyId'
 	],
-	#category : #'Pharo-XP-EventRecorder-Client'
+	#category : 'Pharo-XP-EventRecorder-Client',
+	#package : 'Pharo-XP-EventRecorder-Client'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventBundle >> experienceId [
 
 	^ experienceId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventBundle >> experienceId: anObject [
 
 	experienceId := anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 PXEventBundle >> newMultiBundle [ 
 	^PXEventMultiBundle new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventBundle >> participantUUID [
 
 	^ participantUUID
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventBundle >> participantUUID: anObject [
 
 	participantUUID := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventBundle >> taskOrSurveyId [
 
 	^ taskOrSurveyId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXEventBundle >> taskOrSurveyId: anObject [
 
 	taskOrSurveyId := anObject
