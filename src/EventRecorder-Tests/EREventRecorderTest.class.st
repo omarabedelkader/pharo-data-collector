@@ -1,6 +1,6 @@
 Class {
-	#name : #EREventRecorderTest,
-	#superclass : #TestCase,
+	#name : 'EREventRecorderTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'recorder',
 		'server',
@@ -15,32 +15,34 @@ Class {
 		'event3',
 		'event4'
 	],
-	#category : #'EventRecorder-Tests-Core'
+	#category : 'EventRecorder-Tests-Core',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Core'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventRecorderTest >> assertReceiverSemaphore [
 	self deny: (receiverSemaphore waitTimeoutMilliseconds: 200)
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventRecorderTest >> assertSemaphore [
 	self deny: (semaphore waitTimeoutMilliseconds: 200)
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventRecorderTest >> denyReceiverSemaphore [
 	self assert: (receiverSemaphore waitTimeoutMilliseconds: 200)
 ]
 
-{ #category : #'server handling' }
+{ #category : 'server handling' }
 EREventRecorderTest >> handleRequest: request response: response [
 	receivedContents nextPut: request contents.
 	receiverSemaphore signal.
 	^ response
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderTest >> setUp [
 	super setUp.
 	self setUpServer.
@@ -58,7 +60,7 @@ EREventRecorderTest >> setUp [
 	
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderTest >> setUpServer [
 	receivedContents := WaitfreeQueue new.
 	receiverSemaphore := Semaphore new.
@@ -70,7 +72,7 @@ EREventRecorderTest >> setUpServer [
 	server initializeUsingDelegate: delegate semaphore: receiverSemaphore.
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRecorderTest >> tearDown [
 	super tearDown.
 	recorder deactivateDelivery.
@@ -78,19 +80,19 @@ EREventRecorderTest >> tearDown [
 	server unsubscribeAll.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testAddCollector [
 	recorder addCollector: EREventCollector new.
 	self assert: recorder numberOfCollectors equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testAddCollector2 [
 	recorder addCollector: EREventCollector new.
 	self assert: recorder isDeliveryActive.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testAddCollector3 [
 	recorder addCollector: collector1.
 	collector1 add: event1.
@@ -103,7 +105,7 @@ EREventRecorderTest >> testAddCollector3 [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testAddCollector4 [
 	recorder addCollector: collector1.
 	collector1 add: event1.
@@ -114,21 +116,21 @@ EREventRecorderTest >> testAddCollector4 [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testAddCollector5 [
 	recorder addCollector: EREventCollector new.
 	recorder addCollector: EREventCollector new.
 	self assert: recorder numberOfCollectors equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testAddCollector6 [
 	recorder addCollector: collector1.
 	recorder addCollector: collector1.
 	self assert: recorder numberOfCollectors equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testDeliverAllInOneHttpRequest [
 	collector1 category: #category1.
 	collector2 category: #category2.
@@ -146,13 +148,13 @@ EREventRecorderTest >> testDeliverAllInOneHttpRequest [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testDeliverNow [
 	"Just test that we can ask for delivering."
 	recorder deliverNow
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testDeliverNow2 [
 	"Ensure that liberated collector is removed."
 	recorder deliveryPreSuspendingAction: [ semaphore signal ].
@@ -165,7 +167,7 @@ EREventRecorderTest >> testDeliverNow2 [
 	self assert: recorder numberOfCollectors equals: 0.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testDeliverNow3 [
 	"Ensure that collector with registerd holder is not removed."
 	recorder deliveryPreSuspendingAction: [ semaphore signal ].
@@ -179,12 +181,12 @@ EREventRecorderTest >> testDeliverNow3 [
 	self assert: recorder numberOfCollectors equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testIsDeliveryActive [
 	self deny: recorder isDeliveryActive.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testNotDeliveredDataShouldBeResent [
 	"If the data are not received, we will resent them."
 	collector1 category: #category1.
@@ -209,7 +211,7 @@ EREventRecorderTest >> testNotDeliveredDataShouldBeResent [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testPack [
 	"Ensure that delivery pack is prepared and collector empty."
 	recorder addCollector: collector1.
@@ -220,7 +222,7 @@ EREventRecorderTest >> testPack [
 	self assert: recorder delivery size equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testPack2 [
 	"Ensure that there is only one delivery pack when collectors are of the same URL and category."
 	recorder addCollector: collector1.
@@ -235,7 +237,7 @@ EREventRecorderTest >> testPack2 [
 	self assert: recorder delivery size equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testPack3 [
 	"Ensure that empty collector is not delivered."
 	recorder addCollector: collector1.
@@ -245,7 +247,7 @@ EREventRecorderTest >> testPack3 [
 	self assert: recorder delivery size equals: 0.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 EREventRecorderTest >> testPrivacyChanged [
 	"Ensure that delivery is turn off when privacy is disabled."
 	self assert: recorder canSendDiagnosticsAndUsageData.
@@ -259,7 +261,7 @@ EREventRecorderTest >> testPrivacyChanged [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 EREventRecorderTest >> testPrivacyChanged2 [
 	"Ensure that delivery is turn off when privacy is available, but there is no any collector."
 	self testPrivacyChanged.
@@ -272,7 +274,7 @@ EREventRecorderTest >> testPrivacyChanged2 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 EREventRecorderTest >> testPrivacyChanged3 [
 	"Ensure that delivery is turn on when privacy is available and there is a collector."
 	self testPrivacyChanged.
@@ -288,7 +290,7 @@ EREventRecorderTest >> testPrivacyChanged3 [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 EREventRecorderTest >> testPrivacyChanged4 [
 	"Ensure that delivery is turn on when privacy is available and there is a collector."
 	self testPrivacyChanged.
@@ -304,13 +306,13 @@ EREventRecorderTest >> testPrivacyChanged4 [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testRemoveCollector [
 	recorder removeCollector: EREventCollector new.
 	self assert: recorder numberOfCollectors equals: 0.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testRemoveCollector2 [
 	recorder addCollector: collector1.
 	self assert: recorder isDeliveryActive.
@@ -318,7 +320,7 @@ EREventRecorderTest >> testRemoveCollector2 [
 	self deny: recorder isDeliveryActive.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventRecorderTest >> testTwiceDeliveredDataSholdBeDetected [
 	"It happens regularly that the server receives the same data several times.
 	We need to be sure that we can detect it easily."
@@ -354,7 +356,7 @@ EREventRecorderTest >> testTwiceDeliveredDataSholdBeDetected [
 	self assert: data first second contents equals: data second second contents.
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventRecorderTest >> waitForDelivery [
 	recorder deliverNow.
 	self assertReceiverSemaphore.

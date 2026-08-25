@@ -148,7 +148,7 @@ EREventRecorder >> flush [
 { #category : 'initialization' }
 EREventRecorder >> initialize [
 	super initialize.
-	privacy := [ ERPrivacy sendDiagnosticsAndUsageData ].
+	privacy := [ ERPrivacySettings sendDiagnosticsAndUsageData ].
 	collectors := EREventCollectors new.
 	delivery := EREventDelivery new.
 	delivery recorder: self.

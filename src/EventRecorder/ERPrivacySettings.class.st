@@ -15,28 +15,30 @@ Public API and Key Messages
 
 "
 Class {
-	#name : 'ERPrivacy',
+	#name : 'ERPrivacySettings',
 	#superclass : 'Object',
 	#classInstVars : [
 		'sendDiagnosticsAndUsageData',
 		'sendEntityNames',
-		'sendSourceCode'
+		'sendSourceCode',
+		'url'
 	],
-	#category : 'EventRecorder-Privacy',
+	#category : 'EventRecorder-PrivacySettings',
 	#package : 'EventRecorder',
-	#tag : 'Privacy'
+	#tag : 'PrivacySettings'
 }
 
 { #category : 'cleanup' }
-ERPrivacy class >> cleanUp [
-	"Clean settings."
+ERPrivacySettings class >> cleanUp [
+
 	sendDiagnosticsAndUsageData := nil.
 	sendEntityNames := nil.
 	sendSourceCode := nil.
+	url := nil
 ]
 
 { #category : 'settings' }
-ERPrivacy class >> privacySettingsOn: aBuilder [
+ERPrivacySettings class >> privacySettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder group: #privacy)
 		label: 'Privacy';
@@ -45,19 +47,19 @@ ERPrivacy class >> privacySettingsOn: aBuilder [
 ]
 
 { #category : 'accessing' }
-ERPrivacy class >> sendDiagnosticsAndUsageData [
+ERPrivacySettings class >> sendDiagnosticsAndUsageData [
 	^ sendDiagnosticsAndUsageData ifNil: [ sendDiagnosticsAndUsageData := false ]
 ]
 
 { #category : 'accessing' }
-ERPrivacy class >> sendDiagnosticsAndUsageData: aBoolean [
+ERPrivacySettings class >> sendDiagnosticsAndUsageData: aBoolean [
 	sendDiagnosticsAndUsageData = aBoolean ifTrue: [ ^ self ].
 	sendDiagnosticsAndUsageData := aBoolean.
 	SystemAnnouncer uniqueInstance announce: ERPrivacyChangedAnnouncement.
 ]
 
 { #category : 'settings' }
-ERPrivacy class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
+ERPrivacySettings class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendDiagnosticsAndUsageData)
 		label: 'Send diagnostics and usage data';
@@ -68,38 +70,38 @@ ERPrivacy class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 ]
 
 { #category : 'accessing' }
-ERPrivacy class >> sendEntityNames [
+ERPrivacySettings class >> sendEntityNames [
 	^ sendEntityNames ifNil: [ sendEntityNames := false ]
 ]
 
 { #category : 'accessing' }
-ERPrivacy class >> sendEntityNames: aBoolean [
+ERPrivacySettings class >> sendEntityNames: aBoolean [
 	sendEntityNames := aBoolean
 ]
 
 { #category : 'settings' }
-ERPrivacy class >> sendEntityNamesSettingsOn: aBuilder [
+ERPrivacySettings class >> sendEntityNamesSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendEntityNames)
 		label: 'Include package/class/method names';
 		noOrdering;
-		description: 'Help the Pharo community improve its products and services by automatically sending package, class, or method names as part of the diagnostic and usage data, e.g., browsed classes, changed methods.';
+		description: 'Help the Pharo community improve its tools by automatically sending package, class, or method names as part of the diagnostic and usage data, e.g., completed method selector, browsed classes, changed methods.';
 		default: false;
 		parent: #sendDiagnosticsAndUsageData
 ]
 
 { #category : 'accessing' }
-ERPrivacy class >> sendSourceCode [
+ERPrivacySettings class >> sendSourceCode [
 	^ sendSourceCode ifNil: [ sendSourceCode := false ]
 ]
 
 { #category : 'accessing' }
-ERPrivacy class >> sendSourceCode: aBoolean [
+ERPrivacySettings class >> sendSourceCode: aBoolean [
 	sendSourceCode := aBoolean
 ]
 
 { #category : 'settings' }
-ERPrivacy class >> sendSourceCodeSettingsOn: aBuilder [
+ERPrivacySettings class >> sendSourceCodeSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendSourceCode)
 		label: 'Include source code';
@@ -107,4 +109,38 @@ ERPrivacy class >> sendSourceCodeSettingsOn: aBuilder [
 		description: 'Help the Pharo community improve its products and services by automatically sending source code as part of the diagnostic and usage data, e.g., changed methods, browsed source code, written code snippets.';
 		default: false;
 		parent: #sendDiagnosticsAndUsageData
+]
+
+{ #category : 'accessing' }
+ERPrivacySettings class >> stringUrl [
+
+	^ self url asString
+]
+
+{ #category : 'accessing' }
+ERPrivacySettings class >> stringUrl: aUrlString [
+
+	^ self url: aUrlString
+]
+
+{ #category : 'accessing' }
+ERPrivacySettings class >> url [
+
+	^ url ifNil: [ url := 'http://localhost:8080/xp/events' asZnUrl ]
+]
+
+{ #category : 'accessing' }
+ERPrivacySettings class >> url: aZnUrl [
+
+	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ]
+]
+
+{ #category : 'settings' }
+ERPrivacySettings class >> urlSettingsOn: aBuilder [
+
+	<systemsettings>
+	(aBuilder setting: #stringUrl)
+		target: self;
+		description: 'The default URL for the EventRecorder server.';
+		label: 'EventRecorder URL'
 ]

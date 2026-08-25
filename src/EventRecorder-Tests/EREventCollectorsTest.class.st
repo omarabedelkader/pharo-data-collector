@@ -2,34 +2,36 @@
 A GTEventCollectorsTest is a test class for testing the behavior of GTEventCollectors
 "
 Class {
-	#name : #EREventCollectorsTest,
-	#superclass : #TestCase,
+	#name : 'EREventCollectorsTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'collectors'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 EREventCollectorsTest >> setUp [
 	super setUp.
 	collectors := EREventCollectors new.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorsTest >> testAdd [
 	collectors add: EREventCollector new.
 	self assert: collectors size equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorsTest >> testAdd2 [
 	collectors add: EREventCollector new.
 	collectors add: EREventCollector new.
 	self assert: collectors size equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorsTest >> testAdd3 [
 	| collector |
 	collector := EREventCollector new.
@@ -38,12 +40,12 @@ EREventCollectorsTest >> testAdd3 [
 	self assert: collectors size equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorsTest >> testDefault [
 	self assert: collectors size equals: 0.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorsTest >> testDo [
 	"Ensure that collectors are iterated in the same order as they are added."
 	| collector1 collector2 interatedCollectors |
@@ -59,7 +61,7 @@ EREventCollectorsTest >> testDo [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorsTest >> testDo2 [
 	"Ensure that collectors are iterated in the same order as they are added."
 	| collector1 collector2 interatedCollectors |
@@ -75,7 +77,7 @@ EREventCollectorsTest >> testDo2 [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorsTest >> testPrintOn [
 	self assert: (String streamContents: [ :stream | collectors printOn: stream ]) notEmpty.
 ]

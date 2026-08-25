@@ -2,8 +2,8 @@
 A GTEventMultiBundleFactoryTest is a test class for testing the behavior of GTEventMultiBundleFactory
 "
 Class {
-	#name : #EREventMultiBundleFactoryTest,
-	#superclass : #TestCase,
+	#name : 'EREventMultiBundleFactoryTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'bundle1',
 		'bundle2',
@@ -14,22 +14,24 @@ Class {
 		'multiBundle1',
 		'multiBundle2'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventMultiBundleFactoryTest >> allBundles [
 	^ { bundle1. bundle2. bundle3. bundle4 }
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventMultiBundleFactoryTest >> detectEvents [
 	multiBundle1 := multiBundles first.
 	multiBundle2 := multiBundles second.
 	
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventMultiBundleFactoryTest >> setUp [
 	super setUp.
 	bundle1 := EREventBundle new 
@@ -43,7 +45,7 @@ EREventMultiBundleFactoryTest >> setUp [
 	factory := EREventMultiBundleFactory new.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleFactoryTest >> testFromBundles [
 	multiBundles := factory fromBundles: self allBundles.
 	self assert: multiBundles size equals: 2.
@@ -61,7 +63,7 @@ EREventMultiBundleFactoryTest >> testFromBundles [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleFactoryTest >> testFromBundles2 [
 	"#fromBundles: can also receive GTMultiBundle object. It should be consolidate too."
 	multiBundles := factory fromBundles: self allBundles.
@@ -87,7 +89,7 @@ EREventMultiBundleFactoryTest >> testFromBundles2 [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleFactoryTest >> testFromBundles3 [
 	"#fromBundles: can also receive GTMultiBundle object. It should be consolidate too."
 	multiBundles := factory fromBundles: self allBundles.
@@ -113,7 +115,7 @@ EREventMultiBundleFactoryTest >> testFromBundles3 [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleFactoryTest >> testFromBundles4 [
 	"#fromBundles: can also receive GTMultiBundle object. It should be consolidate too."
 	multiBundles := factory fromBundles: self allBundles.

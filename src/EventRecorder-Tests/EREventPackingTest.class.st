@@ -2,8 +2,8 @@
 A GTEventPackingTest is a test class for testing the behavior of GTEventPacking
 "
 Class {
-	#name : #EREventPackingTest,
-	#superclass : #TestCase,
+	#name : 'EREventPackingTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'packing',
 		'event1',
@@ -15,15 +15,17 @@ Class {
 		'storage',
 		'file'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventPackingTest class >> isAbstract [
 	^ self name = EREventPackingTest name
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventPackingTest >> assertBundle [
 	bundle := packing pack: collector.
 	self assert: bundle url equals: collector url.
@@ -31,7 +33,7 @@ EREventPackingTest >> assertBundle [
 	self assert: bundle category equals: collector category.
 ]
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 EREventPackingTest >> assertUnpackedData [
 	unpackedData := announcement unpackedData.
 	self assert: unpackedData size equals: 2.
@@ -39,12 +41,12 @@ EREventPackingTest >> assertUnpackedData [
 	self assert: unpackedData second equals: event2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventPackingTest >> packingClass [
 	^ self subclassResponsibility
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventPackingTest >> setUp [
 	super setUp.
 	event1 := ERDummyEvent new data: 'string'.
@@ -58,7 +60,7 @@ EREventPackingTest >> setUp [
 
 ]
 
-{ #category : #'tests-packing' }
+{ #category : 'tests-packing' }
 EREventPackingTest >> testNewAnnouncementFor [
 	announcement := packing newAnnouncementFor: collector.
 	self assert: announcement serializedBy equals: packing class name.
@@ -66,7 +68,7 @@ EREventPackingTest >> testNewAnnouncementFor [
 	self assert: announcement category equals: collector category.
 ]
 
-{ #category : #'tests-packing' }
+{ #category : 'tests-packing' }
 EREventPackingTest >> testNewAnnouncementFor2 [
 	collector updateAnnouncementBlock: [ :anAnnouncement | 
 		anAnnouncement at: #testNewAnnouncementFor2 put: 42 ].
@@ -76,14 +78,14 @@ EREventPackingTest >> testNewAnnouncementFor2 [
 	self assert: (announcement at: #testNewAnnouncementFor2) equals: 42.
 ]
 
-{ #category : #'tests-packing' }
+{ #category : 'tests-packing' }
 EREventPackingTest >> testPack [
 	self assertBundle.
 	announcement := packing unpack: bundle data.
 	self assertUnpackedData
 ]
 
-{ #category : #'tests-packing' }
+{ #category : 'tests-packing' }
 EREventPackingTest >> testUnpackBinaryBinaryStream [
 	self assertBundle.
 	file binaryWriteStreamDo: [ :aStream | 

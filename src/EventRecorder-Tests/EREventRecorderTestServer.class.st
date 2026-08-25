@@ -5,16 +5,18 @@ I know how to start ZnServer that is started on a random port. For that reason I
 
 "
 Class {
-	#name : #EREventRecorderTestServer,
-	#superclass : #Object,
+	#name : 'EREventRecorderTestServer',
+	#superclass : 'Object',
 	#instVars : [
 		'server',
 		'url'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorderTestServer >> initializeUsingDelegate: aDelegate semaphore: aSemaphore [
 	| subscription |
 	server := ZnServer on: 0.
@@ -35,27 +37,27 @@ EREventRecorderTestServer >> initializeUsingDelegate: aDelegate semaphore: aSema
 		yourself.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderTestServer >> server [
 	^ server
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderTestServer >> stop [
 	server stop
 ]
 
-{ #category : #subscription }
+{ #category : 'subscription' }
 EREventRecorderTestServer >> unsubscribeAll [
 	ZnLogEvent announcer unsubscribe: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderTestServer >> url [
 	^ url
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 EREventRecorderTestServer >> when: anAnnouncement do: aBlock [
 	"Subscribe myself for events that belongs to my ZnServer."
 	^ ZnLogEvent announcer 

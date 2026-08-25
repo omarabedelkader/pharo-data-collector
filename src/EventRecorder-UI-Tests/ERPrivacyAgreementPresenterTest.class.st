@@ -1,27 +1,28 @@
 Class {
-	#name : #ERPrivacyAgreementPresenterTest,
-	#superclass : #TestCase,
-	#category : #'EventRecorder-UI-Tests'
+	#name : 'ERPrivacyAgreementPresenterTest',
+	#superclass : 'TestCase',
+	#category : 'EventRecorder-UI-Tests',
+	#package : 'EventRecorder-UI-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 ERPrivacyAgreementPresenterTest >> testMessage [
 
 	| previousSetting |
 	[ | presenter |
-	previousSetting := ERPrivacy sendDiagnosticsAndUsageData.
+	previousSetting := ERPrivacySettings sendDiagnosticsAndUsageData.
 	presenter := ERPrivacyAgreementPresenter new.
-	ERPrivacy sendDiagnosticsAndUsageData: true.
+	ERPrivacySettings sendDiagnosticsAndUsageData: true.
 	self assert: presenter privacyMessage equals: presenter sendingMessage.
-	ERPrivacy sendDiagnosticsAndUsageData: false.
+	ERPrivacySettings sendDiagnosticsAndUsageData: false.
 	self assert: presenter privacyMessage equals: presenter notSendingMessage ]
-		ensure: [ ERPrivacy sendDiagnosticsAndUsageData: previousSetting ]
+		ensure: [ ERPrivacySettings sendDiagnosticsAndUsageData: previousSetting ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ERPrivacyAgreementPresenterTest >> testOpenWindowAddsItToWindowCollection [
 
 	| presenter |
-	self shouldnt: [ presenter := ERPrivacyAgreementPresenter new openWithSpec ] raise: MessageNotUnderstood.
+	self shouldnt: [ presenter := ERPrivacyAgreementPresenter new open ] raise: MessageNotUnderstood.
 	presenter close
 ]

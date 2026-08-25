@@ -2,8 +2,8 @@
 A GTEventBundleTest is a test class for testing the behavior of GTEventBundle
 "
 Class {
-	#name : #EREventBundleTest,
-	#superclass : #TestCase,
+	#name : 'EREventBundleTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'bundle',
 		'data',
@@ -11,10 +11,12 @@ Class {
 		'url',
 		'entity'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 EREventBundleTest >> setUp [
 	super setUp.
 	bundle := EREventBundle new.
@@ -24,14 +26,14 @@ EREventBundleTest >> setUp [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventBundleTest >> testData [
 	"It is really important that it is the same object."
 	bundle data: data.
 	self assert: bundle data == bundle data.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventBundleTest >> testEntity [
 	bundle data: data.
 	entity := bundle entity.

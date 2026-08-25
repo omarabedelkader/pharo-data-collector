@@ -2,8 +2,8 @@
 A GTEventUnpackingTest is a test class for testing the behavior of GTEventUnpacking
 "
 Class {
-	#name : #EREventUnpackingTest,
-	#superclass : #TestCase,
+	#name : 'EREventUnpackingTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'unpacking',
 		'collector',
@@ -11,10 +11,12 @@ Class {
 		'initialData',
 		'bundle'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 EREventUnpackingTest >> setUp [
 	super setUp.
 	initialData := #('GT' 'Team' 2015).
@@ -23,7 +25,7 @@ EREventUnpackingTest >> setUp [
 	unpacking := EREventUnpacking default.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventUnpackingTest >> testUnpack [
 	bundle := EREventPacking default pack: collector.
 	unpackedData := unpacking unpack: bundle data.
@@ -31,19 +33,19 @@ EREventUnpackingTest >> testUnpack [
 	self assert: unpackedData unpackedData asArray equals: initialData.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventUnpackingTest >> testUnpack2 [
 	self should: [ unpacking unpack: initialData ] raise: EREventUnpackingError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventUnpackingTest >> testUnpack3 [
 	bundle := EREventPacking default pack: collector.
 	unpacking := EREventUnpacking new.
 	self should: [ unpacking unpack: bundle data ] raise: EREventInitializationError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventUnpackingTest >> testUnpack4 [
 	bundle := EREventPacking ston pack: collector.
 	unpacking := EREventUnpacking new.
@@ -51,7 +53,7 @@ EREventUnpackingTest >> testUnpack4 [
 	self should: [ unpacking unpack: bundle data ] raise: EREventUnpackingError 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventUnpackingTest >> testUnpack5 [
 	bundle := EREventPacking fuel pack: collector.
 	unpacking := EREventUnpacking new.
@@ -59,7 +61,7 @@ EREventUnpackingTest >> testUnpack5 [
 	self should: [ unpacking unpack: bundle data ] raise: EREventUnpackingError 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventUnpackingTest >> testUnpackFuel [
 	bundle := EREventPacking fuel pack: collector.
 	unpackedData := unpacking unpack: bundle data.
@@ -67,7 +69,7 @@ EREventUnpackingTest >> testUnpackFuel [
 	self assert: unpackedData unpackedData asArray equals: initialData.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventUnpackingTest >> testUnpackSton [
 	bundle := EREventPacking ston pack: collector.
 	unpackedData := unpacking unpack: bundle data.

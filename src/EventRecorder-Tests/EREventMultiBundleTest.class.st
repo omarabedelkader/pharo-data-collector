@@ -2,8 +2,8 @@
 A GTEventMultiBundleTest is a test class for testing the behavior of GTEventMultiBundle
 "
 Class {
-	#name : #EREventMultiBundleTest,
-	#superclass : #TestCase,
+	#name : 'EREventMultiBundleTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'bundle1',
 		'bundle2',
@@ -11,10 +11,12 @@ Class {
 		'multiBundle',
 		'entity'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 EREventMultiBundleTest >> setUp [
 	super setUp.
 	bundle1 := EREventBundle new 
@@ -27,12 +29,12 @@ EREventMultiBundleTest >> setUp [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleTest >> testEntity [
 	self assert: multiBundle entity isEmpty
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleTest >> testEntity2 [
 	multiBundle add: bundle1.
 	entity := multiBundle entity.
@@ -45,7 +47,7 @@ EREventMultiBundleTest >> testEntity2 [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleTest >> testEntity3 [
 	multiBundle add: bundle1; add: bundle2.
 	entity := multiBundle entity.
@@ -62,7 +64,7 @@ EREventMultiBundleTest >> testEntity3 [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventMultiBundleTest >> testEntity4 [
 	multiBundle add: bundle1; add: bundle2; add: bundle3.
 	entity := multiBundle entity.

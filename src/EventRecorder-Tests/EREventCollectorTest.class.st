@@ -2,26 +2,28 @@
 A GTEventCollectorTest is a test class for testing the behavior of GTEventCollector
 "
 Class {
-	#name : #EREventCollectorTest,
-	#superclass : #TestCase,
+	#name : 'EREventCollectorTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'collector'
 	],
-	#category : #'EventRecorder-Tests-Core'
+	#category : 'EventRecorder-Tests-Core',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Core'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 EREventCollectorTest >> setUp [
 	super setUp.
 	collector := EREventCollector new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testBundle [
 	self assert: collector bundle isEmpty
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testBundle2 [
 	collector add: ERDummyEvent new.
 	collector add: ERDummyEvent new.
@@ -29,38 +31,38 @@ EREventCollectorTest >> testBundle2 [
 	self assert: collector bundle isEmpty.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testCategory [
 	self assert: collector category equals: collector defaultCategory
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testIsLiberated [
 	"By default it is liberated."
 	self assert: collector isLiberated
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testIsLiberated2 [
 	"The collection of events has to be empty."
 	collector add: 42.
 	self deny: collector isLiberated.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testIsLiberated3 [
 	"The occupant has to be empty."
 	collector occupant: self.
 	self deny: collector isLiberated.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testLiberate [
 	collector liberate.
 	self assert: collector isLiberated
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testLiberate2 [
 	collector occupant: self.
 	self deny: collector isLiberated.
@@ -68,12 +70,12 @@ EREventCollectorTest >> testLiberate2 [
 	self assert: collector isLiberated
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testPrintOn [
 	self assert: (String streamContents: [ :stream | collector printOn: stream ]) notEmpty.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testUpdateAnnouncement [
 	| announcement announcement2 |
 	collector updateAnnouncementBlock: [ :anAnnouncement | 
@@ -85,8 +87,8 @@ EREventCollectorTest >> testUpdateAnnouncement [
 	self assert: (announcement at: #testUpdateAnnouncement) equals: 42.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventCollectorTest >> testUrl [
 	self assert: collector url notNil.
-	self assert: collector url equals: EREventRecorderSettings url.
+	self assert: collector url equals: ERPrivacySettings url.
 ]

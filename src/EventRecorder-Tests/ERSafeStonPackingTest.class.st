@@ -1,15 +1,17 @@
 Class {
-	#name : #ERSafeStonPackingTest,
-	#superclass : #EREventPackingTest,
-	#category : #'EventRecorder-Tests-Support'
+	#name : 'ERSafeStonPackingTest',
+	#superclass : 'EREventPackingTest',
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERSafeStonPackingTest >> packingClass [
 	^ ERSafeStonPacking
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ERSafeStonPackingTest >> testFallbackSanitizeAndSerialize [
 
 	"Tests that the fallback operations are executed. On first fail, it removes WideString characters.
@@ -33,7 +35,7 @@ ERSafeStonPackingTest >> testFallbackSanitizeAndSerialize [
 		equals: 'asd'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ERSafeStonPackingTest >> testSerialize [
 
 	"Tests that serialization of known problematic cases for packaging succeeds"

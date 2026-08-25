@@ -2,47 +2,53 @@
 I'm a simple window to display privacy information based on previously set settings.
 "
 Class {
-	#name : #ERPrivacyAgreementPresenter,
-	#superclass : #SpPresenter,
+	#name : 'ERPrivacyAgreementPresenter',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'text',
 		'settingButton'
 	],
-	#category : #'EventRecorder-UI'
+	#category : 'EventRecorder-UI',
+	#package : 'EventRecorder-UI'
 }
 
-{ #category : #specs }
-ERPrivacyAgreementPresenter class >> defaultSpec [
+{ #category : 'actions' }
+ERPrivacyAgreementPresenter class >> openSettingsBrowser [
+	| settingsBrowser window |
+	settingsBrowser := SettingBrowser new 
+		changePackageSet: {PackageOrganizer default packageNamed: 'EventRecorder'};
+		yourself.
+	window := settingsBrowser open.	
+	settingsBrowser expandAll.
 
-	^  SpBoxLayout newVertical
+]
+
+{ #category : 'actions' }
+ERPrivacyAgreementPresenter class >> sample [
+
+	<script>
+	
+	^ self new open 
+]
+
+{ #category : 'initialize' }
+ERPrivacyAgreementPresenter >> defaultLayout [ 
+
+	^ SpBoxLayout newVertical
 			add: #text;
 			add:
-			(SpBoxLayout newHorizontal
-				add: #settingButton;
-				yourself)
-			withConstraints: [ :constraints | constraints height: self toolbarHeight ];
+			(SpBoxLayout newVertical
+				add: #settingButton withConstraints: [ :constraints | constraints height: 28 ];
+				yourself) 
+			expand: true
+		;
 		yourself
 ]
 
-{ #category : #actions }
-ERPrivacyAgreementPresenter class >> openSettingsBrowser [
-	| settingsBrowser window node nodePath |
-	settingsBrowser := SettingBrowser new 
-		changePackageSet: (RPackage organizer packageNamed: 'EventRecorder') asOrderedCollection;
-		yourself.
-	window := settingsBrowser open.
-	window position: Display extent - window extent // 2.
-	settingsBrowser expandAll.
-	node := settingsBrowser treeHolder nodeNamed: #sendDiagnosticsAndUsageData.
-	nodePath := Array 
-		with: (settingsBrowser treeHolder nodeNamed: node parentName)
-		with: node.
-	settingsBrowser selection: (MorphTreeMorphSingleSelection new selectedNodePath: nodePath).
-]
-
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> initializePresenters [
 
+	super initializePresenters.
 	text := self newText.
 	text text: self privacyMessage.
 	settingButton := self newButton.
@@ -51,7 +57,7 @@ ERPrivacyAgreementPresenter >> initializePresenters [
 		action: [ self openSettingsBrowser ].
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> initializeWindow: aWindowPresenter [
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter
@@ -59,18 +65,18 @@ ERPrivacyAgreementPresenter >> initializeWindow: aWindowPresenter [
 		initialExtent: 400 @ 200
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> notSendingMessage [
 
 	^ 'No diagnostic and usage data is being sent. Would you like to send diagnostic and usage data to help us improve Pharo?'
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> openSettingsBrowser [
 	self class openSettingsBrowser
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> privacyMessage [
 
 	^ self sendUsageData 
@@ -78,18 +84,18 @@ ERPrivacyAgreementPresenter >> privacyMessage [
 		ifFalse: 	[ self notSendingMessage ]
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> sendUsageData [	
-	^ ERPrivacy sendDiagnosticsAndUsageData 
+	^ ERPrivacySettings sendDiagnosticsAndUsageData 
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> sendingMessage [
 
 	^ 'You are sending diagnostic and usage data to help us improve Pharo. Thanks!' 
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 ERPrivacyAgreementPresenter >> title [
 
 	^ 'Privacy agreement'

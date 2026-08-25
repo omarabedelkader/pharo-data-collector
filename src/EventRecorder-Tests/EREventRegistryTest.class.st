@@ -2,34 +2,36 @@
 A GTEventRegistryTest is a test class for testing the behavior of GTEventRegistry
 "
 Class {
-	#name : #EREventRegistryTest,
-	#superclass : #TestCase,
+	#name : 'EREventRegistryTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'registry'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 EREventRegistryTest >> setUp [
 	super setUp.
 	registry := EREventRegistry new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 EREventRegistryTest >> testIsLiberated [
 	"By default it should answer yes."
 	self assert: registry isLiberated
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 EREventRegistryTest >> testIsLiberated2 [
 	"By default it should answer yes."
 	registry object: self.
 	self deny: registry isLiberated.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 EREventRegistryTest >> testIsLiberated3 [
 	"By default it should answer yes."
 	registry object: self.

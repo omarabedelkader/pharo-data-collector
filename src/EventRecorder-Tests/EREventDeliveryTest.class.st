@@ -2,45 +2,47 @@
 A GTEventDeliveryTest is a test class for testing the behavior of GTEventDelivery
 "
 Class {
-	#name : #EREventDeliveryTest,
-	#superclass : #TestCase,
+	#name : 'EREventDeliveryTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'delivery',
 		'announcer',
 		'semaphore'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 EREventDeliveryTest >> assertSemaphore [
 	self deny: (semaphore waitTimeoutMilliseconds: 200)
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventDeliveryTest >> isGlobalRecorder [
 	^ false
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventDeliveryTest >> setUp [
 	super setUp.
 	semaphore := Semaphore new.
 	delivery := EREventDelivery new
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 EREventDeliveryTest >> tearDown [
 	super tearDown.
 	delivery deactivate.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventDeliveryTest >> testPrintOn [
 	self assert: (String streamContents: [ :stream | delivery printOn: stream ]) notEmpty.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventDeliveryTest >> testPrintOn2 [
 	| string |
 	delivery recorder: self.
@@ -53,7 +55,7 @@ EREventDeliveryTest >> testPrintOn2 [
 	self assert: (string includesSubstring: 'next cycle in').
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventDeliveryTest >> testPrintProcessName [
 	self assert: delivery printProcessName isNotEmpty
 ]

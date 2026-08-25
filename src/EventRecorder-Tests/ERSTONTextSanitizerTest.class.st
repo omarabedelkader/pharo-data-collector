@@ -2,15 +2,17 @@
 An ExperimentTextSanitizerTest is a test class for testing the behavior of ExperimentTextSanitizer
 "
 Class {
-	#name : #ERSTONTextSanitizerTest,
-	#superclass : #TestCase,
+	#name : 'ERSTONTextSanitizerTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'sanitizer'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 ERSTONTextSanitizerTest >> setUp [
 
 	super setUp.
@@ -18,7 +20,7 @@ ERSTONTextSanitizerTest >> setUp [
 	
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ERSTONTextSanitizerTest >> testRemoveNonAlphanumericNorSpace [
 
 	| stringNoSpace stringWithSpace |
@@ -28,7 +30,7 @@ ERSTONTextSanitizerTest >> testRemoveNonAlphanumericNorSpace [
 	self assert: (sanitizer removeNonAlphanumericNorSpace: stringWithSpace ) equals: 'alphanumericPart WithSpace'
 ]
 
-{ #category : #test }
+{ #category : 'test' }
 ERSTONTextSanitizerTest >> testRemoveWideCharacters [
 
 	| wideString pureWideString |

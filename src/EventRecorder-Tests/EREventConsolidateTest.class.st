@@ -2,8 +2,8 @@
 A GTEventConsolidateTest is a test class for testing the behavior of GTEventConsolidate
 "
 Class {
-	#name : #EREventConsolidateTest,
-	#superclass : #TestCase,
+	#name : 'EREventConsolidateTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'consolidate',
 		'collector1',
@@ -13,10 +13,12 @@ Class {
 		'consolidated',
 		'data'
 	],
-	#category : #'EventRecorder-Tests-Support'
+	#category : 'EventRecorder-Tests-Support',
+	#package : 'EventRecorder-Tests',
+	#tag : 'Support'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 EREventConsolidateTest >> setUp [
 	super setUp.
 	data := { 42. 'string'. Float pi }.
@@ -28,7 +30,7 @@ EREventConsolidateTest >> setUp [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventConsolidateTest >> testConsolidated [
 	"Test that all collectors are consolidated into one."
 	collector1 add: data first.
@@ -40,7 +42,7 @@ EREventConsolidateTest >> testConsolidated [
 	self assert: consolidated first bundle asArray equals: data.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventConsolidateTest >> testConsolidated2 [
 	"Test that all collectors are consolidated into one."
 	collector1 add: data first.
@@ -52,7 +54,7 @@ EREventConsolidateTest >> testConsolidated2 [
 	self assert: consolidated first bundle asArray equals: data.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventConsolidateTest >> testConsolidated3 [
 	"Test that all collectors are consolidated according to URL."
 	collector1 add: data first; url: 'http://localhost/1' asZnUrl.
@@ -66,7 +68,7 @@ EREventConsolidateTest >> testConsolidated3 [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 EREventConsolidateTest >> testConsolidated4 [
 	"Test that all collectors are consolidated according to URL."
 	collector1 add: data first; category: #c1.
