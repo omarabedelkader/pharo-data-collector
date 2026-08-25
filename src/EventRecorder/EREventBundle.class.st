@@ -6,58 +6,60 @@ Instances of me should be sent to a EREventDelivery.
 
 "
 Class {
-	#name : #EREventBundle,
-	#superclass : #Object,
+	#name : 'EREventBundle',
+	#superclass : 'Object',
 	#instVars : [
 		'url',
 		'category',
 		'data'
 	],
-	#category : #'EventRecorder-Support'
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #visitor }
+{ #category : 'visitor' }
 EREventBundle >> accept: aVisitor [ 
 	^ aVisitor visitSingleBundle: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventBundle >> category [
 	^ category
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventBundle >> category: anObject [
 	category := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventBundle >> data [
 	^ data
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventBundle >> data: anObject [
 	data := anObject
 ]
 
-{ #category : #'accessing - computed' }
+{ #category : 'accessing - computed' }
 EREventBundle >> entity [
 	^ ZnByteArrayEntity bytes: self data
 ]
 
-{ #category : #visitor }
+{ #category : 'visitor' }
 EREventBundle >> newMultiBundle [
 
 	^ EREventMultiBundle new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventBundle >> url [
 	^ url
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventBundle >> url: anObject [
 	url := anObject
 ]

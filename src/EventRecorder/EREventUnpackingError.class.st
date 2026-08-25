@@ -5,16 +5,18 @@ Collaborators: EREventUnpacking
 
 "
 Class {
-	#name : #EREventUnpackingError,
-	#superclass : #EREventRecorderError,
+	#name : 'EREventUnpackingError',
+	#superclass : 'EREventRecorderError',
 	#instVars : [
 		'data',
 		'errors'
 	],
-	#category : #'EventRecorder-Exceptions'
+	#category : 'EventRecorder-Exceptions',
+	#package : 'EventRecorder',
+	#tag : 'Exceptions'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 EREventUnpackingError class >> signal: aString data: aByteArray errors: aCollection [ 
 	^ self new
 			data: aByteArray;
@@ -23,27 +25,27 @@ EREventUnpackingError class >> signal: aString data: aByteArray errors: aCollect
 			yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventUnpackingError >> data [
 	^ data
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventUnpackingError >> data: anObject [
 	data := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventUnpackingError >> errors [
 	^ errors
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventUnpackingError >> errors: anObject [
 	errors := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventUnpackingError >> isResumable [
 	"Determine whether an exception is resumable."
 	^true

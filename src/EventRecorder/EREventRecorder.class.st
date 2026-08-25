@@ -19,8 +19,8 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #EREventRecorder,
-	#superclass : #Object,
+	#name : 'EREventRecorder',
+	#superclass : 'Object',
 	#instVars : [
 		'collectors',
 		'delivery',
@@ -31,15 +31,17 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'EventRecorder-Core'
+	#category : 'EventRecorder-Core',
+	#package : 'EventRecorder',
+	#tag : 'Core'
 }
 
-{ #category : #cleanup }
+{ #category : 'cleanup' }
 EREventRecorder class >> cleanUp [
 	self reset.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorder class >> initializeUniqueInstance [
 	uniqueInstance ifNotNil: [ ^ uniqueInstance ].
 	uniqueInstance := self new.
@@ -47,14 +49,14 @@ EREventRecorder class >> initializeUniqueInstance [
 	^ uniqueInstance
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRecorder class >> isGlobalRecorder: anEventRecorder [
 	^ uniqueInstance
 			ifNil: false
 			ifNotNil: [ :anInstance | anInstance == anEventRecorder ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorder class >> registerInterestToSystemAnnouncement [
 	<systemEventRegistration>
 
@@ -67,7 +69,7 @@ EREventRecorder class >> registerInterestToSystemAnnouncement [
 			to: uniqueInstance
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorder class >> reset [
 	"Stop delivery, unsubscribe from system announcements, and discard the global recorder."
 	uniqueInstance ifNil: [ ^ self ].
@@ -77,73 +79,73 @@ EREventRecorder class >> reset [
 	uniqueInstance := nil.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorder class >> uniqueInstance [
 	uniqueInstance ifNil: [ self initializeUniqueInstance ].
 	^ uniqueInstance
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventRecorder >> activateDelivery [
 	^ delivery activate
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventRecorder >> activateDeliveryIfAvailable [
 	^ self canSendDiagnosticsAndUsageData
 		ifTrue: [ self activateDelivery ]
 		ifFalse: [ nil ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 EREventRecorder >> addCollector: anEventCollector [
 	self activateDeliveryIfAvailable.
 	^ collectors add: anEventCollector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorder >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRecorder >> canSendDiagnosticsAndUsageData [
 	^ privacy value
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventRecorder >> deactivateDelivery [
 	^ delivery deactivate
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventRecorder >> deliverNow [
 	delivery now
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorder >> delivery [
 	"Testing purpose."
 	^ delivery
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 EREventRecorder >> deliveryPreSuspendingAction: aBlockClosure [
 	self delivery preSuspendingAction: aBlockClosure
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventRecorder >> eventConsolidatorClass [
 	^ EREventConsolidate
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventRecorder >> flush [
 	"Discard all events currently queued by registered collectors."
 	collectors do: #flush
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRecorder >> initialize [
 	super initialize.
 	privacy := [ ERPrivacy sendDiagnosticsAndUsageData ].
@@ -156,38 +158,38 @@ EREventRecorder >> initialize [
 			ifFalse: [ delivery withdrawPermission ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRecorder >> isDeliveryActive [
 	^ delivery isActive
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRecorder >> isGlobalRecorder [
 	^ self class isGlobalRecorder: self
 ]
 
-{ #category : #convenient }
+{ #category : 'convenient' }
 EREventRecorder >> numberOfCollectors [
 	^ collectors size
 ]
 
-{ #category : #convenient }
+{ #category : 'convenient' }
 EREventRecorder >> numberOfDeliveryData [
 	^ delivery size
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 EREventRecorder >> offerDeliveryPermission [
 	delivery offerPermission
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 EREventRecorder >> offerPrivacy [
 	"testing purpose"
 	privacy := true
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventRecorder >> pack [
 	| allCollectors consolidatedCollectors |
 	self canSendDiagnosticsAndUsageData ifFalse: [ ^ self flush; yourself ].
@@ -201,7 +203,7 @@ EREventRecorder >> pack [
 	self removeLiberatedCollectors.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 EREventRecorder >> privacyChanged [
 	self canSendDiagnosticsAndUsageData
 		ifTrue: [ self numberOfCollectors > 0
@@ -209,7 +211,7 @@ EREventRecorder >> privacyChanged [
 		ifFalse: [ self deactivateDelivery ]
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 EREventRecorder >> removeCollector: anEventCollector [
 	| removedCollector |
 	removedCollector := collectors remove: anEventCollector.
@@ -217,17 +219,17 @@ EREventRecorder >> removeCollector: anEventCollector [
 	^ removedCollector
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 EREventRecorder >> removeLiberatedCollectors [
 	collectors removeLiberatedCollectors
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 EREventRecorder >> withdrawDeliveryPermission [
 	delivery withdrawPermission
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 EREventRecorder >> withdrawPrivacy [
 	"testing purpose"
 	privacy := false

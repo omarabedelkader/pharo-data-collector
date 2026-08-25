@@ -1,6 +1,6 @@
-Extension { #name : #EREventCollectors }
+Extension { #name : 'EREventCollectors' }
 
-{ #category : #'*EventRecorder-Inspector' }
+{ #category : '*EventRecorder-Inspector' }
 EREventCollectors >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ collectors ifNotNil: [ 

@@ -25,15 +25,17 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #EREventUnpacking,
-	#superclass : #Object,
+	#name : 'EREventUnpacking',
+	#superclass : 'Object',
 	#instVars : [
 		'packings'
 	],
-	#category : #'EventRecorder-Support'
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 EREventUnpacking class >> default [
 	^ self new
 			addPacking: EREventPacking fuel;
@@ -41,17 +43,17 @@ EREventUnpacking class >> default [
 			yourself
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 EREventUnpacking >> addPacking: anEventPacking [ 
 	^ self packings addLast: anEventPacking
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventUnpacking >> packings [
 	^ packings ifNil: [ packings := OrderedCollection new ]
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventUnpacking >> safeUnpackDirectory: aFileReference [
 	"self default safeUnpackDirectory: './gt/events/' asFileReference"
 	| unpackedData exceptions |
@@ -62,7 +64,7 @@ EREventUnpacking >> safeUnpackDirectory: aFileReference [
 	^ unpackedData -> exceptions
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventUnpacking >> unpack: aByteArray [
 	| exceptions |
 	exceptions := OrderedCollection new: self packings size.
@@ -79,7 +81,7 @@ EREventUnpacking >> unpack: aByteArray [
 	^ nil
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventUnpacking >> unpackDirectory: aFileReference [
 	"self default unpackDirectory: './gt/events/' asFileReference"
 	^ aFileReference asFileReference allFiles 
@@ -90,7 +92,7 @@ EREventUnpacking >> unpackDirectory: aFileReference [
 			thenSelect: #notNil
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventUnpacking >> unpackFile: aFileReference [
 	"self default unpackFile: './gt/events/' asFileReference allFiles atRandom"
 	^ [ self unpack: (aFileReference binaryReadStreamDo: [ :aStream |  aStream contents ]) ]

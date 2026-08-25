@@ -1,1 +1,1 @@
-Package { #name : #EventRecorder }
+Package { #name : 'EventRecorder' }

@@ -1,6 +1,6 @@
-Extension { #name : #EREventAnnouncement }
+Extension { #name : 'EREventAnnouncement' }
 
-{ #category : #'*EventRecorder-Inspector' }
+{ #category : '*EventRecorder-Inspector' }
 EREventAnnouncement >> gtInspectorActionUnpackData [
 	<gtInspectorAction>
 	^ GLMGenericAction new
@@ -11,12 +11,12 @@ EREventAnnouncement >> gtInspectorActionUnpackData [
 		title: 'Unpack data'
 ]
 
-{ #category : #'*EventRecorder-Inspector' }
+{ #category : '*EventRecorder-Inspector' }
 EREventAnnouncement >> gtInspectorItems [
 	^ OrderedCollection withAll: self associations
 ]
 
-{ #category : #'*EventRecorder-Inspector' }
+{ #category : '*EventRecorder-Inspector' }
 EREventAnnouncement >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: -1>  
 	^ (composite table)

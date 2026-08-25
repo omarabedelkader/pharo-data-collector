@@ -15,17 +15,19 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #ERPrivacy,
-	#superclass : #Object,
+	#name : 'ERPrivacy',
+	#superclass : 'Object',
 	#classInstVars : [
 		'sendDiagnosticsAndUsageData',
 		'sendEntityNames',
 		'sendSourceCode'
 	],
-	#category : #'EventRecorder-Privacy'
+	#category : 'EventRecorder-Privacy',
+	#package : 'EventRecorder',
+	#tag : 'Privacy'
 }
 
-{ #category : #cleanup }
+{ #category : 'cleanup' }
 ERPrivacy class >> cleanUp [
 	"Clean settings."
 	sendDiagnosticsAndUsageData := nil.
@@ -33,7 +35,7 @@ ERPrivacy class >> cleanUp [
 	sendSourceCode := nil.
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 ERPrivacy class >> privacySettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder group: #privacy)
@@ -42,19 +44,19 @@ ERPrivacy class >> privacySettingsOn: aBuilder [
 		description: 'All settings concerned with privacy'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERPrivacy class >> sendDiagnosticsAndUsageData [
 	^ sendDiagnosticsAndUsageData ifNil: [ sendDiagnosticsAndUsageData := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERPrivacy class >> sendDiagnosticsAndUsageData: aBoolean [
 	sendDiagnosticsAndUsageData = aBoolean ifTrue: [ ^ self ].
 	sendDiagnosticsAndUsageData := aBoolean.
 	SystemAnnouncer uniqueInstance announce: ERPrivacyChangedAnnouncement.
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 ERPrivacy class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendDiagnosticsAndUsageData)
@@ -65,17 +67,17 @@ ERPrivacy class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 		parent: #privacy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERPrivacy class >> sendEntityNames [
 	^ sendEntityNames ifNil: [ sendEntityNames := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERPrivacy class >> sendEntityNames: aBoolean [
 	sendEntityNames := aBoolean
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 ERPrivacy class >> sendEntityNamesSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendEntityNames)
@@ -86,17 +88,17 @@ ERPrivacy class >> sendEntityNamesSettingsOn: aBuilder [
 		parent: #sendDiagnosticsAndUsageData
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERPrivacy class >> sendSourceCode [
 	^ sendSourceCode ifNil: [ sendSourceCode := false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERPrivacy class >> sendSourceCode: aBoolean [
 	sendSourceCode := aBoolean
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 ERPrivacy class >> sendSourceCodeSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendSourceCode)

@@ -7,12 +7,14 @@ ERStonPacking new materialize: (ERStonPacking new serialize: '’').
 Will fail. $’ is a wide character. We don't know the real reason of the failure or if other characters will poduce a failure.
 "
 Class {
-	#name : #ERSTONTextSanitizer,
-	#superclass : #Object,
-	#category : #'EventRecorder-Support'
+	#name : 'ERSTONTextSanitizer',
+	#superclass : 'Object',
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #removing }
+{ #category : 'removing' }
 ERSTONTextSanitizer >> removeNonAlphanumericNorSpace: aString [
 
 	"returns a ByteString which is a copy of the original, without widestring characters"
@@ -20,7 +22,7 @@ ERSTONTextSanitizer >> removeNonAlphanumericNorSpace: aString [
 	^ aString select: [ :c | c isAlphaNumeric or: c isSpaceSeparator ]
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 ERSTONTextSanitizer >> removeWideCharacters: aString [
 
 	"returns a ByteString which is a copy of the original, without widestring characters"

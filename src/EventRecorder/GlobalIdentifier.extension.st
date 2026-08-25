@@ -1,6 +1,6 @@
-Extension { #name : #GlobalIdentifier }
+Extension { #name : 'GlobalIdentifier' }
 
-{ #category : #'*EventRecorder' }
+{ #category : '*EventRecorder' }
 GlobalIdentifier >> obfuscateIfNecessary: anObject [
 	^ ERPrivacy sendEntityNames
 			ifTrue: [ anObject ]

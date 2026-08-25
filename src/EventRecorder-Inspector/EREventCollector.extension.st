@@ -1,6 +1,6 @@
-Extension { #name : #EREventCollector }
+Extension { #name : 'EREventCollector' }
 
-{ #category : #'*EventRecorder-Inspector' }
+{ #category : '*EventRecorder-Inspector' }
 EREventCollector >> gtInspectorActionHelp [
 	<gtInspectorAction>
 	^ GLMGenericAction new

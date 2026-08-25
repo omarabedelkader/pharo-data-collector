@@ -1,6 +1,6 @@
-Extension { #name : #EREventRecorder }
+Extension { #name : 'EREventRecorder' }
 
-{ #category : #'*EventRecorder-Inspector' }
+{ #category : '*EventRecorder-Inspector' }
 EREventRecorder >> gtInspectorActionHelp [
 	<gtInspectorAction>
 	^ GLMGenericAction new
@@ -13,7 +13,7 @@ EREventRecorder >> gtInspectorActionHelp [
 		title: 'Help'
 ]
 
-{ #category : #'*EventRecorder-Inspector' }
+{ #category : '*EventRecorder-Inspector' }
 EREventRecorder >> gtInspectorItemsIn: composite [
 	<gtInspectorPresentationOrder: 1>
 	^ collectors ifNotNil: [ 

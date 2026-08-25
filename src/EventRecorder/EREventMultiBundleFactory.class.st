@@ -2,48 +2,50 @@
 I know how to create EREventMultiBundle object from a collection of EREventBundle objects.
 "
 Class {
-	#name : #EREventMultiBundleFactory,
-	#superclass : #Object,
+	#name : 'EREventMultiBundleFactory',
+	#superclass : 'Object',
 	#instVars : [
 		'multiBundles'
 	],
-	#category : #'EventRecorder-Support'
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventMultiBundleFactory class >> default [
 	^ self new
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 EREventMultiBundleFactory class >> fromBundles: aCollection [ 
 	^ self default fromBundles: aCollection
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 EREventMultiBundleFactory >> fromBundles: aCollection [ 
 	multiBundles := OrderedDictionary new.
 	aCollection do: [ :aSingleOrMultiBundle | self synthetize: aSingleOrMultiBundle.].
 	^ self multiBundles
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventMultiBundleFactory >> multiBundles [
 	^ multiBundles asOrderedCollection
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventMultiBundleFactory >> synthetize: aSingleOrMultiBundle [
 	aSingleOrMultiBundle accept: self
 ]
 
-{ #category : #visitor }
+{ #category : 'visitor' }
 EREventMultiBundleFactory >> visitMultiBundle: aMultiBundle [
 	aMultiBundle bundles do: [ :eachSingleBundle |
 		self visitSingleBundle: eachSingleBundle ]
 ]
 
-{ #category : #visitor }
+{ #category : 'visitor' }
 EREventMultiBundleFactory >> visitSingleBundle: aSingleBundle [
 	| multiBundle |
 	multiBundle := multiBundles 

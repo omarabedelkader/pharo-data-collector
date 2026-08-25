@@ -1,10 +1,12 @@
 Class {
-	#name : #ERSafeStonPacking,
-	#superclass : #ERStonPacking,
-	#category : #'EventRecorder-Support'
+	#name : 'ERSafeStonPacking',
+	#superclass : 'ERStonPacking',
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ERSafeStonPacking >> fallbackSanitizeAndSerialize: anObject [
 
 	^ anObject isString
@@ -12,7 +14,7 @@ ERSafeStonPacking >> fallbackSanitizeAndSerialize: anObject [
 		  ifFalse: [ super serialize: anObject ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ERSafeStonPacking >> fallbackSanitizeAndSerializeString: aString [
 
 	| sanitizer sanitizedString |
@@ -39,12 +41,12 @@ ERSafeStonPacking >> fallbackSanitizeAndSerializeString: aString [
 	self error: 'All fallback serialization attempts failed'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ERSafeStonPacking >> serialize: anObject [
 	^ self fallbackSanitizeAndSerialize: anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 ERSafeStonPacking >> trySerialize: aString callback: aBlock [
 
 	"aBlock is a closure with two parameters, the first is a boolean that tells if there were no errors, and the second is the result of the serialization"

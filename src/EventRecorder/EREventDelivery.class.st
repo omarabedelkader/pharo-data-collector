@@ -9,8 +9,8 @@ Public API and Key Messages
 - #deliveryCycle implements  the main logic of the delivery process
 "
 Class {
-	#name : #EREventDelivery,
-	#superclass : #Object,
+	#name : 'EREventDelivery',
+	#superclass : 'Object',
 	#instVars : [
 		'mutex',
 		'process',
@@ -21,15 +21,17 @@ Class {
 		'preSuspendingAction',
 		'standardDuration'
 	],
-	#category : #'EventRecorder-Support'
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 EREventDelivery class >> defaultStandardDuration [
 	^ 20 minutes
 ]
 
-{ #category : #activation }
+{ #category : 'activation' }
 EREventDelivery >> activate [
 	"Initialize a delivery process."
 	^ mutex critical: [
@@ -38,22 +40,22 @@ EREventDelivery >> activate [
 			process ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 EREventDelivery >> add: anEventBundle [
 	queue nextPut: anEventBundle
 ]
 
-{ #category : #announce }
+{ #category : 'announce' }
 EREventDelivery >> announceSuspendingDelivery [
 	preSuspendingAction ifNotNil: #value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventDelivery >> announcer [
 	^ self recorder ifNotNil: #announcer
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventDelivery >> bundles [
 	"This drains the delivery queue; callers must not use it for inspection."
 	| eventBundles |
@@ -62,7 +64,7 @@ EREventDelivery >> bundles [
 	^ eventBundles
 ]
 
-{ #category : #deactivation }
+{ #category : 'deactivation' }
 EREventDelivery >> deactivate [
 	^ mutex critical: [ | oldProcess |
 		self withdrawPermission.
@@ -72,7 +74,7 @@ EREventDelivery >> deactivate [
 		oldProcess ]
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventDelivery >> deliver: aBoolean [
 	| bundles |
 	bundles := EREventMultiBundleFactory fromBundles: self bundles.
@@ -80,7 +82,7 @@ EREventDelivery >> deliver: aBoolean [
 		self deliver: eachMultiBundle signalProgress: aBoolean ]
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
 	^ (ZnClient new
 			beOneShot;
@@ -95,7 +97,7 @@ EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
 			response)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventDelivery >> deliveryCycle [
 	delay := self standardDuration asDelay.
 	self announceSuspendingDelivery.
@@ -104,12 +106,12 @@ EREventDelivery >> deliveryCycle [
 	self hasPermission ifTrue: [ self packAndDeliver: false ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventDelivery >> hasPermission [
 	^ permission
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventDelivery >> initialize [
 	super initialize.
 	mutex := Mutex new.
@@ -118,26 +120,26 @@ EREventDelivery >> initialize [
 	standardDuration := 20 minutes
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventDelivery >> initializeProcess [
 	process := [ [ self hasPermission ] whileTrue: [ self deliveryCycle ] ]
 		forkAt: Processor userBackgroundPriority
 		named: self printProcessName
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventDelivery >> isActive [
 	^ self isInactive not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventDelivery >> isGlobalRecorder [
 	^ self recorder
 			ifNil: false
 			ifNotNil: #isGlobalRecorder
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventDelivery >> isInactive [
 	^ mutex critical: [
 		process isNil or: [
@@ -145,29 +147,29 @@ EREventDelivery >> isInactive [
 				process isTerminating ] ] ]
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventDelivery >> now [
 	"for testing purpose"
 	delay ifNotNil: [ :aDelay | aDelay delaySemaphore signal. aDelay unschedule. ]
 ]
 
-{ #category : #activation }
+{ #category : 'activation' }
 EREventDelivery >> offerPermission [
 	mutex critical: [ permission := true ]
 ]
 
-{ #category : #delivery }
+{ #category : 'delivery' }
 EREventDelivery >> packAndDeliver: aBoolean [
 	recorder pack.
 	self deliver: aBoolean
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventDelivery >> preSuspendingAction: aBlockClosure [
 	preSuspendingAction := aBlockClosure
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 EREventDelivery >> printOn: aStream [
 	super printOn: aStream.
 	aStream
@@ -191,13 +193,13 @@ EREventDelivery >> printOn: aStream [
 		nextPut: $]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 EREventDelivery >> printProcessName [
 	^ String streamContents: [ :aStream |
 		self printProcessNameOn: aStream ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 EREventDelivery >> printProcessNameOn: aStream [
 	aStream
 		nextPutAll: self className.
@@ -207,33 +209,33 @@ EREventDelivery >> printProcessNameOn: aStream [
 	aStream nextPutAll: 'delivery process'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventDelivery >> recorder [
 	^ recorder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventDelivery >> recorder: anObject [
 	recorder := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventDelivery >> size [
 	^ queue size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventDelivery >> standardDuration [
 	^ standardDuration ifNil:[standardDuration := self class defaultStandardDuration]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventDelivery >> standardDuration: aDuration [
 
 	standardDuration := aDuration
 ]
 
-{ #category : #deactivation }
+{ #category : 'deactivation' }
 EREventDelivery >> withdrawPermission [
 	mutex critical: [ permission := false ]
 ]

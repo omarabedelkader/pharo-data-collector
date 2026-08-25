@@ -20,15 +20,17 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #EREventAnnouncement,
-	#superclass : #Announcement,
+	#name : 'EREventAnnouncement',
+	#superclass : 'Announcement',
 	#instVars : [
 		'dictionary'
 	],
-	#category : #'EventRecorder-Announcements'
+	#category : 'EventRecorder-Announcements',
+	#package : 'EventRecorder',
+	#tag : 'Announcements'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 EREventAnnouncement class >> exampleAnnouncement [
 	<sampleInstance>
 	^ self new
@@ -41,13 +43,13 @@ EREventAnnouncement class >> exampleAnnouncement [
 			yourself
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 EREventAnnouncement class >> exampleEmptyAnnouncement [
 	<sampleInstance>
 	^ self new
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 EREventAnnouncement >> addInfoFor: aRecorderEvent [ 
 	(aRecorderEvent respondsTo: #infoAt:put:) ifTrue: [
 		dictionary keysAndValuesDo: [ :key :value |
@@ -55,69 +57,69 @@ EREventAnnouncement >> addInfoFor: aRecorderEvent [
 				aRecorderEvent infoAt: key put: value ] ] ]
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 EREventAnnouncement >> associations [
 	^ dictionary 
 			ifNil: [ #() ]
 			ifNotNil: [ dictionary associations ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> at: key [
 	^ self dictionary at: key ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> at: key put: value [
 	^ self dictionary at: key put: value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> category [
 	^ self at: #category
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> category: aSymbol [
 	^ self at: #category put: aSymbol
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> computerUUID [
 	^ self at: #computerUUID
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> computerUUID: anObject [
 	self at: #computerUUID put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> data [
 	^ self at: #data
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> data: aByteArray [ 
 	self at: #data put: aByteArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> dictionary [
 	^ dictionary ifNil: [ dictionary := Dictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> eventRecorderVersion [
 	^ self at: #eventRecorderVersion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> eventRecorderVersion: anObject [
 	self at: #eventRecorderVersion put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> events [
 	| events |
 	events := self unpackedData.
@@ -125,95 +127,95 @@ EREventAnnouncement >> events [
 	^ events
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> imageHash [
 	^ self at: #imageHash
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> imageHash: anObject [
 	self at: #imageHash put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> imageVersion [
 	^ self at: #imageVersion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> imageVersion: anObject [
 	self at: #imageVersion put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> latestUpdate [
 	^ self at: #latestUpdate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> latestUpdate: anObject [
 	self at: #latestUpdate put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> migrationRules [
 	^ self dictionary at: #migrationRules ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> migrationRules: aCollectionOrNil [
 	^ self dictionary at: #migrationRules put: aCollectionOrNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> safeUnpackedData [
 	"On any error, returns empty collection"
 	^ [ self unpackedData ] on: Error do: [ #() ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> serializedBy [
 	^ self dictionary at: #serializedBy ifAbsent: [ EREventPacking default class name ]
 	
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> serializedBy: anObject [
 	self at: #serializedBy put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> sessionCreationTime [
 	^ self at: #sessionCreationTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> sessionCreationTime: anObject [
 	self at: #sessionCreationTime put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> sessionUUID [
 	^ self at: #sessionUUID
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> sessionUUID: anObject [
 	self at: #sessionUUID put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> timestamp [
 	^ self at: #timestamp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> timestamp: anObject [
 	self at: #timestamp put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventAnnouncement >> unpackedData [
 	^ self data ifNotNil: [ :aData | 
 		(self class environment at: self serializedBy) new

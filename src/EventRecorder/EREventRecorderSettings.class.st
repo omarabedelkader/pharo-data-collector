@@ -3,45 +3,47 @@ I hold the default endpoint used by EREventCollector.
 The standalone EventRecorder server listens locally on port 8080 by default.
 "
 Class {
-	#name : #EREventRecorderSettings,
-	#superclass : #Object,
+	#name : 'EREventRecorderSettings',
+	#superclass : 'Object',
 	#classInstVars : [
 		'url'
 	],
-	#category : #'EventRecorder-Settings'
+	#category : 'EventRecorder-Settings',
+	#package : 'EventRecorder',
+	#tag : 'Settings'
 }
 
-{ #category : #cleanup }
+{ #category : 'cleanup' }
 EREventRecorderSettings class >> cleanUp [
 
 	url := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderSettings class >> stringUrl [
 
 	^ self url asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderSettings class >> stringUrl: aUrlString [
 
 	^ self url: aUrlString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderSettings class >> url [
 
 	^ url ifNil: [ url := 'http://localhost:8080/gt/events' asZnUrl ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRecorderSettings class >> url: aZnUrl [
 
 	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ]
 ]
 
-{ #category : #settings }
+{ #category : 'settings' }
 EREventRecorderSettings class >> urlSettingsOn: aBuilder [
 
 	<systemsettings>

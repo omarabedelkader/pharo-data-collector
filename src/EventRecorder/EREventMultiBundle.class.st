@@ -16,31 +16,33 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #EREventMultiBundle,
-	#superclass : #Object,
+	#name : 'EREventMultiBundle',
+	#superclass : 'Object',
 	#instVars : [
 		'url',
 		'bundles'
 	],
-	#category : #'EventRecorder-Support'
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #visitor }
+{ #category : 'visitor' }
 EREventMultiBundle >> accept: aVisitor [ 
 	^ aVisitor visitMultiBundle: self
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 EREventMultiBundle >> add: anEventBundle [ 
 	^ self bundles addLast: anEventBundle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventMultiBundle >> bundles [
 	^ bundles ifNil: [ bundles := OrderedCollection new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventMultiBundle >> entity [
 	| entity |
 	entity := ZnMultiPartFormDataEntity new.
@@ -48,7 +50,7 @@ EREventMultiBundle >> entity [
 	^ entity
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [
 
 	bundles ifNil: [ ^ self ].
@@ -58,7 +60,7 @@ EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [
 			forSingleBundle: eachEventBundle ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity forSingleBundle: aSingleBundle [
 
 	aZnMultiPartFormDataEntity
@@ -67,12 +69,12 @@ EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity forSingleBundle: 
 		addPart: (ZnMimePart fieldName: 'data' entity: aSingleBundle entity)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventMultiBundle >> url [
 	^ url
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventMultiBundle >> url: anObject [
 	url := anObject
 ]

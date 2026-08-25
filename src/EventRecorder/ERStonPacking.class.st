@@ -2,12 +2,14 @@
 I serialize or materialize objects using STON framework. Create instance of me calling EREventPacking ston.
 "
 Class {
-	#name : #ERStonPacking,
-	#superclass : #EREventPacking,
-	#category : #'EventRecorder-Support'
+	#name : 'ERStonPacking',
+	#superclass : 'EREventPacking',
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ERStonPacking >> materialize: aByteArray [
 	| stream gzstream |
 	stream := aByteArray asString readStream.
@@ -15,7 +17,7 @@ ERStonPacking >> materialize: aByteArray [
 	^ [ STON fromStream: gzstream ] ensure: [ gzstream close. stream close ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ERStonPacking >> serialize: anObject [
 	^ (String streamContents: [ :stream | | gzstream |
 		gzstream := GZipWriteStream on: stream.
@@ -23,7 +25,7 @@ ERStonPacking >> serialize: anObject [
 			ensure: [ gzstream close ] ]) asByteArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ERStonPacking >> technologyName [
 	^ 'ston'
 ]

@@ -16,36 +16,38 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #EREventRegistry,
-	#superclass : #Object,
+	#name : 'EREventRegistry',
+	#superclass : 'Object',
 	#instVars : [
 		'weakHolder'
 	],
-	#category : #'EventRecorder-Support'
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 EREventRegistry >> initialize [
 	super initialize.
 	weakHolder := WeakArray new: 1.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 EREventRegistry >> isLiberated [
 	^ (weakHolder at: 1) isNil
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 EREventRegistry >> liberate [
 	self object: nil.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventRegistry >> object: anObject [ 
 	weakHolder at: 1 put: anObject.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 EREventRegistry >> printOn: aStream [
 	super printOn: aStream.
 	aStream

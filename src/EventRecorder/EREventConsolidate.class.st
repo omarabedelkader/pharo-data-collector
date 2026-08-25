@@ -4,23 +4,23 @@ category. Consolidation reduces the number of bundles without mixing data
 that belongs to different destinations.
 "
 Class {
-	#name : #EREventConsolidate,
-	#superclass : #Object,
+	#name : 'EREventConsolidate',
+	#superclass : 'Object',
 	#instVars : [
 		'collectors'
 	],
-	#category : #'EventRecorder-Support'
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #private }
-EREventConsolidate >> consolidationKeyFor: aCollector [
+{ #category : 'accessing' }
+EREventConsolidate >> collectors: aCollection [
 
-	^ {
-		aCollector url.
-		aCollector category }
+	collectors := aCollection
 ]
 
-{ #category : #'accessing - computed' }
+{ #category : 'accessing - computed' }
 EREventConsolidate >> consolidated [
 
 	| consolidatedCollectors |
@@ -39,8 +39,10 @@ EREventConsolidate >> consolidated [
 	^ consolidatedCollectors values asArray
 ]
 
-{ #category : #accessing }
-EREventConsolidate >> collectors: aCollection [
+{ #category : 'private' }
+EREventConsolidate >> consolidationKeyFor: aCollector [
 
-	collectors := aCollection
+	^ {
+		aCollector url.
+		aCollector category }
 ]

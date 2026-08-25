@@ -13,22 +13,24 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #EREventPacking,
-	#superclass : #Object,
-	#category : #'EventRecorder-Support'
+	#name : 'EREventPacking',
+	#superclass : 'Object',
+	#category : 'EventRecorder-Support',
+	#package : 'EventRecorder',
+	#tag : 'Support'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 EREventPacking class >> default [
 	^ self ston
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 EREventPacking class >> ston [
 	^ ERSafeStonPacking new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventPacking >> buildAnnouncementFor: anEREventCollector [
 
 	| announcement |
@@ -47,7 +49,7 @@ EREventPacking >> buildAnnouncementFor: anEREventCollector [
 	^ anEREventCollector updateAnnouncement: announcement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventPacking >> currentSessionCreationTime [
 
 	| session |
@@ -57,7 +59,7 @@ EREventPacking >> currentSessionCreationTime [
 		  ifFalse: [ nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventPacking >> currentSessionUUID [
 
 	| session |
@@ -67,23 +69,23 @@ EREventPacking >> currentSessionUUID [
 		  ifFalse: [ session identityHash asString ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventPacking >> materialize: aByteArray [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventPacking >> migrations: anObject [ 
 	"Ignore by default. Subclasses can overwrite it."
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventPacking >> newAnnouncementFor: anEventCollector [
 
 	^self buildAnnouncementFor: anEventCollector
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventPacking >> pack: anEREventCollector [
 
 	^ anEREventCollector newBundleForPacking
@@ -91,28 +93,28 @@ EREventPacking >> pack: anEREventCollector [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventPacking >> packCollector: anEventCollector [
 	^ self serialize: (self newAnnouncementFor: anEventCollector)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 EREventPacking >> serialize: anObject [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventPacking >> technologyName [
 	"It returns a string that identify packing technology."
 	^ self subclassResponsibility
 ]
 
-{ #category : #packing }
+{ #category : 'packing' }
 EREventPacking >> unpack: aByteArray [
 	^ self materialize: aByteArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 EREventPacking >> version [
 	^ 4
 	
