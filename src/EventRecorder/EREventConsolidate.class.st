@@ -34,7 +34,7 @@ EREventConsolidate >> consolidated [
 					url: eachCollector url;
 					category: eachCollector category;
 					yourself ].
-		eachCollector bundle do: [ :eachEvent |
+		eachCollector flushAndCollectedData do: [ :eachEvent |
 			targetCollector add: eachEvent ] ].
 	^ consolidatedCollectors values asArray
 ]

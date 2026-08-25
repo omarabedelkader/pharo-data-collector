@@ -21,7 +21,7 @@ PXEventConsolidate >> consolidated [
 			at: (self consolidationKeyFor: eachCollector)
 			ifAbsentPut: [ eachCollector ].
 		targetCollector == eachCollector ifFalse: [
-			eachCollector bundle do: [ :eachEvent |
+			eachCollector flushAndCollectedData do: [ :eachEvent |
 				targetCollector add: eachEvent ] ] ].
 	^ consolidatedCollectors values asArray
 ]

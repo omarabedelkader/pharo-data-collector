@@ -88,21 +88,6 @@ EREventCollector >> addIfAvailable: anEvent [
 	^ self add: anEvent
 ]
 
-{ #category : 'actions' }
-EREventCollector >> bundle [
-	"It returns all collected events that are supposed to be sent. If you need to send just a portion of the collected events, this is the place to overwrite."
-	
-	^ self bundle: OrderedCollection new.
-]
-
-{ #category : 'actions' }
-EREventCollector >> bundle: aCollection [
-	"bundle and flush collection into the argument"
-	
-	recordedEvents flush: [ :eachEvent | aCollection addLast: eachEvent ].
-	^ aCollection
-]
-
 { #category : 'accessing' }
 EREventCollector >> category [
 	^ category ifNil: [ category := self defaultCategory ]
@@ -125,6 +110,21 @@ EREventCollector >> defaultCategory [
 EREventCollector >> flush [
 	"Discard all currently queued events."
 	recordedEvents flush
+]
+
+{ #category : 'actions' }
+EREventCollector >> flushAndCollectedData [
+	"It returns all collected events that are supposed to be sent. If you need to send just a portion of the collected events, this is the place to overwrite."
+	
+	^ self flushDataInto: OrderedCollection new
+]
+
+{ #category : 'actions' }
+EREventCollector >> flushDataInto: aCollection [
+	"bundle and flush collection into the argument"
+	
+	recordedEvents flush: [ :eachEvent | aCollection addLast: eachEvent ].
+	^ aCollection
 ]
 
 { #category : 'initialization' }

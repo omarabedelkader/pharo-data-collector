@@ -39,7 +39,7 @@ EREventConsolidateTest >> testAllCollectorsAreConsolidatedIntoOne [
 	consolidate collectors: collectors.
 	consolidated := consolidate consolidated.
 	self assert: consolidated size equals: 1.
-	self assert: consolidated first bundle asArray equals: data.
+	self assert: consolidated first flushAndCollectedData asArray equals: data.
 ]
 
 { #category : 'tests' }
@@ -51,7 +51,7 @@ EREventConsolidateTest >> testAllCollectorsWithDataDistributedDifferentlyAreCons
 	consolidate collectors: collectors.
 	consolidated := consolidate consolidated.
 	self assert: consolidated size equals: 1.
-	self assert: consolidated first bundle asArray equals: data.
+	self assert: consolidated first flushAndCollectedData asArray equals: data.
 ]
 
 { #category : 'tests' }
@@ -63,10 +63,10 @@ EREventConsolidateTest >> testCollectorsAreConsolidatedAccordingToURL [
 	consolidate collectors: collectors.
 	consolidated := consolidate consolidated.
 	self assert: consolidated size equals: 2.
-	self assert: consolidated first bundle asArray equals: {data first. data third}.
+	self assert: consolidated first flushAndCollectedData asArray equals: {data first. data third}.
 	self assert: consolidated first url equals: 'http://localhost/1' asZnUrl.
 	
-	self assert: consolidated second bundle asArray equals: {data second}.
+	self assert: consolidated second flushAndCollectedData asArray equals: {data second}.
 	self assert: consolidated second url equals: 'http://localhost/2' asZnUrl.
 ]
 
@@ -79,10 +79,10 @@ EREventConsolidateTest >> testCollectorsAreConsolidatedAccordinogToCategory [
 	consolidate collectors: collectors.
 	consolidated := consolidate consolidated.
 	self assert: consolidated size equals: 2.
-	self assert: consolidated first bundle asArray equals: {data first. data third}.
+	self assert: consolidated first flushAndCollectedData asArray equals: {data first. data third}.
 	self assert: consolidated first category equals: 'c1'.
 	
-	self assert: consolidated second bundle asArray equals: {data second}.
+	self assert: consolidated second flushAndCollectedData asArray equals: {data second}.
 	self assert: consolidated second category equals: 'c2'.
 	
 ]
