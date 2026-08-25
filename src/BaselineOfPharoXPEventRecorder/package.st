@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfPharoXPEventRecorder }
+Package { #name : 'BaselineOfPharoXPEventRecorder' }

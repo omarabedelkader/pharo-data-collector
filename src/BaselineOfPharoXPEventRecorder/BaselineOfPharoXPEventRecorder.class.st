@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfPharoXPEventRecorder,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfPharoXPEventRecorder
+	#name : 'BaselineOfPharoXPEventRecorder',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfPharoXPEventRecorder',
+	#package : 'BaselineOfPharoXPEventRecorder'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfPharoXPEventRecorder >> baseline: spec [
 
 	<baseline>
@@ -15,7 +16,7 @@ BaselineOfPharoXPEventRecorder >> baseline: spec [
 		self defineGroupsOn: spec ]
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfPharoXPEventRecorder >> defineDispatcherPackagesOn: spec [
 
 	spec package: 'Phex-Data-Dispatcher'.
@@ -26,7 +27,7 @@ BaselineOfPharoXPEventRecorder >> defineDispatcherPackagesOn: spec [
 			'EventRecorder-Tests' ) ]
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfPharoXPEventRecorder >> defineEventRecorderPackagesOn: spec [
 
 	spec package: 'EventRecorder'.
@@ -51,9 +52,6 @@ BaselineOfPharoXPEventRecorder >> defineEventRecorderPackagesOn: spec [
 		package: 'EventRecorder-Fuel-Tests'
 		with: [ spec requires: #( 'EventRecorder-Fuel' 'EventRecorder-Tests' ) ].
 	spec
-		package: 'EventRecorder-Help'
-		with: [ spec requires: #( 'EventRecorder' ) ].
-	spec
 		package: 'EventRecorder-Inspector'
 		with: [ spec requires: #( 'EventRecorder-LegacyTools' ) ].
 	spec
@@ -64,7 +62,7 @@ BaselineOfPharoXPEventRecorder >> defineEventRecorderPackagesOn: spec [
 		with: [ spec requires: #( 'EventRecorder-UI' ) ]
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 
 	spec
@@ -86,7 +84,6 @@ BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 			'EventRecorder-LegacyTools'
 			'EventRecorder-Fuel'
 			'EventRecorder-Fuel-Tests'
-			'EventRecorder-Help'
 			'EventRecorder-Inspector'
 			'EventRecorder-UI'
 			'EventRecorder-UI-Tests' );
@@ -94,7 +91,7 @@ BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 		group: 'all' with: #( 'Server' 'Dispatcher' 'Tests' 'Optional' )
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfPharoXPEventRecorder >> definePharoXPPackagesOn: spec [
 
 	spec
