@@ -40,10 +40,11 @@ ERPrivacySettings class >> cleanUp [
 { #category : 'settings' }
 ERPrivacySettings class >> privacySettingsOn: aBuilder [
 	<systemsettings>
+	
 	(aBuilder group: #privacy)
-		label: 'Privacy';
+		label: 'Send Diagnostics And Usage';
 		noOrdering;
-		description: 'All settings concerned with privacy'
+		description: 'All settings concerned with privacy when collecting coding sessions.'
 ]
 
 { #category : 'accessing' }
@@ -61,8 +62,9 @@ ERPrivacySettings class >> sendDiagnosticsAndUsageData: aBoolean [
 { #category : 'settings' }
 ERPrivacySettings class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 	<systemsettings>
+	
 	(aBuilder setting: #sendDiagnosticsAndUsageData)
-		label: 'Send diagnostics and usage data';
+		label: 'Send telemetric usage data only (acceptance/ignored completion suggestions)';
 		noOrdering;
 		description: 'Help the Pharo community improve its products and services by automatically sending diagnostic and usage data.';
 		default: false;
@@ -85,9 +87,9 @@ ERPrivacySettings class >> sendEntityNamesSettingsOn: aBuilder [
 	(aBuilder setting: #sendEntityNames)
 		label: 'Include package/class/method names';
 		noOrdering;
-		description: 'Help the Pharo community improve its tools by automatically sending package, class, or method names as part of the diagnostic and usage data, e.g., completed method selector, browsed classes, changed methods.';
+		description: 'Help the Pharo community improve its tools by automatically sending package, class, or method names as part of usage data, e.g., completed method selector, browsed classes, changed methods.';
 		default: false;
-		parent: #sendDiagnosticsAndUsageData
+		parent: #privacy
 ]
 
 { #category : 'accessing' }
@@ -108,7 +110,7 @@ ERPrivacySettings class >> sendSourceCodeSettingsOn: aBuilder [
 		noOrdering;
 		description: 'Help the Pharo community improve its products and services by automatically sending source code as part of the diagnostic and usage data, e.g., changed methods, browsed source code, written code snippets.';
 		default: false;
-		parent: #sendDiagnosticsAndUsageData
+		parent: #privacy
 ]
 
 { #category : 'accessing' }
@@ -126,7 +128,7 @@ ERPrivacySettings class >> stringUrl: aUrlString [
 { #category : 'accessing' }
 ERPrivacySettings class >> url [
 
-	^ url ifNil: [ url := 'http://localhost:8080/xp/events' asZnUrl ]
+	^ url ifNil: [ url := 'http://localhost:8008/xp/events' asZnUrl ]
 ]
 
 { #category : 'accessing' }
@@ -142,5 +144,6 @@ ERPrivacySettings class >> urlSettingsOn: aBuilder [
 	(aBuilder setting: #stringUrl)
 		target: self;
 		description: 'The default URL for the EventRecorder server.';
-		label: 'EventRecorder URL'
+		label: 'EventRecorder URL'; 
+		parent: #privacy
 ]
