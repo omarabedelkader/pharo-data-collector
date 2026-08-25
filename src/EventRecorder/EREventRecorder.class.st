@@ -151,8 +151,10 @@ EREventRecorder >> initialize [
 	super initialize.
 	privacy := [ ERPrivacySettings sendDiagnosticsAndUsageData ].
 	collectors := EREventCollectors new.
+
 	delivery := EREventDelivery new.
 	delivery recorder: self.
+
 	packing := EREventPacking default.
 	self canSendDiagnosticsAndUsageData
 			ifTrue: [ delivery offerPermission ]

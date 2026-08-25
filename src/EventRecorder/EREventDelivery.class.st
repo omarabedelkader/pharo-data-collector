@@ -55,15 +55,6 @@ EREventDelivery >> announcer [
 	^ self recorder ifNotNil: #announcer
 ]
 
-{ #category : 'delivery' }
-EREventDelivery >> bundles [
-	"This drains the delivery queue; callers must not use it for inspection."
-	| eventBundles |
-	eventBundles := OrderedCollection new.
-	queue flush: [ :eachEventBundle | eventBundles addLast: eachEventBundle ].
-	^ eventBundles
-]
-
 { #category : 'deactivation' }
 EREventDelivery >> deactivate [
 	^ mutex critical: [ | oldProcess |
@@ -77,7 +68,7 @@ EREventDelivery >> deactivate [
 { #category : 'delivery' }
 EREventDelivery >> deliver: aBoolean [
 	| bundles |
-	bundles := EREventMultiBundleFactory fromBundles: self bundles.
+	bundles := EREventMultiBundleFactory fromBundles: self flushAndCollectedData.
 	bundles do: [ :eachMultiBundle |
 		self deliver: eachMultiBundle signalProgress: aBoolean ]
 ]
@@ -104,6 +95,15 @@ EREventDelivery >> deliveryCycle [
 	delay wait.
 	delay := nil.
 	self hasPermission ifTrue: [ self packAndDeliver: false ]
+]
+
+{ #category : 'delivery' }
+EREventDelivery >> flushAndCollectedData [
+	"This drains the delivery queue; callers must not use it for inspection."
+	| eventBundles |
+	eventBundles := OrderedCollection new.
+	queue flush: [ :eachEventBundle | eventBundles addLast: eachEventBundle ].
+	^ eventBundles
 ]
 
 { #category : 'testing' }

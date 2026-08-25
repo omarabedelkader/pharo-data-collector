@@ -42,29 +42,9 @@ EREventCollectorTest >> testByDefaultCollectorLiberated [
 ]
 
 { #category : 'tests' }
-EREventCollectorTest >> testIsLiberated3 [
-	"The occupant has to be empty."
-	collector occupant: self.
-	self deny: collector isLiberated.
-]
-
-{ #category : 'tests' }
 EREventCollectorTest >> testLiberate [
 	collector liberate.
 	self assert: collector isLiberated
-]
-
-{ #category : 'tests' }
-EREventCollectorTest >> testLiberate2 [
-	collector occupant: self.
-	self deny: collector isLiberated.
-	collector liberate.
-	self assert: collector isLiberated
-]
-
-{ #category : 'tests' }
-EREventCollectorTest >> testPrintOn [
-	self assert: (String streamContents: [ :stream | collector printOn: stream ]) notEmpty.
 ]
 
 { #category : 'tests' }

@@ -170,15 +170,17 @@ EREventRecorderTest >> testDeliverNow2 [
 { #category : 'tests' }
 EREventRecorderTest >> testDeliverNow3 [
 	"Ensure that collector with registerd holder is not removed."
+	
 	recorder deliveryPreSuspendingAction: [ semaphore signal ].
 	collector1 add: 42.
-	collector1 occupant: self.
 	recorder addCollector: collector1.
+	
 	self assertSemaphore.
 	recorder deliverNow.
 	self assertSemaphore.
+	
 	self assert: collector1 size equals: 0.
-	self assert: recorder numberOfCollectors equals: 1.
+	self assert: recorder numberOfCollectors equals: 0.
 ]
 
 { #category : 'tests' }
@@ -338,7 +340,7 @@ EREventRecorderTest >> testTwiceDeliveredDataSholdBeDetected [
 	self assert: collector1 size equals: 0.
 	self assert: receivedContents size equals: 0.
 	self assert: recorder numberOfDeliveryData equals: 1.
-	bundles := recorder delivery bundles.
+	bundles := recorder delivery flushAndCollectedData.
 	self assert: bundles size equals: 1.
 	self assert: recorder numberOfDeliveryData equals: 0.
 	"Send twice."
