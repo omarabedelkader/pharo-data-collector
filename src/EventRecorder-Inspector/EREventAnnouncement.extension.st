@@ -1,36 +1,28 @@
 Extension { #name : 'EREventAnnouncement' }
 
 { #category : '*EventRecorder-Inspector' }
-EREventAnnouncement >> gtInspectorActionUnpackData [
-	<gtInspectorAction>
-	^ GLMGenericAction new
-		action: [ :composite |
-			composite selection: self unpackedData ];
-		icon: GLMUIThemeExtraIcons glamorousAdd;
-		condition: [ self data isNotNil ];
-		title: 'Unpack data'
-]
+EREventAnnouncement >> inspectionContents: aBuilder [
+	<inspectorPresentationOrder: 0 title: 'Contents'>
 
-{ #category : '*EventRecorder-Inspector' }
-EREventAnnouncement >> gtInspectorItems [
-	^ OrderedCollection withAll: self associations
-]
-
-{ #category : '*EventRecorder-Inspector' }
-EREventAnnouncement >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: -1>  
-	^ (composite table)
-		title: 'Info';
-		display: [ :anEvent | anEvent gtInspectorItems ];
-		children: [ :each | 
-			(each value isDictionary) 
-				ifTrue: [ each value associations ] 
-				ifFalse: [ (each value isArray and: [ each value allSatisfy: #isDictionary ])
-						ifTrue: [ each value collectWithIndex: [:x :i | i -> x ] ]
-						ifFalse: [ #() ] ] ];
-		column: 'Key' 
-			evaluated: [:each | GTObjectPrinter asTruncatedTextFrom: each key ];
-		column: 'Value' 
-			evaluated: [:each | GTObjectPrinter asTruncatedTextFrom: each value ];
-		showOnly: 50
+	| data |
+	data := self at: #data ifAbsent: [ '' ].
+	data class = ByteArray 
+		ifTrue: [ self at: #data put: (EREventUnpacking default unpack: data) first].
+	"Super ugly when we borwse we modifiy the object" 
+	^ aBuilder newTable
+		addStyle: 'stList';
+		addColumn: (SpStringTableColumn new
+			title: 'Key';
+			evaluated: [ :each | each key ];
+			formatted: [ :key | StObjectPrinter asTruncatedTextFrom: key ];
+			beSortable);
+		addColumn: (SpStringTableColumn new
+			title: 'Value';
+			evaluated: [ :each | each value ];
+			formatted: [ :value |
+			   StObjectPrinter asTruncatedTextFrom: value ];
+			beSortable);
+		items: (self associations collect: [ :e | 
+			StInspectorAssociationNode hostObject: e ]);
+		yourself
 ]
