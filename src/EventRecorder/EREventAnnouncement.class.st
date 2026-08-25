@@ -70,6 +70,12 @@ EREventAnnouncement >> at: key [
 ]
 
 { #category : 'accessing' }
+EREventAnnouncement >> at: key ifAbsent: aBlock [
+	^ self dictionary at: key ifAbsent: aBlock
+	
+]
+
+{ #category : 'accessing' }
 EREventAnnouncement >> at: key put: value [
 	^ self dictionary at: key put: value
 ]
