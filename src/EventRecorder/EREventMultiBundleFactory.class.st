@@ -41,7 +41,7 @@ EREventMultiBundleFactory >> synthetize: aSingleOrMultiBundle [
 
 { #category : 'visitor' }
 EREventMultiBundleFactory >> visitMultiBundle: aMultiBundle [
-	aMultiBundle flushAndCollectedData do: [ :eachSingleBundle |
+	aMultiBundle bundles do: [ :eachSingleBundle |
 		self visitSingleBundle: eachSingleBundle ]
 ]
 

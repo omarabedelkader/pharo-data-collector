@@ -34,7 +34,12 @@ EREventMultiBundle >> accept: aVisitor [
 
 { #category : 'adding' }
 EREventMultiBundle >> add: anEventBundle [ 
-	^ self flushAndCollectedData addLast: anEventBundle
+	^ self bundles addLast: anEventBundle
+]
+
+{ #category : 'accessing' }
+EREventMultiBundle >> bundles [
+	^ bundles ifNil: [ bundles := OrderedCollection new ]
 ]
 
 { #category : 'accessing' }
@@ -45,16 +50,11 @@ EREventMultiBundle >> entity [
 	^ entity
 ]
 
-{ #category : 'accessing' }
-EREventMultiBundle >> flushAndCollectedData [
-	^ bundles ifNil: [ bundles := OrderedCollection new ]
-]
-
 { #category : 'private' }
 EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [
 
 	bundles ifNil: [ ^ self ].
-	self flushAndCollectedData do: [ :eachEventBundle | 
+	self bundles do: [ :eachEventBundle | 
 		self
 			updateEntity: aZnMultiPartFormDataEntity
 			forSingleBundle: eachEventBundle ]

@@ -340,7 +340,7 @@ EREventRecorderTest >> testTwiceDeliveredDataSholdBeDetected [
 	self assert: collector1 size equals: 0.
 	self assert: receivedContents size equals: 0.
 	self assert: recorder numberOfDeliveryData equals: 1.
-	bundles := recorder delivery flushAndCollectedData.
+	bundles := recorder delivery bundles.
 	self assert: bundles size equals: 1.
 	self assert: recorder numberOfDeliveryData equals: 0.
 	"Send twice."

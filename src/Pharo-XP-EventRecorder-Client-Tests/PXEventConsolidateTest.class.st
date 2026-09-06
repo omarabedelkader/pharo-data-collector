@@ -31,7 +31,9 @@ PXEventConsolidateTest >> testCollectorsWithDifferentMetadataAreNotMerged [
 		consolidated.
 
 	self assert: consolidated size equals: 2.
-	self assert: (consolidated collect: #participantUUID) asSet size equals: 2
+	self 
+		assert: (consolidated collect: #participantUUID) asSet size 
+		equals: 2
 ]
 
 { #category : 'tests' }

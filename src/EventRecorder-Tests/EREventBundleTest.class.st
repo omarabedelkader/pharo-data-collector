@@ -25,12 +25,14 @@ EREventBundleTest >> setUp [
 { #category : 'tests' }
 EREventBundleTest >> testBundleDataIsIdenticalToItself [
 	"It is really important that it is the same object."
+	
 	bundle data: data.
 	self assert: bundle data == bundle data.
 ]
 
 { #category : 'tests' }
 EREventBundleTest >> testDataIsEncodedWhenRequestedAsEntity [
+
 	bundle data: data.
 	entity := bundle entity.
 	self assert: (entity isKindOf: ZnByteArrayEntity).

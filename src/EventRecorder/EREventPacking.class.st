@@ -36,7 +36,7 @@ EREventPacking >> buildAnnouncementFor: anEREventCollector [
 	| announcement |
 	announcement := anEREventCollector newAnnouncementForPacking.
 	announcement
-		data: (self serialize: anEREventCollector flushAndCollectedData);
+		data: (self serialize: anEREventCollector bundles);
 		serializedBy: self class name;
 		eventRecorderVersion: self version;
 		timestamp: DateAndTime now;

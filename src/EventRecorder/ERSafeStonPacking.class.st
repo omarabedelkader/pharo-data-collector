@@ -48,7 +48,6 @@ ERSafeStonPacking >> serialize: anObject [
 
 { #category : 'as yet unclassified' }
 ERSafeStonPacking >> trySerialize: aString callback: aBlock [
-
 	"aBlock is a closure with two parameters, the first is a boolean that tells if there were no errors, and the second is the result of the serialization"
 
 	| serialization success |

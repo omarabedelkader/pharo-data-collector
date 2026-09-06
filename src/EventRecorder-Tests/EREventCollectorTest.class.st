@@ -24,15 +24,17 @@ EREventCollectorTest >> testBundleActuallyCollectAndFlush [
 	| collected |
 	collector add: ERDummyEvent new.
 	collector add: ERDummyEvent new.
-	collected := collector flushAndCollectedData.
+	collected := collector bundles.
+	"bundles actually drain the events hence it is empty
+	when subsequently invoked."
 	self assert: collected size equals: 2.
-	self assert: collector flushAndCollectedData isEmpty.
+	self assert: collector bundles isEmpty.
 ]
 
 { #category : 'tests' }
 EREventCollectorTest >> testBundleOfANewCollectorIsEmpty [
 
-	self assert: collector flushAndCollectedData isEmpty
+	self assert: collector bundles isEmpty
 ]
 
 { #category : 'tests' }

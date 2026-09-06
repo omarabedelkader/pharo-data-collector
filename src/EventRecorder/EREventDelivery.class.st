@@ -55,6 +55,16 @@ EREventDelivery >> announcer [
 	^ self recorder ifNotNil: #announcer
 ]
 
+{ #category : 'delivery' }
+EREventDelivery >> bundles [
+	"This drains the delivery queue; callers must not use it for inspection."
+	
+	| eventBundles |
+	eventBundles := OrderedCollection new.
+	queue flush: [ :eachEventBundle | eventBundles addLast: eachEventBundle ].
+	^ eventBundles
+]
+
 { #category : 'deactivation' }
 EREventDelivery >> deactivate [
 	^ mutex critical: [ | oldProcess |
@@ -68,7 +78,7 @@ EREventDelivery >> deactivate [
 { #category : 'delivery' }
 EREventDelivery >> deliver: aBoolean [
 	| bundles |
-	bundles := EREventMultiBundleFactory fromBundles: self flushAndCollectedData.
+	bundles := EREventMultiBundleFactory fromBundles: self bundles.
 	bundles do: [ :eachMultiBundle |
 		self deliver: eachMultiBundle signalProgress: aBoolean ]
 ]
@@ -90,20 +100,12 @@ EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
 
 { #category : 'initialization' }
 EREventDelivery >> deliveryCycle [
+
 	delay := self standardDuration asDelay.
 	self announceSuspendingDelivery.
 	delay wait.
 	delay := nil.
 	self hasPermission ifTrue: [ self packAndDeliver: false ]
-]
-
-{ #category : 'delivery' }
-EREventDelivery >> flushAndCollectedData [
-	"This drains the delivery queue; callers must not use it for inspection."
-	| eventBundles |
-	eventBundles := OrderedCollection new.
-	queue flush: [ :eachEventBundle | eventBundles addLast: eachEventBundle ].
-	^ eventBundles
 ]
 
 { #category : 'testing' }
@@ -113,6 +115,7 @@ EREventDelivery >> hasPermission [
 
 { #category : 'initialization' }
 EREventDelivery >> initialize [
+
 	super initialize.
 	mutex := Mutex new.
 	queue := WaitfreeQueue new.
@@ -122,6 +125,7 @@ EREventDelivery >> initialize [
 
 { #category : 'initialization' }
 EREventDelivery >> initializeProcess [
+
 	process := [ [ self hasPermission ] whileTrue: [ self deliveryCycle ] ]
 		forkAt: Processor userBackgroundPriority
 		named: self printProcessName
@@ -135,7 +139,7 @@ EREventDelivery >> isActive [
 { #category : 'testing' }
 EREventDelivery >> isGlobalRecorder [
 	^ self recorder
-			ifNil: false
+			ifNil: [ false ]
 			ifNotNil: #isGlobalRecorder
 ]
 
@@ -166,6 +170,8 @@ EREventDelivery >> packAndDeliver: aBoolean [
 
 { #category : 'initialization' }
 EREventDelivery >> preSuspendingAction: aBlockClosure [
+	"Mainly used for tests."
+	
 	preSuspendingAction := aBlockClosure
 ]
 
