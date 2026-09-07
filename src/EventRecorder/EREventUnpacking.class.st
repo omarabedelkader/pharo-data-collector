@@ -66,6 +66,7 @@ EREventUnpacking >> safeUnpackDirectory: aFileReference [
 
 { #category : 'packing' }
 EREventUnpacking >> unpack: aByteArray [
+
 	| exceptions |
 	exceptions := OrderedCollection new: self packings size.
 	self packings do: [ :eachEventPacking |

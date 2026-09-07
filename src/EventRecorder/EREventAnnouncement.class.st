@@ -52,7 +52,7 @@ EREventAnnouncement class >> exampleEmptyAnnouncement [
 ]
 
 { #category : 'updating' }
-EREventAnnouncement >> addInfoFor: aRecorderEvent [
+EREventAnnouncement >> addInfoInto: aRecorderEvent [
 
 	dictionary keysAndValuesDo: [ :key :value |
 		key = #data ifFalse: [ 
@@ -114,7 +114,7 @@ EREventAnnouncement >> data: aByteArray [
 
 { #category : 'accessing' }
 EREventAnnouncement >> dictionary [
-	^ dictionary ifNil: [ dictionary := Dictionary new ]
+	^ dictionary
 ]
 
 { #category : 'accessing' }
@@ -131,7 +131,7 @@ EREventAnnouncement >> eventRecorderVersion: anObject [
 EREventAnnouncement >> events [
 	| events |
 	events := self unpackedData.
-	events do: [ :each | self addInfoFor: each ].
+	events do: [ :each | self addInfoInto: each ].
 	^ events
 ]
 
@@ -153,6 +153,13 @@ EREventAnnouncement >> imageVersion [
 { #category : 'accessing' }
 EREventAnnouncement >> imageVersion: anObject [
 	self at: #imageVersion put: anObject
+]
+
+{ #category : 'accessing' }
+EREventAnnouncement >> initialize [ 
+	
+	super initialize.
+	dictionary := Dictionary new
 ]
 
 { #category : 'accessing' }
@@ -178,7 +185,10 @@ EREventAnnouncement >> migrationRules: aCollectionOrNil [
 { #category : 'accessing' }
 EREventAnnouncement >> safeUnpackedData [
 	"On any error, returns empty collection"
-	^ [ self unpackedData ] on: Error do: [ #() ]
+	^ [ self unpackedData ] 
+			on: Error 
+			do: [ :e| Transcript show: 'Mayde we got an error when unpacking', self displayString. 
+						#() ]
 ]
 
 { #category : 'accessing' }

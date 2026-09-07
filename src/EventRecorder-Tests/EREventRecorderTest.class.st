@@ -84,6 +84,7 @@ EREventRecorderTest >> setUpServer [
 
 { #category : 'running' }
 EREventRecorderTest >> tearDown [
+
 	super tearDown.
 	recorder deactivateDelivery.
 	server stop.

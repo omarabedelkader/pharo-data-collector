@@ -1,6 +1,24 @@
 "
 I dispatch EventRecorder HTTP requests. Subclasses customize the handler,
 storage, directories, and route map through small factory/configuration hooks.
+
+By default 
+
+```
+
+	| okResponse |
+	okResponse := [ :request :response | ZnResponse ok: (ZnEntity text: 'OK - The event recorder server is running!') ].
+	dispatcher
+		map: '/' to: okResponse;
+		map: '/xp' to: okResponse;
+		map: '/xp/' to: okResponse;
+		map: '/xp/zip' to: zipHandler;
+		map: '/xp/zip/' to: zipHandler;
+		map: '/xp/events' to: putHandler;
+		map: '/xp/events/' to: putHandler;
+		yourself
+```
+
 "
 Class {
 	#name : 'EREventRecorderDelegate',
@@ -23,7 +41,7 @@ EREventRecorderDelegate >> dataDirectory: aFileReference [
 { #category : 'defaults' }
 EREventRecorderDelegate >> defaultDataDirectory [
 
-	^ FileLocator home / 'gt' / 'events'
+	^ FileLocator home / 'xp' / 'events'
 ]
 
 { #category : 'defaults' }
@@ -58,15 +76,15 @@ EREventRecorderDelegate >> initialize [
 EREventRecorderDelegate >> initializeDispatcher [
 
 	| okResponse |
-	okResponse := [ :request :response | ZnResponse ok: (ZnEntity text: 'OK') ].
+	okResponse := [ :request :response | ZnResponse ok: (ZnEntity text: 'OK - The event recorder server is running!') ].
 	dispatcher
 		map: '/' to: okResponse;
-		map: '/gt' to: okResponse;
-		map: '/gt/' to: okResponse;
-		map: '/gt/zip' to: zipHandler;
-		map: '/gt/zip/' to: zipHandler;
-		map: '/gt/events' to: putHandler;
-		map: '/gt/events/' to: putHandler;
+		map: '/xp' to: okResponse;
+		map: '/xp/' to: okResponse;
+		map: '/xp/zip' to: zipHandler;
+		map: '/xp/zip/' to: zipHandler;
+		map: '/xp/events' to: putHandler;
+		map: '/xp/events/' to: putHandler;
 		yourself
 ]
 
@@ -86,7 +104,7 @@ EREventRecorderDelegate >> initializeZipHandler [
 	zipHandler
 		fileDirectory: self defaultDataDirectory;
 		zipRootUrl: self defaultZipRootURL;
-		archiver: EREventRecorderExternalZipScript new
+		archiver: ERExternalZipScript new
 ]
 
 { #category : 'accessing' }

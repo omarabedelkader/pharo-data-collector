@@ -38,7 +38,7 @@ EREventRecorderDelegateTest >> setUp [
 	delegate putHandler directory: fileSystem workingDirectory / 'files'.
 	delegate zipHandler 
 		fileDirectory: fileSystem workingDirectory / 'files';
-		zipRootUrl: 'http://localhost/gt/zip' asZnUrl;
+		zipRootUrl: 'http://localhost/xp/zip' asZnUrl;
 		archiver: self.
 	server := EREventRecorderTestServer new.
 	server initializeUsingDelegate: delegate semaphore: serverSemaphore.
@@ -60,7 +60,7 @@ EREventRecorderDelegateTest >> tearDown [
 { #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromEvents [
 	| contents |
-	client path: '/gt/events'; get.
+	client path: '/xp/events'; get.
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.
@@ -70,27 +70,7 @@ EREventRecorderDelegateTest >> testHandleGetFromEvents [
 { #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromEvents2 [
 	| contents |
-	client path: '/gt/events/'; get.
-	self assert: client isSuccess.
-	contents := client response contents.
-	self assert: contents isString.
-	self assert: contents equals: 'OK'.
-]
-
-{ #category : 'tests' }
-EREventRecorderDelegateTest >> testHandleGetFromGT [
-	| contents |
-	client path: '/gt'; get.
-	self assert: client isSuccess.
-	contents := client response contents.
-	self assert: contents isString.
-	self assert: contents equals: 'OK'.
-]
-
-{ #category : 'tests' }
-EREventRecorderDelegateTest >> testHandleGetFromGT2 [
-	| contents |
-	client path: '/gt/'; get.
+	client path: '/xp/events/'; get.
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.
@@ -118,10 +98,30 @@ EREventRecorderDelegateTest >> testHandleGetFromRoot2 [
 ]
 
 { #category : 'tests' }
+EREventRecorderDelegateTest >> testHandleGetFromXP [
+	| contents |
+	client path: '/xp'; get.
+	self assert: client isSuccess.
+	contents := client response contents.
+	self assert: contents isString.
+	self assert: contents equals: 'OK'.
+]
+
+{ #category : 'tests' }
+EREventRecorderDelegateTest >> testHandleGetFromXP2 [
+	| contents |
+	client path: '/xp/'; get.
+	self assert: client isSuccess.
+	contents := client response contents.
+	self assert: contents isString.
+	self assert: contents equals: 'OK'.
+]
+
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromZip [
 	"It returns 404 if a category does not exist."
 	client 
-		path: '/gt/zip'; 
+		path: '/xp/zip'; 
 		queryAt: 'category' put: 'categoryOne';
 		enforceHttpSuccess: false;
 		get.
@@ -138,23 +138,23 @@ EREventRecorderDelegateTest >> testHandleGetFromZip2 [
 	directory ensureCreateDirectory.
 	client 
 		followRedirects: false;
-		path: '/gt/zip'; queryAt: 'category' put: 'categoryOne'; 
+		path: '/xp/zip'; queryAt: 'category' put: 'categoryOne'; 
 		get.
 	self assert: client isRedirect.
 	self assert: client response code equals: 302.
-	self assert: client response location equals: 'http://localhost/gt/zip/categoryOne.zip'.
+	self assert: client response location equals: 'http://localhost/xp/zip/categoryOne.zip'.
 ]
 
 { #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromZip3 [
 	"It returns 404 if a category is not specified."
 	client 
-		path: '/gt/zip'; 
+		path: '/xp/zip'; 
 		enforceHttpSuccess: false;
 		get.
 	self deny: client isSuccess.
 	self assert: client response code equals: 400.
-	self assert: client contents equals: '?category=<category-name> is missing in /gt/zip', String crlf
+	self assert: client contents equals: '?category=<category-name> is missing in /xp/zip', String crlf
 ]
 
 { #category : 'tests' }
@@ -163,7 +163,7 @@ EREventRecorderDelegateTest >> testHandlePut [
 	data := #[1 2 3 4].
 	entity := ZnByteArrayEntity bytes: data.
 	client
-		addPathSegment: 'gt';
+		addPathSegment: 'xp';
 		addPathSegment: 'events';
 		entity: entity;
 		put.
@@ -179,7 +179,7 @@ EREventRecorderDelegateTest >> testHandlePut2 [
 	data := #[1 2 3 4].
 	entity := ZnByteArrayEntity bytes: data.
 	client
-		path: 'gt/events/';
+		path: 'xp/events/';
 		entity: entity;
 		put.
 	self assert: client isSuccess.
@@ -199,7 +199,7 @@ EREventRecorderDelegateTest >> testHandlePutOfEventRecorder [
 	recorder offerPrivacy.
 	collector := EREventCollector new.
 	collector url: (server url
-		addPathSegment: 'gt';
+		addPathSegment: 'xp';
 		addPathSegment: 'events';
 		yourself).
 	collector category: #testingCategory.

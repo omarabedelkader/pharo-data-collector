@@ -49,34 +49,35 @@ EREventCollectorsTest >> testByDefaultCollectorsAreEmpty [
 ]
 
 { #category : 'tests' }
-EREventCollectorsTest >> testDo2 [
+EREventCollectorsTest >> testEnsureCollectorAreIteratedInAdditionOrder [
 	"Ensure that collectors are iterated in the same order as they are added."
-	| collector1 collector2 interatedCollectors |
+	
+	| collector1 collector2 iteratedCollectors |
 	collector1 := EREventCollector new.
 	collector2 := EREventCollector new.
-	collectors add: collector1.
 	collectors add: collector2.
-	interatedCollectors := OrderedCollection new.
-	collectors do: [ :eachCollector | interatedCollectors addLast: eachCollector ].
-	self assert: interatedCollectors size equals: 2.
-	self assert: interatedCollectors first == collector1.
-	self assert: interatedCollectors second == collector2.
+	collectors add: collector1.
+	iteratedCollectors := OrderedCollection new.
+	collectors do: [ :eachCollector | iteratedCollectors addLast: eachCollector ].
+	self assert: iteratedCollectors size equals: 2.
+	self assert: iteratedCollectors first == collector2.
+	self assert: iteratedCollectors second == collector1.
 	
 ]
 
 { #category : 'tests' }
-EREventCollectorsTest >> testEnsureCollectorAreIteratedInAdditionOrder [
+EREventCollectorsTest >> testEnsureCollectorAreIteratedInAdditionOrder2 [
 	"Ensure that collectors are iterated in the same order as they are added."
 	
-	| collector1 collector2 interatedCollectors |
+	| collector1 collector2 iteratedCollectors |
 	collector1 := EREventCollector new.
 	collector2 := EREventCollector new.
-	collectors add: collector2.
 	collectors add: collector1.
-	interatedCollectors := OrderedCollection new.
-	collectors do: [ :eachCollector | interatedCollectors addLast: eachCollector ].
-	self assert: interatedCollectors size equals: 2.
-	self assert: interatedCollectors first == collector2.
-	self assert: interatedCollectors second == collector1.
+	collectors add: collector2.
+	iteratedCollectors := OrderedCollection new.
+	collectors do: [ :eachCollector | iteratedCollectors addLast: eachCollector ].
+	self assert: iteratedCollectors size equals: 2.
+	self assert: iteratedCollectors first == collector1.
+	self assert: iteratedCollectors second == collector2.
 	
 ]

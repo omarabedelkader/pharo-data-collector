@@ -68,17 +68,17 @@ EREventTool >> defaultDownloadDirectory [
 
 { #category : 'configuration' }
 EREventTool >> defaultDownloadFilename [
-	^ self defaultDownloadDirectory / 'gt-events.zip'
+	^ self defaultDownloadDirectory / 'xp-events.zip'
 ]
 
 { #category : 'configuration' }
 EREventTool >> defaultEventsDirectory [
-	^ self defaultDownloadDirectory / 'gt' / 'events'
+	^ self defaultDownloadDirectory / 'xp' / 'events'
 ]
 
 { #category : 'private' }
 EREventTool >> defaultUrl [
-	^ 'http://gc.dcc.uchile.cl/gt-events.zip'
+	^ 'http://gc.dcc.uchile.cl/xp-events.zip'
 ]
 
 { #category : 'api' }
@@ -145,9 +145,11 @@ EREventTool >> unpackAll [
 
 { #category : 'api' }
 EREventTool >> unpackAll: aFileReference [
-	"self default unpackAll: './gt/events' asFileReference.
-	self default unpackAll: './gt/events/roassal2Examples' asFileReference.
-	" 
+	"
+	self default unpackAll: './xp/events' asFileReference.
+	self default unpackAll: './xp/events/roassal2Examples' asFileReference.
+	"
+	 
 	self ensureLocalDirectory.
 	^ EREventUnpacking default safeUnpackDirectory: aFileReference.
 ]

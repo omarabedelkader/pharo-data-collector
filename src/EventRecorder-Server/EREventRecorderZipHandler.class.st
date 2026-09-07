@@ -1,5 +1,5 @@
 "
-I know how to handle GET request on /gt/zip?category=categoryName path.
+I know how to handle GET request on /xp/zip?category=categoryName path.
 I compress the given category directory and return corresponding ZIP file URL as a HTTP redirect response.
 
 See value:value: method. This is an entry point to a corresponding HTTP request.
@@ -22,7 +22,7 @@ Class {
 { #category : 'accessing' }
 EREventRecorderZipHandler >> archiver [
 	"Return an object that is responsible for compressing files."
-	^ archiver ifNil: [ archiver := EREventRecorderExternalZipScript new ]
+	^ archiver ifNil: [ archiver := ERExternalZipScript new ]
 ]
 
 { #category : 'accessing' }

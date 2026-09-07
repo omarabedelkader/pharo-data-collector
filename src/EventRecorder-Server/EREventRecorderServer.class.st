@@ -11,7 +11,8 @@ Class {
 
 { #category : 'accessing' }
 EREventRecorderServer class >> start [
-	"self start"
+	<script>
+	
 	(ZnServer startDefaultOn: 8080)
 		route: 'Default EventRecorder-Server';
 		delegate: EREventRecorderDelegate new.
@@ -19,7 +20,7 @@ EREventRecorderServer class >> start [
 
 { #category : 'accessing' }
 EREventRecorderServer class >> stop [
-	"self stop"
+	<script>
 	ZnServer stopDefault
 ]
 

@@ -4,14 +4,14 @@ I use a Bash script, ZIP and some other Linux commands.
 
 "
 Class {
-	#name : 'EREventRecorderExternalZipScript',
+	#name : 'ERExternalZipScript',
 	#superclass : 'Object',
 	#category : 'EventRecorder-Server',
 	#package : 'EventRecorder-Server'
 }
 
 { #category : 'public' }
-EREventRecorderExternalZipScript >> compress: aFileReference [ 
+ERExternalZipScript >> compress: aFileReference [ 
 	"Compress aFileReference directory and return ZIP file name."
 	| command |
 	command := 'compress-category.sh {1}' format: { aFileReference basename asString }.
@@ -20,7 +20,7 @@ EREventRecorderExternalZipScript >> compress: aFileReference [
 ]
 
 { #category : 'accessing' }
-EREventRecorderExternalZipScript >> script [
+ERExternalZipScript >> script [
 	"This is an expected compress-category.sh content."
 '
 #!/bin/bash
@@ -55,7 +55,7 @@ cd "$HOME" \
 ]
 
 { #category : 'private' }
-EREventRecorderExternalZipScript >> system: command [
+ERExternalZipScript >> system: command [
 	"Call external command."
 	^ self ffiCall: #(#int #system #(#char #* #command)) module: LibC
 ]

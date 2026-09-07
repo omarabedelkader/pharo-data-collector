@@ -10,12 +10,15 @@ Class {
 
 { #category : 'accessing' }
 EREventRecorderFileStorage >> atCategory: aString put: aByteArray [
+
 	| subDirectory date monthDirectoryName monthDirectory fileName file |
 	subDirectory := (self directory / aString) ensureCreateDirectory; yourself.
 	date := Date today.
+
 	monthDirectoryName := date year printString, (date month index printStringBase: 10 nDigits: 2).
 	monthDirectory := subDirectory / monthDirectoryName.
 	monthDirectory ensureCreateDirectory.
+
 	fileName := UUID new printString.
 	file := monthDirectory / fileName.
 	file exists ifTrue: [ 
