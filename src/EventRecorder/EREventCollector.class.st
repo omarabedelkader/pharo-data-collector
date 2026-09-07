@@ -135,14 +135,9 @@ EREventCollector >> initialize [
 
 { #category : 'testing' }
 EREventCollector >> isLiberated [
-	"Answer whether I no longer have an occupant or queued events."
-	^ self registry isLiberated and: [ recordedEvents isEmpty ]
-]
+	"Answer whether I no longer queued events."
 
-{ #category : 'actions' }
-EREventCollector >> liberate [
-	"Liberate me from the occupant so I can be removed from EREventRecorder object in the next delivery cycle."
-	^ self registry liberate.
+	^ recordedEvents isEmpty 
 ]
 
 { #category : 'packing' }
@@ -175,14 +170,6 @@ EREventCollector >> newBundleForPacking [
 		url: self url;
 		category: self category.
 	^ bundle
-]
-
-{ #category : 'accessing' }
-EREventCollector >> occupant: anObject [
-	"Hold the producer weakly so this collector does not extend its lifetime."
-	
-	self flag: #SD. "no sender so it looks like the registry is useless too"
-	self registry object: anObject
 ]
 
 { #category : 'printing' }

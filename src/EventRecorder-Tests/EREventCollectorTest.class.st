@@ -44,12 +44,6 @@ EREventCollectorTest >> testByDefaultCollectorLiberated [
 ]
 
 { #category : 'tests' }
-EREventCollectorTest >> testLiberate [
-	collector liberate.
-	self assert: collector isLiberated
-]
-
-{ #category : 'tests' }
 EREventCollectorTest >> testUpdateAnnouncement [
 	"update announcement is a hook to be able to add information into the information sent to the server."
 	
