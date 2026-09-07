@@ -1,14 +1,33 @@
 Extension { #name : 'EREventAnnouncement' }
 
 { #category : '*EventRecorder-Inspector' }
+EREventAnnouncement >> inspectData: aBuilder [
+	<inspectorPresentationOrder: 0 title: 'Data'>
+
+	
+	^ aBuilder newCode
+		addStyle: 'stCode';
+		withoutSyntaxHighlight;
+		text: self unpackedData displayString;
+		yourself.
+	
+]
+
+{ #category : '*EventRecorder-Inspector' }
+EREventAnnouncement >> inspectDataContext: aContext [
+	
+	^ aContext active: self data isNotNil
+]
+
+{ #category : '*EventRecorder-Inspector' }
 EREventAnnouncement >> inspectionContents: aBuilder [
-	<inspectorPresentationOrder: 0 title: 'Contents'>
+	<inspectorPresentation: 10 title: 'Contents'>
 
 	| data |
 	data := self at: #data ifAbsent: [ '' ].
 	data class = ByteArray 
 		ifTrue: [ self at: #data put: (EREventUnpacking default unpack: data) first].
-	"Super ugly when we borwse we modifiy the object" 
+	"Super ugly when we browse we modifiy the object" 
 	^ aBuilder newTable
 		addStyle: 'stList';
 		addColumn: (SpStringTableColumn new

@@ -35,6 +35,7 @@ EREventPackingTest >> assertBundle [
 
 { #category : 'asserting' }
 EREventPackingTest >> assertUnpackedData [
+
 	unpackedData := announcement unpackedData.
 	self assert: unpackedData size equals: 2.
 	self assert: unpackedData first equals: event1.

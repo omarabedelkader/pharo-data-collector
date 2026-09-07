@@ -33,11 +33,13 @@ Class {
 { #category : 'examples' }
 EREventAnnouncement class >> exampleAnnouncement [
 	<sampleInstance>
+	"this is not a correct instance because data should be packed."
 	^ self new
 			data: #[ 1 2 3 4 ];
 			timestamp: DateAndTime now;
 			imageHash: SmalltalkImage current imagePath hash;
-			sessionCreationTime: SmalltalkImage current session creationTime;
+			"SmalltalkImage current session creationTime does not exist in P14"
+			sessionCreationTime: DateAndTime now;
 			imageVersion: SystemVersion current version;
 			latestUpdate: SystemVersion current highestUpdate;
 			yourself

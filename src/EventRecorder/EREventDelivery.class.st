@@ -98,6 +98,16 @@ EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
 			response)
 ]
 
+{ #category : 'delivery' }
+EREventDelivery >> deliverWithSignalProgress: aBoolean [
+	| bundles |
+	bundles := EREventMultiBundleFactory fromBundles: self bundles.
+	bundles do: [ :eachMultiBundle |
+		self 
+			deliver: eachMultiBundle 
+			signalProgress: aBoolean ]
+]
+
 { #category : 'initialization' }
 EREventDelivery >> deliveryCycle [
 
@@ -105,7 +115,7 @@ EREventDelivery >> deliveryCycle [
 	self announceSuspendingDelivery.
 	delay wait.
 	delay := nil.
-	self hasPermission ifTrue: [ self packAndDeliver: false ]
+	self hasPermission ifTrue: [ self packAndDeliverWithSignalProgress: false ]
 ]
 
 { #category : 'testing' }
@@ -138,6 +148,7 @@ EREventDelivery >> isActive [
 
 { #category : 'testing' }
 EREventDelivery >> isGlobalRecorder [
+	self flag: #SD. "I do not get the ifNotNil: branch"
 	^ self recorder
 			ifNil: [ false ]
 			ifNotNil: #isGlobalRecorder
@@ -163,9 +174,9 @@ EREventDelivery >> offerPermission [
 ]
 
 { #category : 'delivery' }
-EREventDelivery >> packAndDeliver: aBoolean [
+EREventDelivery >> packAndDeliverWithSignalProgress: aBoolean [
 	recorder pack.
-	self deliver: aBoolean
+	self deliverWithSignalProgress: aBoolean
 ]
 
 { #category : 'initialization' }
