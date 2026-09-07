@@ -53,7 +53,6 @@ Class {
 		'url',
 		'category',
 		'recordedEvents',
-		'registry',
 		'updateAnnouncementBlock'
 	],
 	#category : 'EventRecorder-Core',
@@ -188,12 +187,6 @@ EREventCollector >> printOn: aStream [
 EREventCollector >> register [
 	"Register with the global EventRecorder instance."
 	EREventRecorder uniqueInstance addCollector: self.
-]
-
-{ #category : 'accessing' }
-EREventCollector >> registry [
-	"Answer the weak registry that tracks my producer."
-	^ registry ifNil: [ registry := EREventRegistry new ]
 ]
 
 { #category : 'accessing' }
