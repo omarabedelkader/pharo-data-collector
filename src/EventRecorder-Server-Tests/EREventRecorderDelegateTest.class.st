@@ -24,6 +24,12 @@ EREventRecorderDelegateTest >> assertLocation: location input: input [
 	self assert: output equals: input
 ]
 
+{ #category : 'tests' }
+EREventRecorderDelegateTest >> assertOk: contents [
+
+	self assert: contents equals: 'OK - The event recorder server is running!'.
+]
+
 { #category : 'private' }
 EREventRecorderDelegateTest >> compress: aFileReference [
 	^ (aFileReference basename, '.zip')
@@ -84,7 +90,7 @@ EREventRecorderDelegateTest >> testHandleGetFromRoot [
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.
-	self assert: contents equals: 'OK'.
+	
 ]
 
 { #category : 'tests' }
@@ -94,7 +100,7 @@ EREventRecorderDelegateTest >> testHandleGetFromRoot2 [
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.
-	self assert: contents equals: 'OK'.
+	self assertOk: contents
 ]
 
 { #category : 'tests' }
@@ -104,7 +110,7 @@ EREventRecorderDelegateTest >> testHandleGetFromXP [
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.
-	self assert: contents equals: 'OK'.
+	self assertOk: contents
 ]
 
 { #category : 'tests' }
@@ -114,7 +120,7 @@ EREventRecorderDelegateTest >> testHandleGetFromXP2 [
 	self assert: client isSuccess.
 	contents := client response contents.
 	self assert: contents isString.
-	self assert: contents equals: 'OK'.
+	self assertOk: contents
 ]
 
 { #category : 'tests' }
