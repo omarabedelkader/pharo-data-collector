@@ -50,11 +50,11 @@ EREventAnnouncement class >> exampleEmptyAnnouncement [
 ]
 
 { #category : 'updating' }
-EREventAnnouncement >> addInfoFor: aRecorderEvent [ 
-	(aRecorderEvent respondsTo: #infoAt:put:) ifTrue: [
-		dictionary keysAndValuesDo: [ :key :value |
-			key = #data ifFalse: [ 
-				aRecorderEvent infoAt: key put: value ] ] ]
+EREventAnnouncement >> addInfoFor: aRecorderEvent [
+
+	dictionary keysAndValuesDo: [ :key :value |
+		key = #data ifFalse: [ 
+			aRecorderEvent infoAt: key put: value ] ]
 ]
 
 { #category : 'converting' }

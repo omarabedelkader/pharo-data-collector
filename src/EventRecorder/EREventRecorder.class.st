@@ -143,7 +143,8 @@ EREventRecorder >> eventConsolidatorClass [
 { #category : 'packing' }
 EREventRecorder >> flush [
 	"Discard all events currently queued by registered collectors."
-	collectors do: #flush
+	
+	collectors do: [:each | each flush]
 ]
 
 { #category : 'initialization' }
