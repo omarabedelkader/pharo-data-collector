@@ -180,6 +180,8 @@ EREventCollector >> newBundleForPacking [
 { #category : 'accessing' }
 EREventCollector >> occupant: anObject [
 	"Hold the producer weakly so this collector does not extend its lifetime."
+	
+	self flag: #SD. "no sender so it looks like the registry is useless too"
 	self registry object: anObject
 ]
 

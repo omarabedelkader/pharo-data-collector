@@ -1,5 +1,15 @@
 "
-I coordinate collectors, packing, privacy, and delivery. Collectors queue events; the packing strategy serializes them into bundles; and the delivery service sends those bundles to their configured endpoints. The class-side #uniqueInstance provides the global recorder used by registered collectors.
+I'm the central object of the client side event recording and publishing process.
+
+I coordinate collectors, packing, privacy, and delivery. 
+- Collectors (instance of EREventCollector) queue events; 
+- the packing strategy (instance of ERPacking) serializes them into bundles; 
+- and the delivery service (instance of ERDelivery) sends those bundles to their configured endpoints. 
+
+The class-side #uniqueInstance provides the global recorder used by registered collectors.
+
+- Collectors should register to me 
+
 
 Public API and Key Messages
 
@@ -38,11 +48,13 @@ Class {
 
 { #category : 'cleanup' }
 EREventRecorder class >> cleanUp [
-	self reset.
+
+	self reset
 ]
 
 { #category : 'initialization' }
 EREventRecorder class >> initializeUniqueInstance [
+
 	uniqueInstance ifNotNil: [ ^ uniqueInstance ].
 	uniqueInstance := self new.
 	self registerInterestToSystemAnnouncement.
@@ -51,8 +63,9 @@ EREventRecorder class >> initializeUniqueInstance [
 
 { #category : 'testing' }
 EREventRecorder class >> isGlobalRecorder: anEventRecorder [
+
 	^ uniqueInstance
-			ifNil: false
+			ifNil: [ false ]
 			ifNotNil: [ :anInstance | anInstance == anEventRecorder ]
 ]
 
@@ -72,6 +85,7 @@ EREventRecorder class >> registerInterestToSystemAnnouncement [
 { #category : 'initialization' }
 EREventRecorder class >> reset [
 	"Stop delivery, unsubscribe from system announcements, and discard the global recorder."
+	
 	uniqueInstance ifNil: [ ^ self ].
 	SystemAnnouncer uniqueInstance unsubscribe: uniqueInstance.
 	uniqueInstance deactivateDelivery ifNotNil: [ :aProcess |
@@ -81,6 +95,7 @@ EREventRecorder class >> reset [
 
 { #category : 'accessing' }
 EREventRecorder class >> uniqueInstance [
+
 	uniqueInstance ifNil: [ self initializeUniqueInstance ].
 	^ uniqueInstance
 ]
@@ -217,6 +232,8 @@ EREventRecorder >> privacyChanged [
 
 { #category : 'removing' }
 EREventRecorder >> removeCollector: anEventCollector [
+	"When the last collector is removed, the delivery is deactivated."
+	
 	| removedCollector |
 	removedCollector := collectors remove: anEventCollector.
 	collectors size = 0 ifTrue: [ self deactivateDelivery ].
