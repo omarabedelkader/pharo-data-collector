@@ -44,6 +44,7 @@ EREventDeliveryTest >> testPrintOn [
 
 { #category : 'tests' }
 EREventDeliveryTest >> testPrintOn2 [
+
 	| string |
 	delivery recorder: self.
 	delivery preSuspendingAction: [ semaphore signal ].

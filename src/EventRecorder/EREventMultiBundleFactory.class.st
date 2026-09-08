@@ -1,5 +1,5 @@
 "
-I know how to create EREventMultiBundle object from a collection of EREventBundle objects.
+I know how to create an `EREventMultiBundle` object from a collection of `EREventBundle` objects.
 "
 Class {
 	#name : 'EREventMultiBundleFactory',
@@ -23,7 +23,8 @@ EREventMultiBundleFactory class >> fromBundles: aCollection [
 ]
 
 { #category : 'public' }
-EREventMultiBundleFactory >> fromBundles: aCollection [ 
+EREventMultiBundleFactory >> fromBundles: aCollection [
+
 	multiBundles := OrderedDictionary new.
 	aCollection do: [ :aSingleOrMultiBundle | self synthetize: aSingleOrMultiBundle.].
 	^ self multiBundles
@@ -31,25 +32,29 @@ EREventMultiBundleFactory >> fromBundles: aCollection [
 
 { #category : 'accessing' }
 EREventMultiBundleFactory >> multiBundles [
+
 	^ multiBundles asOrderedCollection
 ]
 
 { #category : 'private' }
 EREventMultiBundleFactory >> synthetize: aSingleOrMultiBundle [
+
 	aSingleOrMultiBundle accept: self
 ]
 
 { #category : 'visitor' }
 EREventMultiBundleFactory >> visitMultiBundle: aMultiBundle [
+
 	aMultiBundle bundles do: [ :eachSingleBundle |
 		self visitSingleBundle: eachSingleBundle ]
 ]
 
 { #category : 'visitor' }
 EREventMultiBundleFactory >> visitSingleBundle: aSingleBundle [
+
 	| multiBundle |
 	multiBundle := multiBundles 
-							at: aSingleBundle url 
-							ifAbsentPut: [ aSingleBundle newMultiBundle url: aSingleBundle url; yourself ].
+		at: aSingleBundle url 
+		ifAbsentPut: [ aSingleBundle newMultiBundle url: aSingleBundle url; yourself ].
 	multiBundle add: aSingleBundle
 ]

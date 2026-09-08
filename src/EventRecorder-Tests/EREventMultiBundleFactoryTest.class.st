@@ -46,13 +46,40 @@ EREventMultiBundleFactoryTest >> setUp [
 ]
 
 { #category : 'tests' }
-EREventMultiBundleFactoryTest >> testFromBundles2 [
-	"#fromBundles: can also receive MultiBundle object. It should be consolidate too."
+EREventMultiBundleFactoryTest >> testFromBundlesAcceptBundlesMixedWithMultipleBundles [
+	"#fromBundles: can also receive MultiBundle object. It should be consolidated too."
+	
+	multiBundles := factory fromBundles: self allBundles.
+	multiBundles := factory fromBundles: (multiBundles copy
+		addAll: self allBundles;
+		yourself).
+	self assert: multiBundles size equals: 2.
+	self detectEvents.
+	self assert: multiBundle1 url equals: bundle1 url.
+	self deny: multiBundle1 bundles isEmpty.
+	self assert: multiBundle2 url equals: bundle4 url.
+	self deny: multiBundle2 bundles isEmpty.
+	self assert: multiBundle1 bundles size equals: 6.
+	self assert: multiBundle2 bundles size equals: 2.
+	self assert: multiBundle1 bundles first equals: bundle1.
+	self assert: multiBundle1 bundles second equals: bundle2.
+	self assert: multiBundle1 bundles third equals: bundle3.
+	self assert: multiBundle1 bundles fourth equals: bundle1.
+	self assert: multiBundle1 bundles fifth equals: bundle2.
+	self assert: multiBundle1 bundles sixth equals: bundle3.
+	self assert: multiBundle2 bundles first equals: bundle4.
+	self assert: multiBundle2 bundles second equals: bundle4.
+
+]
+
+{ #category : 'tests' }
+EREventMultiBundleFactoryTest >> testFromBundlesAcceptBundlesMixedWithMultipleBundles2 [
+	"#fromBundles: can also receive MultiBundle object. It should be consolidated too."
 	
 	multiBundles := factory fromBundles: self allBundles.
 	multiBundles := factory fromBundles: (self allBundles copy asOrderedCollection
 		addAll: multiBundles;
-		yourself) asArray.
+		yourself).
 	self assert: multiBundles size equals: 2.
 	self detectEvents.
 	self assert: multiBundle1 url equals: bundle1 url.
@@ -73,48 +100,23 @@ EREventMultiBundleFactoryTest >> testFromBundles2 [
 ]
 
 { #category : 'tests' }
-EREventMultiBundleFactoryTest >> testFromBundles3 [
-	"#fromBundles: can also receive MultiBundle object. It should be consolidate too."
-	multiBundles := factory fromBundles: self allBundles.
-	multiBundles := factory fromBundles: (multiBundles copy asOrderedCollection
-		addAll: self allBundles;
-		yourself) asArray.
-	self assert: multiBundles size equals: 2.
-	self detectEvents.
-	self assert: multiBundle1 url equals: bundle1 url.
-	self deny: multiBundle1 bundles isEmpty.
-	self assert: multiBundle2 url equals: bundle4 url.
-	self deny: multiBundle2 bundles isEmpty.
-	self assert: multiBundle1 bundles size equals: 6.
-	self assert: multiBundle2 bundles size equals: 2.
-	self assert: multiBundle1 bundles first equals: bundle1.
-	self assert: multiBundle1 bundles second equals: bundle2.
-	self assert: multiBundle1 bundles third equals: bundle3.
-	self assert: multiBundle1 bundles fourth equals: bundle1.
-	self assert: multiBundle1 bundles fifth equals: bundle2.
-	self assert: multiBundle1 bundles sixth equals: bundle3.
-	self assert: multiBundle2 bundles first equals: bundle4.
-	self assert: multiBundle2 bundles second equals: bundle4.
-
-]
-
-{ #category : 'tests' }
-EREventMultiBundleFactoryTest >> testFromBundles4 [
-	"#fromBundles: can also receive MultiBundle object. It should be consolidate too."
+EREventMultiBundleFactoryTest >> testFromBundlesCanAcceptMultiBundleToo [
+	"#fromBundles: can also receive MultiBundle object. It should be consolidated too."
+	
 	multiBundles := factory fromBundles: self allBundles.
 	multiBundles := factory fromBundles: multiBundles.
 	self assert: multiBundles size equals: 2.
 	self detectEvents.
 	self assert: multiBundle1 url equals: bundle1 url.
-	self deny: multiBundle1 bundles isEmpty.
-	self assert: multiBundle2 url equals: bundle4 url.
-	self deny: multiBundle2 bundles isEmpty.
 	self assert: multiBundle1 bundles size equals: 3.
-	self assert: multiBundle2 bundles size equals: 1.
 	self assert: multiBundle1 bundles first equals: bundle1.
 	self assert: multiBundle1 bundles second equals: bundle2.
 	self assert: multiBundle1 bundles third equals: bundle3.
-	self assert: multiBundle2 bundles first equals: bundle4.
+	
+	
+	self assert: multiBundle2 url equals: bundle4 url.
+	self assert: multiBundle2 bundles size equals: 1.
+	self assert: multiBundle2 bundles first equals: bundle4
 
 ]
 

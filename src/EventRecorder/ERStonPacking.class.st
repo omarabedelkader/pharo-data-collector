@@ -1,5 +1,5 @@
 "
-I serialize or materialize objects using STON framework. Create instance of me calling EREventPacking ston.
+I serialize or materialize objects using STON framework. `EREventPacking ston` creates an instance of me.
 "
 Class {
 	#name : 'ERStonPacking',

@@ -33,7 +33,7 @@ EREventRecorderPutHandler >> isApplicationOctetStream: aZnRequest [
 EREventRecorderPutHandler >> isMultiPartFormData: aZnRequest [
 	^ aZnRequest hasEntity 
 		and: [ (aZnRequest contentType matches: ZnMimeType multiPartFormData)
-		and: [ (aZnRequest entity isEmpty not)
+		and: [ (aZnRequest entity isNotEmpty)
 		and: [ aZnRequest entity parts size even
 		and: [ self hasCategoryAndDataParts: aZnRequest entity parts ] ] ] ]
 ]
@@ -82,10 +82,12 @@ EREventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 	aZnRequest method = #GET	ifTrue: [ ^ ZnResponse ok: (ZnEntity text: 'OK') ].
 	aZnRequest method = #PUT ifFalse: [ badRequest value ].
 	(self isApplicationOctetStream: aZnRequest) ifTrue: [ 
-			[ key := self saveByteArray: aZnRequest entity bytes ] on: Error do: badRequest.
+			[ key := self saveByteArray: aZnRequest entity bytes ] 
+				on: Error do: badRequest.
 			^ ZnResponse created: key ].
 	(self isMultiPartFormData: aZnRequest) ifTrue: [ 
-			[ key := self saveMultiPartFormData: aZnRequest entity ] on: Error do: badRequest.
+			[ key := self saveMultiPartFormData: aZnRequest entity ] 
+				on: Error do: badRequest.
 			^ ZnResponse created: key ].
-	badRequest value.
+	badRequest value
 ]
