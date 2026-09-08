@@ -155,9 +155,9 @@ EREventAnnouncement >> imageVersion: anObject [
 	self at: #imageVersion put: anObject
 ]
 
-{ #category : 'accessing' }
-EREventAnnouncement >> initialize [ 
-	
+{ #category : 'initialization' }
+EREventAnnouncement >> initialize [
+
 	super initialize.
 	dictionary := Dictionary new
 ]
@@ -201,16 +201,6 @@ EREventAnnouncement >> serializedBy [
 { #category : 'accessing' }
 EREventAnnouncement >> serializedBy: anObject [
 	self at: #serializedBy put: anObject
-]
-
-{ #category : 'accessing' }
-EREventAnnouncement >> sessionCreationTime [
-	^ self at: #sessionCreationTime
-]
-
-{ #category : 'accessing' }
-EREventAnnouncement >> sessionCreationTime: anObject [
-	self at: #sessionCreationTime put: anObject
 ]
 
 { #category : 'accessing' }

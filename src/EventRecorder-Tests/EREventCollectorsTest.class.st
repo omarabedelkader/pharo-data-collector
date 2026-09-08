@@ -51,7 +51,7 @@ EREventCollectorsTest >> testByDefaultCollectorsAreEmpty [
 { #category : 'tests' }
 EREventCollectorsTest >> testEnsureCollectorAreIteratedInAdditionOrder [
 	"Ensure that collectors are iterated in the same order as they are added."
-	
+
 	| collector1 collector2 iteratedCollectors |
 	collector1 := EREventCollector new.
 	collector2 := EREventCollector new.
@@ -60,15 +60,14 @@ EREventCollectorsTest >> testEnsureCollectorAreIteratedInAdditionOrder [
 	iteratedCollectors := OrderedCollection new.
 	collectors do: [ :eachCollector | iteratedCollectors addLast: eachCollector ].
 	self assert: iteratedCollectors size equals: 2.
-	self assert: iteratedCollectors first == collector2.
-	self assert: iteratedCollectors second == collector1.
-	
+	self assert: iteratedCollectors first identicalTo: collector2.
+	self assert: iteratedCollectors second == collector1
 ]
 
 { #category : 'tests' }
 EREventCollectorsTest >> testEnsureCollectorAreIteratedInAdditionOrder2 [
 	"Ensure that collectors are iterated in the same order as they are added."
-	
+
 	| collector1 collector2 iteratedCollectors |
 	collector1 := EREventCollector new.
 	collector2 := EREventCollector new.
@@ -77,7 +76,6 @@ EREventCollectorsTest >> testEnsureCollectorAreIteratedInAdditionOrder2 [
 	iteratedCollectors := OrderedCollection new.
 	collectors do: [ :eachCollector | iteratedCollectors addLast: eachCollector ].
 	self assert: iteratedCollectors size equals: 2.
-	self assert: iteratedCollectors first == collector1.
-	self assert: iteratedCollectors second == collector2.
-	
+	self assert: iteratedCollectors first identicalTo: collector1.
+	self assert: iteratedCollectors second == collector2
 ]

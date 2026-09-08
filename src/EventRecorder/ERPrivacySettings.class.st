@@ -40,7 +40,7 @@ ERPrivacySettings class >> cleanUp [
 { #category : 'settings' }
 ERPrivacySettings class >> privacySettingsOn: aBuilder [
 	<systemsettings>
-	
+
 	(aBuilder group: #privacy)
 		label: 'Send Diagnostics And Usage';
 		noOrdering;
@@ -144,6 +144,6 @@ ERPrivacySettings class >> urlSettingsOn: aBuilder [
 	(aBuilder setting: #stringUrl)
 		target: self;
 		description: 'The default URL for the EventRecorder server.';
-		label: 'EventRecorder URL'; 
+		label: 'EventRecorder URL';
 		parent: #privacy
 ]

@@ -28,6 +28,7 @@ ERSafeStonPackingForTests >> failOnCounter: anObject [
 { #category : 'initialization' }
 ERSafeStonPackingForTests >> initialize [
 
+	super initialize.
 	failOnCounter := 0.
 	materializeCallCounter := 0
 ]

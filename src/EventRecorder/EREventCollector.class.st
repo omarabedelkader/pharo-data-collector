@@ -81,7 +81,7 @@ EREventCollector >> add: anEvent [
 { #category : 'adding' }
 EREventCollector >> addIfAvailable: anEvent [
 	"Add an event only when diagnostic and usage-data delivery is enabled."
-	
+
 	ERPrivacySettings sendDiagnosticsAndUsageData ifFalse: [ ^ anEvent ].
 	^ self add: anEvent
 ]
@@ -111,7 +111,7 @@ EREventCollector >> defaultCategory [
 	^ #unknown
 ]
 
-{ #category : 'accessing' }
+{ #category : 'adding' }
 EREventCollector >> flush [
 	"Discard all currently queued events."
 	recordedEvents flush

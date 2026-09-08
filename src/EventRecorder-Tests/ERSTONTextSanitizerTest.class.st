@@ -16,8 +16,7 @@ Class {
 ERSTONTextSanitizerTest >> setUp [
 
 	super setUp.
-	sanitizer := ERSTONTextSanitizer new.
-	
+	sanitizer := ERSTONTextSanitizer new
 ]
 
 { #category : 'test' }
@@ -35,7 +34,7 @@ ERSTONTextSanitizerTest >> testRemoveWideCharacters [
 
 	| wideString pureWideString |
 	wideString := 'byteStringPart' , (Character value: 1000) asString.
-	pureWideString := '' join: { 
+	pureWideString := '' join: {
 			                  (Character value: 1000).
 			                  (Character value: 1010).
 			                  (Character value: 2010).

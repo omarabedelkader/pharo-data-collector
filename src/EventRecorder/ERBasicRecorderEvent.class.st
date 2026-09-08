@@ -123,17 +123,6 @@ ERBasicRecorderEvent >> obfuscated: aBoolean [
 	^ self infoAt: #obfuscated put: aBoolean
 ]
 
-{ #category : 'accessing - announcement info' }
-ERBasicRecorderEvent >> sessionCreationTime [
-	^ self
-		  infoAt: #sessionCreationTime
-		  ifAbsent: [ | session |
-			  session := SmalltalkImage current session.
-			  (session respondsTo: #creationTime)
-				  ifTrue: [ session creationTime ]
-				  ifFalse: [ nil ] ]
-]
-
 { #category : 'accessing' }
 ERBasicRecorderEvent >> settings [
 	^ GlobalIdentifier uniqueInstance

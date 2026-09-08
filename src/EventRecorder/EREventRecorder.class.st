@@ -89,7 +89,11 @@ EREventRecorder class >> reset [
 	uniqueInstance ifNil: [ ^ self ].
 	SystemAnnouncer uniqueInstance unsubscribe: uniqueInstance.
 	uniqueInstance deactivateDelivery ifNotNil: [ :aProcess |
-			[ aProcess terminate ] on: Error do: [ "ignore error" ] ].
+			[ aProcess terminate ] 
+				on: Error 
+				do: [ :e | 
+					Transcript show: 'Resetting a recorder failed!' 
+					"ignore error" ] ]. 
 	uniqueInstance := nil.
 ]
 
@@ -233,7 +237,7 @@ EREventRecorder >> privacyChanged [
 { #category : 'removing' }
 EREventRecorder >> removeCollector: anEventCollector [
 	"When the last collector is removed, the delivery is deactivated."
-	
+
 	| removedCollector |
 	removedCollector := collectors remove: anEventCollector.
 	collectors size = 0 ifTrue: [ self deactivateDelivery ].

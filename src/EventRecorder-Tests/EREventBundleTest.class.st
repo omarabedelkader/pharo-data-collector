@@ -25,9 +25,9 @@ EREventBundleTest >> setUp [
 { #category : 'tests' }
 EREventBundleTest >> testBundleDataIsIdenticalToItself [
 	"It is really important that it is the same object."
-	
+
 	bundle data: data.
-	self assert: bundle data == bundle data.
+	self assert: bundle data identicalTo: bundle data
 ]
 
 { #category : 'tests' }

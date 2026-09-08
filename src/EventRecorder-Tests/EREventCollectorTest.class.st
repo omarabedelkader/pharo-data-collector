@@ -46,31 +46,30 @@ EREventCollectorTest >> testByDefaultCollectorLiberated [
 { #category : 'tests' }
 EREventCollectorTest >> testUpdateAnnouncement [
 	"update announcement is a hook to be able to add information into the information sent to the server."
-	
+
 	| announcement announcement2 |
-	collector updateAnnouncementBlock: [ :anAnnouncement | 
-		anAnnouncement at: #testUpdateAnnouncement put: 42 ].
-	
+	collector updateAnnouncementBlock: [ :anAnnouncement | anAnnouncement at: #testUpdateAnnouncement put: 42 ].
+
 	announcement := EREventAnnouncement new.
 	self assert: (announcement at: #testUpdateAnnouncement) isNil.
-	
+
 	announcement2 := collector updateAnnouncement: announcement.
-	self assert: announcement == announcement2.
-	self assert: (announcement at: #testUpdateAnnouncement) equals: 42.
+	self assert: announcement identicalTo: announcement2.
+	self assert: (announcement at: #testUpdateAnnouncement) equals: 42
 ]
 
 { #category : 'tests' }
 EREventCollectorTest >> testUrl [
 	self assert: collector url notNil.
-	self assert: collector url equals: ERPrivacySettings url.
+	self assert: collector url equals: ERPrivacySettings url
 ]
 
 { #category : 'tests' }
 EREventCollectorTest >> testWhenDataIsSetAndNotConsumedTheCollectorIsNotLiberated [
 	"The collection of events has to be empty."
-	
+
 	collector add: 42.
-	self deny: collector isLiberated.
+	self deny: collector isLiberated
 ]
 
 { #category : 'tests' }

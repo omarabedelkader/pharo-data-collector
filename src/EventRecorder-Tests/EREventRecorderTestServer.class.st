@@ -42,7 +42,7 @@ EREventRecorderTestServer >> server [
 	^ server
 ]
 
-{ #category : 'accessing' }
+{ #category : 'events' }
 EREventRecorderTestServer >> stop [
 	server stop
 ]

@@ -345,7 +345,7 @@ EREventRecorderTest >> testRemoveLastCollectorChangesDeliveryActivation [
 	recorder removeCollector: collector1.
 	self assert: recorder isDeliveryActive.
 	recorder removeCollector: collector2.
-	self deny: recorder isDeliveryActive.
+	self deny: recorder isDeliveryActive
 ]
 
 { #category : 'tests' }

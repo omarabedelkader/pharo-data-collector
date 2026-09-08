@@ -47,12 +47,12 @@ EREventDelivery >> add: anEventBundle [
 
 { #category : 'announce' }
 EREventDelivery >> announceSuspendingDelivery [
-	preSuspendingAction ifNotNil: #value
+	preSuspendingAction ifNotNil: [:p| p value]
 ]
 
 { #category : 'accessing' }
 EREventDelivery >> announcer [
-	^ self recorder ifNotNil: #announcer
+	^ self recorder ifNotNil: [:p | p announcer]
 ]
 
 { #category : 'delivery' }
@@ -76,14 +76,6 @@ EREventDelivery >> deactivate [
 ]
 
 { #category : 'delivery' }
-EREventDelivery >> deliver: aBoolean [
-	| bundles |
-	bundles := EREventMultiBundleFactory fromBundles: self bundles.
-	bundles do: [ :eachMultiBundle |
-		self deliver: eachMultiBundle signalProgress: aBoolean ]
-]
-
-{ #category : 'delivery' }
 EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
 	^ (ZnClient new
 			beOneShot;
@@ -103,8 +95,8 @@ EREventDelivery >> deliverWithSignalProgress: aBoolean [
 	| bundles |
 	bundles := EREventMultiBundleFactory fromBundles: self bundles.
 	bundles do: [ :eachMultiBundle |
-		self 
-			deliver: eachMultiBundle 
+		self
+			deliver: eachMultiBundle
 			signalProgress: aBoolean ]
 ]
 
@@ -130,7 +122,7 @@ EREventDelivery >> initialize [
 	mutex := Mutex new.
 	queue := WaitfreeQueue new.
 	permission := true.
-	standardDuration := 20 minutes
+	standardDuration := Duration minutes: 20
 ]
 
 { #category : 'initialization' }

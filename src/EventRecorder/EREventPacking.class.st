@@ -62,11 +62,8 @@ EREventPacking >> currentSessionCreationTime [
 { #category : 'private' }
 EREventPacking >> currentSessionUUID [
 
-	| session |
-	session := SmalltalkImage current session.
-	^ (session respondsTo: #id)
-		  ifTrue: [ session id asString ]
-		  ifFalse: [ session identityHash asString ]
+	^ SmalltalkImage current session identityHash asString.
+	
 ]
 
 { #category : 'private' }

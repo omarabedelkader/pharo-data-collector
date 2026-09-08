@@ -19,7 +19,7 @@ Class {
 }
 
 { #category : 'visitor' }
-EREventBundle >> accept: aVisitor [ 
+EREventBundle >> accept: aVisitor [
 	^ aVisitor visitSingleBundle: self
 ]
 
