@@ -8,13 +8,13 @@ I coordinate collectors, packing, privacy, and delivery.
 
 The class-side #uniqueInstance provides the global recorder used by registered collectors.
 
-- Collectors should register to me 
+- Collectors should register to me using the message `EREventCollector new register`.
 
 
 Public API and Key Messages
 
-- addCollector: it adds EREventCollector object and activates delivery process if inactive
-- removeCollector: it removes  EREventCollector object and deactivates delivery process if there are no other collectors.
+- addCollector: it adds an `EREventCollector` object and activates delivery process if inactive
+- removeCollector: it removes  the `EREventCollector` object and deactivates delivery process if there are no other collectors.
 - activateDelivery: activates delivery process
 - deactivateDelivery: deactivates delivery process
 
