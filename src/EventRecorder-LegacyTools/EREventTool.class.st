@@ -78,7 +78,7 @@ EREventTool >> defaultEventsDirectory [
 
 { #category : 'private' }
 EREventTool >> defaultUrl [
-	^ 'http://gc.dcc.uchile.cl/xp-events.zip'
+	^ 'http://localhost:8008/xp-events.zip'
 ]
 
 { #category : 'api' }

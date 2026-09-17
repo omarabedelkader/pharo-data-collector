@@ -28,6 +28,7 @@ Public API and Key Messages
 
 ```
 	EREventCollector new
+	   url: 'http://chopichapo.org';
 		category: #testingForReal;
 		occupant: nil ""object that represents your application, if nil, the collector will be removed from EREventRecorder object once collected data are sent"";
 		register; ""please do not register just for fun, because we collects those data""
