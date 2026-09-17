@@ -53,13 +53,12 @@ BaselineOfEventRecorder >> defineEventRecorderPackagesOn: spec [
 BaselineOfEventRecorder >> defineGroupsOn: spec [
 
 	spec
-		group: 'Core' with: #( 'EventRecorder' );
-		group: 'Client' with: #( 'Core' );
-		group: 'Server' with: #( 'Client' 'EventRecorder-Server' );
+		group: 'Core' with: #( 'EventRecorder' 'EventRecorder-Tests');
+		group: 'Client' with: #( 'Core' 'EventRecorder-Tests' );
+		group: 'Server' with: #( 'Client' 'EventRecorder-Server' 'EventRecorder-Server-Tests');
 		group: 'Tests' with: #(
-			'EventRecorder-Tests'
 			'EventRecorder-Fuel-Tests'
-			'EventRecorder-Server-Tests' );
+			 );
 		group: 'Optional' with: #(
 			'EventRecorder-LegacyTools'
 			'EventRecorder-Fuel'
