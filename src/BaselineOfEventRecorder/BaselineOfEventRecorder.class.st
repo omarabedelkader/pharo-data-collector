@@ -56,16 +56,12 @@ BaselineOfEventRecorder >> defineGroupsOn: spec [
 		group: 'Core' with: #( 'EventRecorder' 'EventRecorder-Tests');
 		group: 'Client' with: #( 'Core' 'EventRecorder-Tests' );
 		group: 'Server' with: #( 'Client' 'EventRecorder-Server' 'EventRecorder-Server-Tests');
-		group: 'Tests' with: #(
-			'EventRecorder-Fuel-Tests'
-			 );
+		group: 'Fuel' with: #( 'EventRecorder-Fuel-Tests' 'EventRecorder-Fuel' );
 		group: 'Optional' with: #(
 			'EventRecorder-LegacyTools'
-			'EventRecorder-Fuel'
-			'EventRecorder-Fuel-Tests'
 			'EventRecorder-Inspector'
 			'EventRecorder-UI'
 			'EventRecorder-UI-Tests' );
 		group: 'default' with: #( 'Server' );
-		group: 'all' with: #( 'Server' 'Tests' 'Optional' )
+		group: 'all' with: #( 'Server' 'Optional' )
 ]
