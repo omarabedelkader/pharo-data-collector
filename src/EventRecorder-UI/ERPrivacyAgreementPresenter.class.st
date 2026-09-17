@@ -86,7 +86,7 @@ ERPrivacyAgreementPresenter >> privacyMessage [
 
 { #category : 'initialize' }
 ERPrivacyAgreementPresenter >> sendUsageData [	
-	^ ERPrivacySettings sendDiagnosticsAndUsageData 
+	^ ERRecorderSettings sendDiagnosticsAndUsageData 
 ]
 
 { #category : 'initialize' }

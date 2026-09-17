@@ -61,7 +61,7 @@ EREventCollectorTest >> testUpdateAnnouncement [
 { #category : 'tests' }
 EREventCollectorTest >> testUrl [
 	self assert: collector url notNil.
-	self assert: collector url equals: ERPrivacySettings url
+	self assert: collector url equals: ERRecorderSettings url
 ]
 
 { #category : 'tests' }

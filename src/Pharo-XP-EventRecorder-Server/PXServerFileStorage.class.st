@@ -8,12 +8,13 @@ Path segments are restricted to a conservative identifier character set so
 request data cannot traverse outside the configured storage directory.
 "
 Class {
-	#name : #PXServerFileStorage,
-	#superclass : #EREventRecorderFileStorage,
-	#category : #'Pharo-XP-EventRecorder-Server'
+	#name : 'PXServerFileStorage',
+	#superclass : 'EREventRecorderFileStorage',
+	#category : 'Pharo-XP-EventRecorder-Server',
+	#package : 'Pharo-XP-EventRecorder-Server'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXServerFileStorage >> atCategory: aJSONString put: aByteArray [
 
 	| metadata segments subDirectory fileName file |
@@ -32,7 +33,7 @@ PXServerFileStorage >> atCategory: aJSONString put: aByteArray [
 		stream nextPutAll: fileName ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXServerFileStorage >> buildDirectory: metadata in: parent [
 
 	^ self
@@ -40,10 +41,9 @@ PXServerFileStorage >> buildDirectory: metadata in: parent [
 		in: parent
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXServerFileStorage >> buildDirectoryFromSegments: segments in: parent [
 
-	| directory |
 	directory := parent.
 	segments do: [ :segment |
 		directory := directory / segment ].
@@ -51,7 +51,7 @@ PXServerFileStorage >> buildDirectoryFromSegments: segments in: parent [
 	^ directory
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXServerFileStorage >> isSafePathSegment: aString [
 
 	aString isEmpty ifTrue: [ ^ false ].
@@ -60,7 +60,7 @@ PXServerFileStorage >> isSafePathSegment: aString [
 		character isAlphaNumeric or: [ '-_.@' includes: character ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXServerFileStorage >> metadataFromString: aJSONString [
 
 	| metadata |
@@ -69,27 +69,13 @@ PXServerFileStorage >> metadataFromString: aJSONString [
 	^ metadata
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXServerFileStorage >> newFileName [
 
 	^ UUID new printString , '-' , DateAndTime now asUnixTime printString
 ]
 
-
-{ #category : #private }
-PXServerFileStorage >> pathSegmentsFor: metadata [
-
-	^ PXEventMultiBundle metaDataFieldNames collect: [ :fieldName |
-		self pathSegmentFor: metadata field: fieldName ]
-]
-
-{ #category : #accessing }
-PXServerFileStorage >> put: aByteArray [
-
-	self error: 'PX storage requires multipart metadata'
-]
-
-{ #category : #private }
+{ #category : 'private' }
 PXServerFileStorage >> pathSegmentFor: metadata field: fieldName [
 
 	| segment |
@@ -100,4 +86,17 @@ PXServerFileStorage >> pathSegmentFor: metadata field: fieldName [
 	(self isSafePathSegment: segment) ifFalse: [
 		self error: 'Unsafe PX metadata path segment: ', fieldName ].
 	^ segment
+]
+
+{ #category : 'private' }
+PXServerFileStorage >> pathSegmentsFor: metadata [
+
+	^ PXEventMultiBundle metaDataFieldNames collect: [ :fieldName |
+		self pathSegmentFor: metadata field: fieldName ]
+]
+
+{ #category : 'accessing' }
+PXServerFileStorage >> put: aByteArray [
+
+	self error: 'PX storage requires multipart metadata'
 ]

@@ -55,7 +55,7 @@ EREventUnpacking >> packings [
 
 { #category : 'packing' }
 EREventUnpacking >> safeUnpackDirectory: aFileReference [
-	"self default safeUnpackDirectory: './gt/events/' asFileReference"
+	"self default safeUnpackDirectory: './xp/events/' asFileReference"
 	| unpackedData exceptions |
 	exceptions := OrderedCollection new.
 	[ unpackedData := self unpackDirectory: aFileReference ] on: EREventUnpackingError do: [ :exception |
@@ -95,7 +95,7 @@ EREventUnpacking >> unpackDirectory: aFileReference [
 
 { #category : 'packing' }
 EREventUnpacking >> unpackFile: aFileReference [
-	"self default unpackFile: './gt/events/' asFileReference allFiles atRandom"
+	"self default unpackFile: './xp/events/' asFileReference allFiles atRandom"
 	^ [ self unpack: (aFileReference binaryReadStreamDo: [ :aStream |  aStream contents ]) ]
 		on: EREventUnpackingError do: [ :anException |
 			anException data: aFileReference.

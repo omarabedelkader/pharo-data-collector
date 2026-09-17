@@ -44,8 +44,7 @@ EREventPacking >> buildAnnouncementFor: anEREventCollector [
 		imageVersion: SystemVersion current version;
 		latestUpdate: SystemVersion current commitHash;
 		computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
-		sessionUUID: self currentSessionUUID;
-		sessionCreationTime: self currentSessionCreationTime.
+		sessionUUID: self currentSessionUUID.
 	^ anEREventCollector updateAnnouncement: announcement
 ]
 

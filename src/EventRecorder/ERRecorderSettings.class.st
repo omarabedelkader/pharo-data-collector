@@ -15,13 +15,14 @@ Public API and Key Messages
 
 "
 Class {
-	#name : 'ERPrivacySettings',
+	#name : 'ERRecorderSettings',
 	#superclass : 'Object',
 	#classInstVars : [
 		'sendDiagnosticsAndUsageData',
 		'sendEntityNames',
 		'sendSourceCode',
-		'url'
+		'url',
+		'localStoragePath'
 	],
 	#category : 'EventRecorder-PrivacySettings',
 	#package : 'EventRecorder',
@@ -29,7 +30,7 @@ Class {
 }
 
 { #category : 'cleanup' }
-ERPrivacySettings class >> cleanUp [
+ERRecorderSettings class >> cleanUp [
 
 	sendDiagnosticsAndUsageData := nil.
 	sendEntityNames := nil.
@@ -37,8 +38,32 @@ ERPrivacySettings class >> cleanUp [
 	url := nil
 ]
 
+{ #category : 'accessing' }
+ERRecorderSettings class >> localStoragePath [
+	
+	^ localStoragePath ifNil: [ localStoragePath := FileLocator home ]
+]
+
+{ #category : 'accessing' }
+ERRecorderSettings class >> localStoragePath: aFileLocator [
+	
+	localStoragePath := aFileLocator
+]
+
 { #category : 'settings' }
-ERPrivacySettings class >> privacySettingsOn: aBuilder [
+ERRecorderSettings class >> localStoragePathSettingsOn: aBuilder [
+	<systemsettings>
+	
+	(aBuilder setting: #localStoragePath)
+		label: 'Local Storage Path';
+		noOrdering;
+		description: 'The path where the data will be saved';
+		default: FileLocator home;
+		parent: #privacy
+]
+
+{ #category : 'settings' }
+ERRecorderSettings class >> privacySettingsOn: aBuilder [
 	<systemsettings>
 
 	(aBuilder group: #privacy)
@@ -48,19 +73,19 @@ ERPrivacySettings class >> privacySettingsOn: aBuilder [
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> sendDiagnosticsAndUsageData [
+ERRecorderSettings class >> sendDiagnosticsAndUsageData [
 	^ sendDiagnosticsAndUsageData ifNil: [ sendDiagnosticsAndUsageData := false ]
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> sendDiagnosticsAndUsageData: aBoolean [
+ERRecorderSettings class >> sendDiagnosticsAndUsageData: aBoolean [
 	sendDiagnosticsAndUsageData = aBoolean ifTrue: [ ^ self ].
 	sendDiagnosticsAndUsageData := aBoolean.
 	SystemAnnouncer uniqueInstance announce: ERPrivacyChangedAnnouncement.
 ]
 
 { #category : 'settings' }
-ERPrivacySettings class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
+ERRecorderSettings class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder [
 	<systemsettings>
 	
 	(aBuilder setting: #sendDiagnosticsAndUsageData)
@@ -72,17 +97,17 @@ ERPrivacySettings class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder 
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> sendEntityNames [
+ERRecorderSettings class >> sendEntityNames [
 	^ sendEntityNames ifNil: [ sendEntityNames := false ]
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> sendEntityNames: aBoolean [
+ERRecorderSettings class >> sendEntityNames: aBoolean [
 	sendEntityNames := aBoolean
 ]
 
 { #category : 'settings' }
-ERPrivacySettings class >> sendEntityNamesSettingsOn: aBuilder [
+ERRecorderSettings class >> sendEntityNamesSettingsOn: aBuilder [
 	<systemsettings>
 	(aBuilder setting: #sendEntityNames)
 		label: 'Include package/class/method names';
@@ -93,18 +118,19 @@ ERPrivacySettings class >> sendEntityNamesSettingsOn: aBuilder [
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> sendSourceCode [
+ERRecorderSettings class >> sendSourceCode [
 	^ sendSourceCode ifNil: [ sendSourceCode := false ]
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> sendSourceCode: aBoolean [
+ERRecorderSettings class >> sendSourceCode: aBoolean [
 	sendSourceCode := aBoolean
 ]
 
 { #category : 'settings' }
-ERPrivacySettings class >> sendSourceCodeSettingsOn: aBuilder [
+ERRecorderSettings class >> sendSourceCodeSettingsOn: aBuilder [
 	<systemsettings>
+	
 	(aBuilder setting: #sendSourceCode)
 		label: 'Include source code';
 		noOrdering;
@@ -114,31 +140,31 @@ ERPrivacySettings class >> sendSourceCodeSettingsOn: aBuilder [
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> stringUrl [
+ERRecorderSettings class >> stringUrl [
 
 	^ self url asString
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> stringUrl: aUrlString [
+ERRecorderSettings class >> stringUrl: aUrlString [
 
 	^ self url: aUrlString
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> url [
-
+ERRecorderSettings class >> url [
+	
 	^ url ifNil: [ url := 'http://localhost:8008/xp/events' asZnUrl ]
 ]
 
 { #category : 'accessing' }
-ERPrivacySettings class >> url: aZnUrl [
+ERRecorderSettings class >> url: aZnUrl [
 
 	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ]
 ]
 
 { #category : 'settings' }
-ERPrivacySettings class >> urlSettingsOn: aBuilder [
+ERRecorderSettings class >> urlSettingsOn: aBuilder [
 
 	<systemsettings>
 	(aBuilder setting: #stringUrl)

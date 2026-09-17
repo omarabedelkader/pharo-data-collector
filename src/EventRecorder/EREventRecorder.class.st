@@ -2,9 +2,9 @@
 I'm the central object of the client side event recording and publishing process.
 
 I coordinate collectors, packing, privacy, and delivery. 
-- Collectors (instance of EREventCollector) queue events; 
-- the packing strategy (instance of ERPacking) serializes them into bundles; 
-- and the delivery service (instance of ERDelivery) sends those bundles to their configured endpoints. 
+- Collectors (instance of `EREventCollector`) queue events; 
+- the packing strategy (instance of `EREventPacking`) serializes them into bundles; 
+- and the delivery service (instance of `EREventDelivery`) sends those bundles to their configured endpoints. 
 
 The class-side #uniqueInstance provides the global recorder used by registered collectors.
 
@@ -97,6 +97,14 @@ EREventRecorder class >> reset [
 	uniqueInstance := nil.
 ]
 
+{ #category : 'for development' }
+EREventRecorder class >> todebug [
+	<script>
+	Halt resetOnce.
+	EREventRecorder uniqueInstance log: '2'.
+	EREventRecorder uniqueInstance delivery now.
+]
+
 { #category : 'accessing' }
 EREventRecorder class >> uniqueInstance [
 
@@ -169,7 +177,7 @@ EREventRecorder >> flush [
 { #category : 'initialization' }
 EREventRecorder >> initialize [
 	super initialize.
-	privacy := [ ERPrivacySettings sendDiagnosticsAndUsageData ].
+	privacy := [ ERRecorderSettings sendDiagnosticsAndUsageData ].
 	collectors := EREventCollectors new.
 
 	delivery := EREventDelivery new.
@@ -189,6 +197,17 @@ EREventRecorder >> isDeliveryActive [
 { #category : 'testing' }
 EREventRecorder >> isGlobalRecorder [
 	^ self class isGlobalRecorder: self
+]
+
+{ #category : 'logging' }
+EREventRecorder >> log: info [
+	"not sure that it should be in this class"
+	
+	| collector |
+	collector := EREventCollector new. 
+	collector category: 'complishon2'.
+	collector register. 
+	collector add: info.
 ]
 
 { #category : 'convenient' }

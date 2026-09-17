@@ -64,11 +64,11 @@ EREventRecorderPutHandlerTest >> setUpServer [
 	handler := EREventRecorderPutHandler new.
 	handler storage: self.
 	delegate := ZnDispatcherDelegate new.
-	delegate map: '/gt/events' to: handler.
+	delegate map: '/xp/events' to: handler.
 	server := EREventRecorderTestServer new.
 	server initializeUsingDelegate: delegate semaphore: receiverSemaphore.
 	server url
-		addPathSegment: 'gt';
+		addPathSegment: 'xp';
 		addPathSegment: 'events'
 ]
 

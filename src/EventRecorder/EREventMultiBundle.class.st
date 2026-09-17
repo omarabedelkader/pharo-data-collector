@@ -76,5 +76,6 @@ EREventMultiBundle >> url [
 
 { #category : 'accessing' }
 EREventMultiBundle >> url: anObject [
+	
 	url := anObject
 ]

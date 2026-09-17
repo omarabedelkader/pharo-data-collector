@@ -82,7 +82,7 @@ EREventCollector >> add: anEvent [
 EREventCollector >> addIfAvailable: anEvent [
 	"Add an event only when diagnostic and usage-data delivery is enabled."
 
-	ERPrivacySettings sendDiagnosticsAndUsageData ifFalse: [ ^ anEvent ].
+	ERRecorderSettings sendDiagnosticsAndUsageData ifFalse: [ ^ anEvent ].
 	^ self add: anEvent
 ]
 
@@ -210,7 +210,7 @@ EREventCollector >> updateAnnouncementBlock: aBlockClosure [
 { #category : 'accessing' }
 EREventCollector >> url [
 	"It returns URL indicating where to send collected data."
-	^ url ifNil: [ url := ERPrivacySettings url ]
+	^ url ifNil: [ url := ERRecorderSettings url ]
 ]
 
 { #category : 'accessing' }

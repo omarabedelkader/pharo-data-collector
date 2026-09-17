@@ -6,37 +6,38 @@ GET /events   -> health check for the ingest endpoint
 PUT /events   -> multipart event ingestion
 "
 Class {
-	#name : #PXServerDelegate,
-	#superclass : #EREventRecorderDelegate,
-	#category : #'Pharo-XP-EventRecorder-Server'
+	#name : 'PXServerDelegate',
+	#superclass : 'EREventRecorderDelegate',
+	#category : 'Pharo-XP-EventRecorder-Server',
+	#package : 'Pharo-XP-EventRecorder-Server'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 PXServerDelegate >> defaultDataDirectory [
 
 	^ PXServer dataDirectory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXServerDelegate >> dispatcher [
 
 	^ dispatcher
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 PXServerDelegate >> fileStorageClass [
 
 	^ PXServerFileStorage
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 PXServerDelegate >> handleRequest: request [
 
 	PXServer devMode ifTrue: [ request crTrace ].
 	^ super handleRequest: request
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PXServerDelegate >> initializeDispatcher [
 
 	| okResponse |
@@ -48,13 +49,13 @@ PXServerDelegate >> initializeDispatcher [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 PXServerDelegate >> initializeZipHandler [
 
 	"PX ingestion does not expose the legacy ZIP endpoint."
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 PXServerDelegate >> putHandlerClass [
 
 	^ PXEventRecorderPutHandler

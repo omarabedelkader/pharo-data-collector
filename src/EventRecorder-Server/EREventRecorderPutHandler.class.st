@@ -31,9 +31,10 @@ EREventRecorderPutHandler >> isApplicationOctetStream: aZnRequest [
 
 { #category : 'testing' }
 EREventRecorderPutHandler >> isMultiPartFormData: aZnRequest [
+
 	^ aZnRequest hasEntity 
 		and: [ (aZnRequest contentType matches: ZnMimeType multiPartFormData)
-		and: [ (aZnRequest entity isNotEmpty)
+		and: [ (aZnRequest entity isEmpty not)
 		and: [ aZnRequest entity parts size even
 		and: [ self hasCategoryAndDataParts: aZnRequest entity parts ] ] ] ]
 ]
@@ -42,6 +43,7 @@ EREventRecorderPutHandler >> isMultiPartFormData: aZnRequest [
 EREventRecorderPutHandler >> saveByteArray: aByteArray [
 	"storage is responsible for storing aByteArray.
 	It returns location."
+	
 	^ self storage put: aByteArray.
 ]
 
@@ -49,6 +51,7 @@ EREventRecorderPutHandler >> saveByteArray: aByteArray [
 EREventRecorderPutHandler >> saveByteArray: aByteArray category: aString [ 
 	"storage is responsible for storing aByteArray.
 	It returns location."
+	
 	^ self storage atCategory: aString put: aByteArray.
 ]
 
@@ -78,6 +81,7 @@ EREventRecorderPutHandler >> storage: anObject [
 { #category : 'evaluating' }
 EREventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 	| badRequest key |
+	Transcript show: 'PutHandler';cr.
 	badRequest := [ ^ ZnResponse badRequest: aZnRequest ].
 	aZnRequest method = #GET	ifTrue: [ ^ ZnResponse ok: (ZnEntity text: 'OK') ].
 	aZnRequest method = #PUT ifFalse: [ badRequest value ].
@@ -86,8 +90,11 @@ EREventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 				on: Error do: badRequest.
 			^ ZnResponse created: key ].
 	(self isMultiPartFormData: aZnRequest) ifTrue: [ 
-			[ key := self saveMultiPartFormData: aZnRequest entity ] 
+			[ 
+			self haltOnce.
+			key := self saveMultiPartFormData: aZnRequest entity ] 
 				on: Error do: badRequest.
 			^ ZnResponse created: key ].
-	badRequest value
+	^ ZnResponse ok: (ZnEntity text: 'Not OK because neither OctetStream or multiform')
+	
 ]

@@ -4,18 +4,19 @@ Only the four expected metadata fields are accepted and all values must be
 non-empty strings.
 "
 Class {
-	#name : #PXEventRecorderPutHandler,
-	#superclass : #EREventRecorderPutHandler,
-	#category : #'Pharo-XP-EventRecorder-Server'
+	#name : 'PXEventRecorderPutHandler',
+	#superclass : 'EREventRecorderPutHandler',
+	#category : 'Pharo-XP-EventRecorder-Server',
+	#package : 'Pharo-XP-EventRecorder-Server'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 PXEventRecorderPutHandler >> detectFieldNamed: aFieldName inParts: aCollection [
 
 	^ aCollection detect: [ :each | each fieldName = aFieldName ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 PXEventRecorderPutHandler >> hasCategoryAndDataParts: aCollection [
 
 	| metadata |
@@ -25,14 +26,14 @@ PXEventRecorderPutHandler >> hasCategoryAndDataParts: aCollection [
 	^ self isValidMetadata: metadata
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 PXEventRecorderPutHandler >> isApplicationOctetStream: aZnRequest [
 
 	"PX events require multipart metadata; raw octet-stream uploads are rejected."
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 PXEventRecorderPutHandler >> isValidMetadata: metadata [
 
 	(metadata isKindOf: Dictionary) ifFalse: [ ^ false ].
@@ -44,7 +45,7 @@ PXEventRecorderPutHandler >> isValidMetadata: metadata [
 			value isString and: [ value isEmpty not ] ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 PXEventRecorderPutHandler >> metadataFromParts: aCollection [
 
 	| metadataPart |
@@ -59,7 +60,7 @@ PXEventRecorderPutHandler >> metadataFromParts: aCollection [
 		do: [ nil ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 PXEventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 
 	aZnRequest method = #GET ifTrue: [

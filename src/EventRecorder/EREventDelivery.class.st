@@ -26,11 +26,6 @@ Class {
 	#tag : 'Support'
 }
 
-{ #category : 'defaults' }
-EREventDelivery class >> defaultStandardDuration [
-	^ 20 minutes
-]
-
 { #category : 'activation' }
 EREventDelivery >> activate [
 	"Initialize a delivery process."
@@ -77,6 +72,8 @@ EREventDelivery >> deactivate [
 
 { #category : 'delivery' }
 EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
+	
+	Transcript show: 'url ', aMultiBundle url printString; cr.
 	^ (ZnClient new
 			beOneShot;
 			timeout: 5;
@@ -122,7 +119,7 @@ EREventDelivery >> initialize [
 	mutex := Mutex new.
 	queue := WaitfreeQueue new.
 	permission := true.
-	standardDuration := Duration minutes: 20
+	standardDuration := Duration minutes: 1
 ]
 
 { #category : 'initialization' }
@@ -140,10 +137,10 @@ EREventDelivery >> isActive [
 
 { #category : 'testing' }
 EREventDelivery >> isGlobalRecorder [
-	self flag: #SD. "I do not get the ifNotNil: branch"
+	
 	^ self recorder
 			ifNil: [ false ]
-			ifNotNil: #isGlobalRecorder
+			ifNotNil: [ :r | r isGlobalRecorder ]
 ]
 
 { #category : 'testing' }
@@ -167,6 +164,7 @@ EREventDelivery >> offerPermission [
 
 { #category : 'delivery' }
 EREventDelivery >> packAndDeliverWithSignalProgress: aBoolean [
+	Transcript show: 'Pack and Deliver';cr.
 	recorder pack.
 	self deliverWithSignalProgress: aBoolean
 ]
@@ -235,7 +233,7 @@ EREventDelivery >> size [
 
 { #category : 'accessing' }
 EREventDelivery >> standardDuration [
-	^ standardDuration ifNil:[standardDuration := self class defaultStandardDuration]
+	^ standardDuration ifNil:[standardDuration := Duration minutes: 2 ]
 ]
 
 { #category : 'accessing' }

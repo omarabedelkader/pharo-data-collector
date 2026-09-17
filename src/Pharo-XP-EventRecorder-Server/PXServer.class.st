@@ -12,61 +12,62 @@ server, so loading me does not interfere with unrelated HTTP services in the
 same Pharo image.
 "
 Class {
-	#name : #PXServer,
-	#superclass : #EREventRecorderServer,
+	#name : 'PXServer',
+	#superclass : 'EREventRecorderServer',
 	#classInstVars : [
 		'devMode',
 		'port',
 		'dataDirectory',
 		'server'
 	],
-	#category : #'Pharo-XP-EventRecorder-Server'
+	#category : 'Pharo-XP-EventRecorder-Server',
+	#package : 'Pharo-XP-EventRecorder-Server'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> dataDirectory [
 
 	^ dataDirectory ifNil: [
 		dataDirectory := FileLocator workingDirectory / 'var' / 'data' ]
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> dataDirectory: aFileReference [
 
 	dataDirectory := aFileReference asFileReference
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> defaultPort [
 
 	^ 8008
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> devMode [
 
 	^ devMode ifNil: [ devMode := false ]
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> devMode: aBoolean [
 
 	devMode := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXServer class >> endpointURL [
 
 	^ (self serverURL , '/events') asZnUrl
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> port [
 
 	^ port ifNil: [ port := self defaultPort ]
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> port: anInteger [
 
 	(anInteger isInteger and: [ anInteger between: 1 and: 65535 ])
@@ -74,7 +75,7 @@ PXServer class >> port: anInteger [
 	port := anInteger
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 PXServer class >> resetConfiguration [
 
 	self stop.
@@ -83,19 +84,19 @@ PXServer class >> resetConfiguration [
 	dataDirectory := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXServer class >> server [
 
 	^ server
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PXServer class >> serverURL [
 
 	^ 'http://localhost:' , self port printString
 ]
 
-{ #category : #'start-stop' }
+{ #category : 'start-stop' }
 PXServer class >> start [
 
 	<example>
@@ -111,7 +112,7 @@ PXServer class >> start [
 	^ server
 ]
 
-{ #category : #'start-stop' }
+{ #category : 'start-stop' }
 PXServer class >> stop [
 
 	<example>

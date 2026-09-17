@@ -1,3 +1,6 @@
+"
+I'm responsible for storing the file on disk.
+"
 Class {
 	#name : 'EREventRecorderFileStorage',
 	#superclass : 'Object',
@@ -12,6 +15,7 @@ Class {
 EREventRecorderFileStorage >> atCategory: aString put: aByteArray [
 
 	| subDirectory date monthDirectoryName monthDirectory fileName file |
+	self halt.
 	subDirectory := (self directory / aString) ensureCreateDirectory; yourself.
 	date := Date today.
 

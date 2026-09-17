@@ -1,1 +1,1 @@
-Package { #name : #'Pharo-XP-EventRecorder-Server' }
+Package { #name : 'Pharo-XP-EventRecorder-Server' }

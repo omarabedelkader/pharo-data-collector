@@ -47,7 +47,7 @@ EREventRecorderDelegate >> defaultDataDirectory [
 { #category : 'defaults' }
 EREventRecorderDelegate >> defaultZipRootURL [
 
-	^ 'http://gc.dcc.uchile.cl/' asZnUrl
+	^ 'http://localhost:8080/' asZnUrl
 ]
 
 { #category : 'defaults' }
@@ -58,7 +58,7 @@ EREventRecorderDelegate >> fileStorageClass [
 
 { #category : 'public' }
 EREventRecorderDelegate >> handleRequest: request [
-
+	
 	^ dispatcher handleRequest: request
 ]
 
