@@ -35,13 +35,18 @@ EREventMultiBundleFactoryTest >> detectEvents [
 EREventMultiBundleFactoryTest >> setUp [
 	super setUp.
 	bundle1 := EREventBundle new 
-		url: 'http://localhost/xp/events1' asZnUrl; category: #c1; data: #[1 2 3]; yourself.
+		url: 'http://localhost/xp/events1' asZnUrl; 
+		category: #c1; 
+		data: #[1 2 3]; yourself.
 	bundle2 := EREventBundle new 
-		url: 'http://localhost/xp/events1' asZnUrl; category: #c1; data: #[4 5 6]; yourself.
+		url: 'http://localhost/xp/events1' asZnUrl; 
+		category: #c1; data: #[4 5 6]; yourself.
 	bundle3 := EREventBundle new 
-		url: 'http://localhost/xp/events1' asZnUrl; category: #c2; data: #[7 8 9]; yourself.
+		url: 'http://localhost/xp/events1' asZnUrl; 
+		category: #c2; data: #[7 8 9]; yourself.
 	bundle4 := EREventBundle new 
-		url: 'http://localhost/xp/events2' asZnUrl; category: #c1; data: #[10 11 12]; yourself.
+		url: 'http://localhost/xp/events2' asZnUrl; 
+		category: #c1; data: #[10 11 12]; yourself.
 	factory := EREventMultiBundleFactory new.
 ]
 

@@ -45,5 +45,6 @@ EREventRecorderFileStorage >> directory: anObject [
 
 { #category : 'accessing' }
 EREventRecorderFileStorage >> put: aByteArray [
+	self halt.
 	^ self atCategory: #unspecified put: aByteArray
 ]

@@ -1,3 +1,9 @@
+"
+PUT HTTP requests (to xp/events/) will be saved on disc. 
+Now the minimum information required to be processed in that the request has a category and a data part. 
+
+
+"
 Class {
 	#name : 'EREventRecorderPutHandler',
 	#superclass : 'Object',
@@ -15,6 +21,8 @@ EREventRecorderPutHandler >> directory: aFileReference [
 
 { #category : 'testing' }
 EREventRecorderPutHandler >> hasCategoryAndDataParts: aCollection [
+	"All parts should have a category and a data part of the correct type."
+	
 	aCollection pairsDo: [ :aCategoryPart :aDataPart |
 		aCategoryPart fieldName = 'category' ifFalse: [ ^ false ].
 		aDataPart fieldName = 'data' ifFalse: [ ^ false ].
@@ -24,9 +32,10 @@ EREventRecorderPutHandler >> hasCategoryAndDataParts: aCollection [
 	^ true
 ]
 
-{ #category : 'testing' }
+{ #category : 'private to remove?' }
 EREventRecorderPutHandler >> isApplicationOctetStream: aZnRequest [
-	^ aZnRequest hasEntity and: [ aZnRequest contentType matches: ZnMimeType applicationOctetStream ]
+	^ aZnRequest hasEntity 
+			and: [ aZnRequest contentType matches: ZnMimeType applicationOctetStream ]
 ]
 
 { #category : 'testing' }
@@ -39,7 +48,7 @@ EREventRecorderPutHandler >> isMultiPartFormData: aZnRequest [
 		and: [ self hasCategoryAndDataParts: aZnRequest entity parts ] ] ] ]
 ]
 
-{ #category : 'private' }
+{ #category : 'private to remove?' }
 EREventRecorderPutHandler >> saveByteArray: aByteArray [
 	"storage is responsible for storing aByteArray.
 	It returns location."
@@ -81,14 +90,21 @@ EREventRecorderPutHandler >> storage: anObject [
 { #category : 'evaluating' }
 EREventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 	| badRequest key |
-	Transcript show: 'PutHandler';cr.
+	Transcript show: 'PutHandler started';cr.
 	badRequest := [ ^ ZnResponse badRequest: aZnRequest ].
 	aZnRequest method = #GET	ifTrue: [ ^ ZnResponse ok: (ZnEntity text: 'OK') ].
 	aZnRequest method = #PUT ifFalse: [ badRequest value ].
-	(self isApplicationOctetStream: aZnRequest) ifTrue: [ 
-			[ key := self saveByteArray: aZnRequest entity bytes ] 
+	
+	"Apparently we can pass binary object and 
+			they get stored using put: 
+			I suggest to remove this logic.
+			"
+	"(self isApplicationOctetStream: aZnRequest) ifTrue: [ 
+			[ 
+			self flag: #SD. 
+			 key := self saveByteArray: aZnRequest entity bytes ] 
 				on: Error do: badRequest.
-			^ ZnResponse created: key ].
+			^ ZnResponse created: key ]."
 	(self isMultiPartFormData: aZnRequest) ifTrue: [ 
 			[ 
 			self haltOnce.
