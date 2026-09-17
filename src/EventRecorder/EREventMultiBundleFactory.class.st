@@ -1,5 +1,6 @@
 "
 I know how to create an `EREventMultiBundle` object from a collection of `EREventBundle` objects.
+
 "
 Class {
 	#name : 'EREventMultiBundleFactory',

@@ -2,6 +2,7 @@
 I know how to deliver usage and diagnostic data to a remote server.
 
 I maintain a background process that periodically asks the recorder to pack collected events and sends the resulting bundles to their target URLs. Failed deliveries are re-queued for a later attempt.
+I use the bundle factory (instance of `EREventMultiBundleFactory`) to group bundles and prepare bundles before sending them. 
 
 Public API and Key Messages
 
@@ -89,6 +90,7 @@ EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
 
 { #category : 'delivery' }
 EREventDelivery >> deliverWithSignalProgress: aBoolean [
+	
 	| bundles |
 	bundles := EREventMultiBundleFactory fromBundles: self bundles.
 	bundles do: [ :eachMultiBundle |

@@ -4,16 +4,15 @@ I keep all EREventBundle objects that should be delivered to the same remote ser
 By calling #entity, you receive ZnMultiPartFormDataEntity object that contains ZnMimePart objects in a sequence 'category', 'data', 'category', 'data', etc. Server is then responsible for spliting this object into the parts and store each data in to a right position (directory).
 
 For the Collaborators Part: 
-- EREventBundle: I keep collection of those objects and asks them for a ZnEntity object calling #entity.
-- EREventMultiBundleFactory knows how to create instances.
-- EREventDelivery knows how to send my #entity to a server.
+- `EREventBundle`: I keep collection of those objects and asks them for a ZnEntity object calling #entity.
+- `EREventMultiBundleFactory` knows how to create instances.
+- `EREventDelivery` requests multibundles to the factory and knows how to send my #entity to a server.
 
 Internal Representation and Key Implementation Points.
 
-    Instance Variables
+   Instance Variables
 	bundles:		<Collection>
 	url:			<ZnUrl>
-
 "
 Class {
 	#name : 'EREventMultiBundle',
@@ -44,15 +43,20 @@ EREventMultiBundle >> bundles [
 
 { #category : 'accessing' }
 EREventMultiBundle >> entity [
+	"Create an entity that is wellformed to get treated by the server."
+	
 	| entity |
 	entity := ZnMultiPartFormDataEntity new.
+	"during the update of the entity it received data in a way that it can be handled by the server."
+	
 	self updateEntity: entity.
 	^ entity
 ]
 
 { #category : 'private' }
 EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [
-
+	"I'm a key behavior since I add the category and the data to the MultiPartFormDataEntity"
+	
 	bundles ifNil: [ ^ self ].
 	self bundles do: [ :eachEventBundle | 
 		self
@@ -62,10 +66,10 @@ EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity [
 
 { #category : 'private' }
 EREventMultiBundle >> updateEntity: aZnMultiPartFormDataEntity forSingleBundle: aSingleBundle [
-
+	"I'm a key behavior since I add the category and the data to the MultiPartFormDataEntity"
+	
 	aZnMultiPartFormDataEntity
-		addPart:
-			(ZnMimePart fieldName: 'category' value: aSingleBundle category);
+		addPart: (ZnMimePart fieldName: 'category' value: aSingleBundle category);
 		addPart: (ZnMimePart fieldName: 'data' entity: aSingleBundle entity)
 ]
 
