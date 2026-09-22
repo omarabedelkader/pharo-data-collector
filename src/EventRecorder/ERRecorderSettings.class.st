@@ -154,7 +154,7 @@ ERRecorderSettings class >> stringUrl: aUrlString [
 { #category : 'accessing' }
 ERRecorderSettings class >> url [
 	
-	^ url ifNil: [ url := 'http://localhost:8008/xp/events' asZnUrl ]
+	^ url ifNil: [ url := 'http://localhost:8080/xp/events' asZnUrl ]
 ]
 
 { #category : 'accessing' }

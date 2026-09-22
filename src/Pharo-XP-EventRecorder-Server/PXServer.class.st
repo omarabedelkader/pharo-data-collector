@@ -40,7 +40,7 @@ PXServer class >> dataDirectory: aFileReference [
 { #category : 'configuration' }
 PXServer class >> defaultPort [
 
-	^ 8008
+	^ 8080
 ]
 
 { #category : 'configuration' }

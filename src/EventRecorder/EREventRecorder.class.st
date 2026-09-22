@@ -138,7 +138,8 @@ EREventRecorder >> announcer [
 
 { #category : 'testing' }
 EREventRecorder >> canSendDiagnosticsAndUsageData [
-	^ privacy value
+	^ true
+	"^ privacy value"
 ]
 
 { #category : 'delivery' }

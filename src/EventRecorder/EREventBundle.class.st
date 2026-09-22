@@ -54,6 +54,17 @@ EREventBundle >> newMultiBundle [
 	^ EREventMultiBundle new
 ]
 
+{ #category : 'printing' }
+EREventBundle >> printOn: aStream [
+
+	super printOn: aStream. 
+	aStream 
+		nextPutAll: ' - ';
+		print: url; 
+		nextPutAll: ' cat: ';
+		print: category 
+]
+
 { #category : 'accessing' }
 EREventBundle >> url [
 	^ url

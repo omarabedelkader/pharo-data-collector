@@ -91,6 +91,7 @@ EREventRecorderPutHandler >> storage: anObject [
 EREventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 	| badRequest key |
 	Transcript show: 'PutHandler started';cr.
+	
 	badRequest := [ ^ ZnResponse badRequest: aZnRequest ].
 	aZnRequest method = #GET	ifTrue: [ ^ ZnResponse ok: (ZnEntity text: 'OK') ].
 	aZnRequest method = #PUT ifFalse: [ badRequest value ].
@@ -107,7 +108,6 @@ EREventRecorderPutHandler >> value: aZnRequest value: aZnResponse [
 			^ ZnResponse created: key ]."
 	(self isMultiPartFormData: aZnRequest) ifTrue: [ 
 			[ 
-			self haltOnce.
 			key := self saveMultiPartFormData: aZnRequest entity ] 
 				on: Error do: badRequest.
 			^ ZnResponse created: key ].

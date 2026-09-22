@@ -38,6 +38,7 @@ EREventDelivery >> activate [
 
 { #category : 'adding' }
 EREventDelivery >> add: anEventBundle [
+
 	queue nextPut: anEventBundle
 ]
 
@@ -74,7 +75,7 @@ EREventDelivery >> deactivate [
 { #category : 'delivery' }
 EREventDelivery >> deliver: aMultiBundle signalProgress: aBoolean [
 	
-	Transcript show: 'url ', aMultiBundle url printString; cr.
+	Transcript show: 'Client side delivering at url ', aMultiBundle url printString; show: '{'; cr.
 	^ (ZnClient new
 			beOneShot;
 			timeout: 5;
@@ -93,6 +94,7 @@ EREventDelivery >> deliverWithSignalProgress: aBoolean [
 	
 	| bundles |
 	bundles := EREventMultiBundleFactory fromBundles: self bundles.
+	Transcript show: 'Bundles: ', bundles size printString ; cr.
 	bundles do: [ :eachMultiBundle |
 		self
 			deliver: eachMultiBundle

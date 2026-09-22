@@ -18,7 +18,7 @@ Class {
 { #category : 'configuration' }
 PXEventRecorder class >> defaultEndpoint [
 
-	^ 'http://localhost:8008/events' asZnUrl
+	^ 'http://localhost:8080/events' asZnUrl
 ]
 
 { #category : 'configuration' }
