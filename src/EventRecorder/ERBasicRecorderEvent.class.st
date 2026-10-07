@@ -1,5 +1,5 @@
 "
-I represent a basic event for the event recorder.
+I represent a basic event for the event recorder. Notice that I'm optional.
 "
 Class {
 	#name : 'ERBasicRecorderEvent',
@@ -8,9 +8,9 @@ Class {
 		'info',
 		'timestamp'
 	],
-	#category : 'EventRecorder-Core',
+	#category : 'EventRecorder-Support',
 	#package : 'EventRecorder',
-	#tag : 'Core'
+	#tag : 'Support'
 }
 
 { #category : 'comparing' }
