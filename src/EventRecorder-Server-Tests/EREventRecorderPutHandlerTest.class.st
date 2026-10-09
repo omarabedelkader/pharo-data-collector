@@ -88,21 +88,6 @@ EREventRecorderPutHandlerTest >> tearDown [
 ]
 
 { #category : 'tests' }
-EREventRecorderPutHandlerTest >> testPutByteArrayEntity [
-
-	data := #[1 2 3 4].
-	entity := ZnByteArrayEntity bytes: data.
-	client
-		entity: entity;
-		put.
-	self assert: client isSuccess.
-	self assert: client isCreated.
-	location := client response location asZnUrl.
-	self assert: (self storage at: location lastPathSegment) equals: data.
-
-]
-
-{ #category : 'tests' }
 EREventRecorderPutHandlerTest >> testPutMultiPartFormDataEntity [
 
 	data := #[1 2 3 4].

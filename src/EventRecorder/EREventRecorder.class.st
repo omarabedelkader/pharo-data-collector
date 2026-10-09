@@ -128,6 +128,7 @@ EREventRecorder >> activateDeliveryIfAvailable [
 EREventRecorder >> addCollector: anEventCollector [
 
 	self activateDeliveryIfAvailable.
+	anEventCollector recorder: self. 
 	^ collectors add: anEventCollector
 ]
 

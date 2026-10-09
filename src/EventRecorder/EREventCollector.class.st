@@ -54,7 +54,8 @@ Class {
 		'url',
 		'category',
 		'recordedEvents',
-		'updateAnnouncementBlock'
+		'updateAnnouncementBlock',
+		'recorder'
 	],
 	#category : 'EventRecorder-Core',
 	#package : 'EventRecorder',
@@ -76,6 +77,7 @@ EREventCollector class >> notRegisteredCollector [
 { #category : 'adding' }
 EREventCollector >> add: anEvent [
 	"Add an event to the queue."
+	
 	^ recordedEvents nextPut: anEvent
 ]
 
@@ -182,6 +184,12 @@ EREventCollector >> printOn: aStream [
 		space;
 		nextPutAll: ('item' asPluralBasedOn: recordedEvents size);
 		nextPut: $]
+]
+
+{ #category : 'accessing' }
+EREventCollector >> recorder: aRecorder [
+
+	recorder := aRecorder
 ]
 
 { #category : 'initialization' }
