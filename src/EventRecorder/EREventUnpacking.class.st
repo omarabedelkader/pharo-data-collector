@@ -38,7 +38,6 @@ Class {
 { #category : 'instance creation' }
 EREventUnpacking class >> default [
 	^ self new
-			addPacking: EREventPacking fuel;
 			addPacking: EREventPacking ston;
 			yourself
 ]
