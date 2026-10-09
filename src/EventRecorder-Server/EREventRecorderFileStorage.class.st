@@ -45,6 +45,7 @@ EREventRecorderFileStorage >> directory: anObject [
 
 { #category : 'accessing' }
 EREventRecorderFileStorage >> put: aByteArray [
-	self halt.
+
+	self error: 'We do not support anymore plain byteArray'.
 	^ self atCategory: #unspecified put: aByteArray
 ]
