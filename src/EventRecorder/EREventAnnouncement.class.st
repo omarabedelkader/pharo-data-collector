@@ -226,7 +226,7 @@ EREventAnnouncement >> timestamp: anObject [
 { #category : 'accessing' }
 EREventAnnouncement >> unpackedData [
 	^ self data ifNotNil: [ :aData | 
-		self serializedBy new
+		(self class environment at: self serializedBy) new
 			migrations: self migrationRules;
 			unpack: aData ]
 ]
