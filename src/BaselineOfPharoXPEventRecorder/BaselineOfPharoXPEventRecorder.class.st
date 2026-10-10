@@ -10,9 +10,15 @@ BaselineOfPharoXPEventRecorder >> baseline: spec [
 
 	<baseline>
 	spec for: #common do: [
+		"The old (cleaned) version"
 		self defineEventRecorderPackagesOn: spec.
+		
+		"Some ad-hoc extensions"
 		self definePharoXPPackagesOn: spec.
+
+		"a kind of gate and port redirection"
 		self defineDispatcherPackagesOn: spec.
+		
 		self defineGroupsOn: spec ]
 ]
 
@@ -30,16 +36,15 @@ BaselineOfPharoXPEventRecorder >> defineDispatcherPackagesOn: spec [
 { #category : 'baselines' }
 BaselineOfPharoXPEventRecorder >> defineEventRecorderPackagesOn: spec [
 
-	spec package: 'EventRecorder'.
-	spec
+	spec package: 'EventRecorder';
 		package: 'EventRecorder-Tests'
 		with: [ spec requires: #( 'EventRecorder' ) ].
 	spec
 		package: 'EventRecorder-Server'
-		with: [ spec requires: #( 'EventRecorder' ) ].
-	spec
+		with: [ spec requires: #( 'EventRecorder' ) ];
 		package: 'EventRecorder-Server-Tests'
 		with: [ spec requires: #( 'EventRecorder-Server' 'EventRecorder-Tests' ) ].
+
 
 	"Optional packages retained from the original EventRecorder repository."
 	spec
@@ -61,30 +66,39 @@ BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 
 	spec
 		group: 'Core' with: #( 'EventRecorder' );
-		group: 'Client' with: #( 'Core' 'Pharo-XP-EventRecorder-Client' );
-		group: 'Server' with: #(
-			'Client'
-			'EventRecorder-Server'
-			'Pharo-XP-EventRecorder-Server' );
-		group: 'Dispatcher' with: #( 'Phex-Data-Dispatcher' );
+		group: 'Server' with: #( 'Core' 'EventRecorder-Server');
 		group: 'Tests' with: #(
 			'EventRecorder-Tests'
-			'EventRecorder-Server-Tests'
-			'Phex-Data-Dispatcher-Tests'
+			'EventRecorder-Server-Tests');
+	
+		
+		"Optional to offer a kind of redirect."
+		group: 'Dispatcher' with: #( 'Phex-Data-Dispatcher' 'Phex-Data-Dispatcher-Tests');
+		
+		"Optional: Some extensions to support different organisation on disc 
+		with the start of descriptions to do it. "
+		group: 'Phex' with: #(
+			'Pharo-XP-EventRecorder-Client'
+			'Pharo-XP-EventRecorder-Server' 
 			'Pharo-XP-EventRecorder-Client-Tests'
 			'Pharo-XP-EventRecorder-Server-Tests' );
+		
 		group: 'Optional' with: #(
 			'EventRecorder-LegacyTools'
 			'EventRecorder-Inspector'
 			'EventRecorder-UI'
 			'EventRecorder-UI-Tests' );
-		group: 'default' with: #( 'Server' );
-		group: 'all' with: #( 'Server' 'Dispatcher' 'Tests' 'Optional' )
+		group: 'default' with: #( 'Server' 'Tests');
+		
+		group: 'all' with: #( 'Server' 'Dispatcher' 'Phex' 'Tests' 'Optional' )
 ]
 
 { #category : 'baselines' }
 BaselineOfPharoXPEventRecorder >> definePharoXPPackagesOn: spec [
-
+	
+	" Pharo-XP is a kind of extensions that builds a layer 
+	instead of pushing some changes to provide a more extensible core."
+	
 	spec
 		package: 'Pharo-XP-EventRecorder-Client'
 		with: [ spec requires: #( 'EventRecorder' ) ].
