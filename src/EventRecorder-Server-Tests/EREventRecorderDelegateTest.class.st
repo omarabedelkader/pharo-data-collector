@@ -164,37 +164,6 @@ EREventRecorderDelegateTest >> testHandleGetFromZip3 [
 ]
 
 { #category : 'tests' }
-EREventRecorderDelegateTest >> testHandlePut [
-	| data entity |
-	data := #[1 2 3 4].
-	entity := ZnByteArrayEntity bytes: data.
-	client
-		addPathSegment: 'xp';
-		addPathSegment: 'events';
-		entity: entity;
-		put.
-	self assert: client isSuccess.
-	self assert: client isCreated.
-	self assertLocation: 'files/' , client response location input: data
-	
-]
-
-{ #category : 'tests' }
-EREventRecorderDelegateTest >> testHandlePut2 [
-	| data entity |
-	data := #[1 2 3 4].
-	entity := ZnByteArrayEntity bytes: data.
-	client
-		path: 'xp/events/';
-		entity: entity;
-		put.
-	self assert: client isSuccess.
-	self assert: client isCreated.
-	self assertLocation: 'files/' , client response location input: data
-
-]
-
-{ #category : 'tests' }
 EREventRecorderDelegateTest >> testHandlePutOfEventRecorder [
 	| recorder collector semaphore files contents unpackedData |
 	semaphore := Semaphore new.

@@ -46,12 +46,6 @@ BaselineOfPharoXPEventRecorder >> defineEventRecorderPackagesOn: spec [
 		package: 'EventRecorder-LegacyTools'
 		with: [ spec requires: #( 'EventRecorder' ) ].
 	spec
-		package: 'EventRecorder-Fuel'
-		with: [ spec requires: #( 'EventRecorder' ) ].
-	spec
-		package: 'EventRecorder-Fuel-Tests'
-		with: [ spec requires: #( 'EventRecorder-Fuel' 'EventRecorder-Tests' ) ].
-	spec
 		package: 'EventRecorder-Inspector'
 		with: [ spec requires: #( 'EventRecorder-LegacyTools' ) ].
 	spec
@@ -75,15 +69,12 @@ BaselineOfPharoXPEventRecorder >> defineGroupsOn: spec [
 		group: 'Dispatcher' with: #( 'Phex-Data-Dispatcher' );
 		group: 'Tests' with: #(
 			'EventRecorder-Tests'
-			'EventRecorder-Fuel-Tests'
 			'EventRecorder-Server-Tests'
 			'Phex-Data-Dispatcher-Tests'
 			'Pharo-XP-EventRecorder-Client-Tests'
 			'Pharo-XP-EventRecorder-Server-Tests' );
 		group: 'Optional' with: #(
 			'EventRecorder-LegacyTools'
-			'EventRecorder-Fuel'
-			'EventRecorder-Fuel-Tests'
 			'EventRecorder-Inspector'
 			'EventRecorder-UI'
 			'EventRecorder-UI-Tests' );

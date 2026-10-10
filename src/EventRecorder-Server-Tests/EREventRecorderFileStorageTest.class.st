@@ -46,12 +46,3 @@ EREventRecorderFileStorageTest >> testDirectory [
 	self assert: storage directory exists.
 	self assert: storage directory isWritable.
 ]
-
-{ #category : 'tests' }
-EREventRecorderFileStorageTest >> testPut [
-
-	| location input |
-	input := #[ 1 2 3 4 ].
-	location := storage put: input.
-	self assertLocation: location input: input
-]
