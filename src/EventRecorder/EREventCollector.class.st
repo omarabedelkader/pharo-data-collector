@@ -143,15 +143,10 @@ EREventCollector >> isLiberated [
 ]
 
 { #category : 'packing' }
-EREventCollector >> newAnnouncement [
-	^ EREventAnnouncement new
-]
-
-{ #category : 'packing' }
 EREventCollector >> newAnnouncementForPacking [
 
 	| announcement |
-	announcement := self newAnnouncement.
+	announcement := EREventAnnouncement new.
 	announcement category: self category.
 	^ announcement
 ]

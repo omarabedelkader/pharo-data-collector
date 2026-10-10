@@ -31,24 +31,6 @@ EREventPacking class >> ston [
 ]
 
 { #category : 'private' }
-EREventPacking >> buildAnnouncementFor: anEREventCollector [
-
-	| announcement |
-	announcement := anEREventCollector newAnnouncementForPacking.
-	announcement
-		data: (self serialize: anEREventCollector bundles);
-		serializedBy: self class name;
-		eventRecorderVersion: self version;
-		timestamp: DateAndTime now;
-		imageHash: SmalltalkImage current imagePath hash;
-		imageVersion: SystemVersion current version;
-		latestUpdate: SystemVersion current commitHash;
-		computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
-		sessionUUID: self currentSessionUUID.
-	^ anEREventCollector updateAnnouncement: announcement
-]
-
-{ #category : 'private' }
 EREventPacking >> currentSessionCreationTime [
 
 	| session |
@@ -78,7 +60,19 @@ EREventPacking >> migrations: anObject [
 { #category : 'private' }
 EREventPacking >> newAnnouncementFor: anEventCollector [
 
-	^self buildAnnouncementFor: anEventCollector
+	| announcement |
+	announcement := anEventCollector newAnnouncementForPacking.
+	announcement
+		data: (self serialize: anEventCollector bundles);
+		serializedBy: self class name;
+		eventRecorderVersion: self version;
+		timestamp: DateAndTime now;
+		imageHash: SmalltalkImage current imagePath hash;
+		imageVersion: SystemVersion current version;
+		latestUpdate: SystemVersion current commitHash;
+		computerUUID: GlobalIdentifier uniqueInstance computerUUID asString;
+		sessionUUID: self currentSessionUUID.
+	^ anEventCollector updateAnnouncement: announcement
 ]
 
 { #category : 'packing' }

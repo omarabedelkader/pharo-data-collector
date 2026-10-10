@@ -184,7 +184,7 @@ EREventRecorder >> initialize [
 
 	delivery := EREventDelivery new.
 	delivery recorder: self.
-
+	
 	packing := EREventPacking default.
 	self canSendDiagnosticsAndUsageData
 			ifTrue: [ delivery offerPermission ]
