@@ -86,6 +86,30 @@ EREventRecorder class >> localStoragePath: aFileLocator [
 	localStoragePath := aFileLocator
 ]
 
+{ #category : 'settings' }
+EREventRecorder class >> localStoragePathSettingsOn: aBuilder [
+	<systemsettings>
+	
+	(aBuilder setting: #localStoragePath)
+		label: 'Local Storage Path';
+		target: self;
+		noOrdering;
+		description: 'The path where the data will be saved';
+		default: FileLocator home;
+		parent: #privacy
+]
+
+{ #category : 'settings' }
+EREventRecorder class >> privacySettingsOn: aBuilder [
+	<systemsettings>
+
+	(aBuilder group: #privacy)
+		label: 'Send Diagnostics And Usage';
+		target: self;
+		noOrdering;
+		description: 'All settings concerned with privacy when collecting coding sessions.'
+]
+
 { #category : 'initialization' }
 EREventRecorder class >> registerInterestToSystemAnnouncement [
 	<systemEventRegistration>
@@ -135,6 +159,18 @@ EREventRecorder class >> sendEntityNames [
 	^ sendEntityNames ifNil: [ sendEntityNames := false ]
 ]
 
+{ #category : 'settings' }
+EREventRecorder class >> sendEntityNamesSettingsOn: aBuilder [
+	<systemsettings>
+	(aBuilder setting: #sendEntityNames)
+		label: 'Include package/class/method names';
+		noOrdering;
+		target: EREventRecorder ;
+		description: 'Help the Pharo community improve its tools by automatically sending package, class, or method names as part of usage data, e.g., completed method selector, browsed classes, changed methods.';
+		default: false;
+		parent: #privacy
+]
+
 { #category : 'accessing' }
 EREventRecorder class >> sendSourceCode [
 	^ sendSourceCode ifNil: [ sendSourceCode := false ]
@@ -143,6 +179,19 @@ EREventRecorder class >> sendSourceCode [
 { #category : 'accessing' }
 EREventRecorder class >> sendSourceCode: aBoolean [
 	sendSourceCode := aBoolean
+]
+
+{ #category : 'settings' }
+EREventRecorder class >> sendSourceCodeSettingsOn: aBuilder [
+	<systemsettings>
+	
+	(aBuilder setting: #sendSourceCode)
+		label: 'Include source code';
+		noOrdering;
+		target: EREventRecorder ;
+		description: 'Help the Pharo community improve its products and services by automatically sending source code as part of the diagnostic and usage data, e.g., changed methods, browsed source code, written code snippets.';
+		default: false;
+		parent: #privacy
 ]
 
 { #category : 'accessing' }
@@ -182,6 +231,17 @@ EREventRecorder class >> url [
 EREventRecorder class >> url: aZnUrl [
 
 	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ]
+]
+
+{ #category : 'settings' }
+EREventRecorder class >> urlSettingsOn: aBuilder [
+
+	<systemsettings>
+	(aBuilder setting: #stringUrl)
+		target: EREventRecorder ;
+		description: 'The default URL for the EventRecorder server.';
+		label: 'EventRecorder URL';
+		parent: #privacy
 ]
 
 { #category : 'delivery' }
