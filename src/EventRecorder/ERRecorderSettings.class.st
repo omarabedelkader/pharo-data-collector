@@ -90,6 +90,7 @@ ERRecorderSettings class >> sendDiagnosticsAndUsageUsageDataSettingsOn: aBuilder
 	
 	(aBuilder setting: #sendDiagnosticsAndUsageData)
 		label: 'Send telemetric usage data only (acceptance/ignored completion suggestions)';
+		target: EREventRecorder ;
 		noOrdering;
 		description: 'Help the Pharo community improve its products and services by automatically sending diagnostic and usage data.';
 		default: false;
@@ -112,6 +113,7 @@ ERRecorderSettings class >> sendEntityNamesSettingsOn: aBuilder [
 	(aBuilder setting: #sendEntityNames)
 		label: 'Include package/class/method names';
 		noOrdering;
+		target: EREventRecorder ;
 		description: 'Help the Pharo community improve its tools by automatically sending package, class, or method names as part of usage data, e.g., completed method selector, browsed classes, changed methods.';
 		default: false;
 		parent: #privacy
@@ -134,6 +136,7 @@ ERRecorderSettings class >> sendSourceCodeSettingsOn: aBuilder [
 	(aBuilder setting: #sendSourceCode)
 		label: 'Include source code';
 		noOrdering;
+		target: EREventRecorder ;
 		description: 'Help the Pharo community improve its products and services by automatically sending source code as part of the diagnostic and usage data, e.g., changed methods, browsed source code, written code snippets.';
 		default: false;
 		parent: #privacy
@@ -168,7 +171,7 @@ ERRecorderSettings class >> urlSettingsOn: aBuilder [
 
 	<systemsettings>
 	(aBuilder setting: #stringUrl)
-		target: self;
+		target: EREventRecorder ;
 		description: 'The default URL for the EventRecorder server.';
 		label: 'EventRecorder URL';
 		parent: #privacy

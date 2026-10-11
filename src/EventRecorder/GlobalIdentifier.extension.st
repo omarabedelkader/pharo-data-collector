@@ -2,7 +2,7 @@ Extension { #name : 'GlobalIdentifier' }
 
 { #category : '*EventRecorder' }
 GlobalIdentifier >> obfuscateIfNecessary: anObject [
-	^ ERRecorderSettings sendEntityNames
+	^ EREventRecorder sendEntityNames
 			ifTrue: [ anObject ]
 			ifFalse: [ self obfuscate: anObject ]
 ]

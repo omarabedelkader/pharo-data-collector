@@ -105,7 +105,7 @@ ERBasicRecorderEvent >> initialize [
 
 { #category : 'initialization' }
 ERBasicRecorderEvent >> initializeObfuscated [
-	self obfuscated: ERRecorderSettings sendEntityNames not.
+	self obfuscated: EREventRecorder sendEntityNames not.
 ]
 
 { #category : 'accessing - announcement info' }

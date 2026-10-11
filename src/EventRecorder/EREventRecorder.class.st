@@ -39,7 +39,12 @@ Class {
 		'announcer'
 	],
 	#classInstVars : [
-		'uniqueInstance'
+		'uniqueInstance',
+		'sendDiagnosticsAndUsageData',
+		'sendEntityNames',
+		'sendSourceCode',
+		'url',
+		'localStoragePath'
 	],
 	#category : 'EventRecorder-Core',
 	#package : 'EventRecorder',
@@ -69,6 +74,18 @@ EREventRecorder class >> isGlobalRecorder: anEventRecorder [
 			ifNotNil: [ :anInstance | anInstance == anEventRecorder ]
 ]
 
+{ #category : 'accessing' }
+EREventRecorder class >> localStoragePath [
+	
+	^ localStoragePath ifNil: [ localStoragePath := FileLocator home ]
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> localStoragePath: aFileLocator [
+	
+	localStoragePath := aFileLocator
+]
+
 { #category : 'initialization' }
 EREventRecorder class >> registerInterestToSystemAnnouncement [
 	<systemEventRegistration>
@@ -95,6 +112,49 @@ EREventRecorder class >> reset [
 					Transcript show: 'Resetting a recorder failed!' 
 					"ignore error" ] ]. 
 	uniqueInstance := nil.
+	sendDiagnosticsAndUsageData := nil.
+	sendEntityNames := nil.
+	sendSourceCode := nil.
+	url := nil
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> sendDiagnosticsAndUsageData [
+	^ sendDiagnosticsAndUsageData ifNil: [ sendDiagnosticsAndUsageData := false ]
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> sendDiagnosticsAndUsageData: aBoolean [
+	sendDiagnosticsAndUsageData = aBoolean ifTrue: [ ^ self ].
+	sendDiagnosticsAndUsageData := aBoolean.
+	SystemAnnouncer uniqueInstance announce: ERPrivacyChangedAnnouncement.
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> sendEntityNames [
+	^ sendEntityNames ifNil: [ sendEntityNames := false ]
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> sendSourceCode [
+	^ sendSourceCode ifNil: [ sendSourceCode := false ]
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> sendSourceCode: aBoolean [
+	sendSourceCode := aBoolean
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> stringUrl [
+
+	^ self url asString
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> stringUrl: aUrlString [
+
+	^ self url: aUrlString
 ]
 
 { #category : 'for development' }
@@ -110,6 +170,18 @@ EREventRecorder class >> uniqueInstance [
 
 	uniqueInstance ifNil: [ self initializeUniqueInstance ].
 	^ uniqueInstance
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> url [
+	
+	^ url ifNil: [ url := 'http://localhost:8080/xp/events' asZnUrl ]
+]
+
+{ #category : 'accessing' }
+EREventRecorder class >> url: aZnUrl [
+
+	url := aZnUrl ifNotNil: [ aZnUrl asZnUrl ]
 ]
 
 { #category : 'delivery' }
@@ -179,7 +251,7 @@ EREventRecorder >> flush [
 { #category : 'initialization' }
 EREventRecorder >> initialize [
 	super initialize.
-	privacy := [ ERRecorderSettings sendDiagnosticsAndUsageData ].
+	privacy := [ self class sendDiagnosticsAndUsageData ].
 	collectors := EREventCollectors new.
 
 	delivery := EREventDelivery new.
