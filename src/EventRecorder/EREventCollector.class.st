@@ -35,7 +35,7 @@ Public API and Key Messages
 		yourself
 ```
 
-As you can see, you can collect any data that is possible to serialize. The current version uses STON for data serialization, see ERStonPacking class. 
+As you can see, you can collect any data that is possible to serialize. The current version uses STON for data serialization, see `ERStonPacking` class. 
 	
 Before the data are sent to the server, it is serialized and kept by an EREventAnnouncement object which also keeps additional information, e.g., computer-id, data and time. The additional information helps you to group collected data per computer and order them according to time. For that reason, we recommend you to collect objects that responds to #infoAt:put:. If so, the additional information is passed to your extracted data.  `ERBasicRecorderEvent` class represents a basic example that we recommend to use, e.g., subclass it. 
 
@@ -179,6 +179,11 @@ EREventCollector >> printOn: aStream [
 		space;
 		nextPutAll: ('item' asPluralBasedOn: recordedEvents size);
 		nextPut: $]
+]
+
+{ #category : 'accessing' }
+EREventCollector >> recorder [
+	^ recorder
 ]
 
 { #category : 'accessing' }

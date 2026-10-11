@@ -107,6 +107,15 @@ EREventRecorderTest >> testAddingCollectorSetActiveDelivery [
 ]
 
 { #category : 'tests - collector addition' }
+EREventRecorderTest >> testAddingCollectorSetBackLinkTORecorder [
+
+	| newCollector |
+	newCollector := EREventCollector new.
+	recorder addCollector: newCollector.
+	self assert: newCollector recorder equals: recorder.
+]
+
+{ #category : 'tests - collector addition' }
 EREventRecorderTest >> testAddingTwiceTheSameCollectorJustKeepsOne [
 
 	recorder addCollector: collector1.
