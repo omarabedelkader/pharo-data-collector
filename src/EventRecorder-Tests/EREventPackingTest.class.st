@@ -88,6 +88,7 @@ EREventPackingTest >> testPack [
 
 { #category : 'tests-packing' }
 EREventPackingTest >> testUnpackBinaryBinaryStream [
+
 	self assertBundle.
 	file binaryWriteStreamDo: [ :aStream | 
 		aStream nextPutAll: bundle data ].

@@ -43,6 +43,7 @@ EREventUnpackingTest >> testUnpack2 [
 
 { #category : 'tests' }
 EREventUnpackingTest >> testUnpack3 [
+
 	bundle := EREventPacking default pack: collector.
 	unpacking := EREventUnpacking new.
 	self should: [ unpacking unpack: bundle data ] raise: EREventInitializationError

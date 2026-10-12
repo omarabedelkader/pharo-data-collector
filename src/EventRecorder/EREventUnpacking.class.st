@@ -107,7 +107,8 @@ EREventUnpacking >> unpackFile: aFileReference [
 	"self default unpackFile: EREventRecorder localStoragePath allFiles atRandom"
 	
 	^ [ self unpack: (aFileReference binaryReadStreamDo: [ :aStream |  aStream contents ]) ]
-		on: EREventUnpackingError do: [ :anException |
-			anException data: aFileReference.
-			anException pass ]
+			on: EREventUnpackingError 
+			do: [ :anException |
+				anException data: aFileReference.
+				anException pass ]
 ]

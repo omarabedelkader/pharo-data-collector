@@ -31,19 +31,9 @@ EREventPacking class >> ston [
 ]
 
 { #category : 'private' }
-EREventPacking >> currentSessionCreationTime [
-
-	| session |
-	session := SmalltalkImage current session.
-	^ (session respondsTo: #creationTime)
-		  ifTrue: [ session creationTime ]
-		  ifFalse: [ nil ]
-]
-
-{ #category : 'private' }
 EREventPacking >> currentSessionUUID [
 
-	^ SmalltalkImage current session identityHash asString.
+	^ SmalltalkImage current session identityHash asString
 	
 ]
 
