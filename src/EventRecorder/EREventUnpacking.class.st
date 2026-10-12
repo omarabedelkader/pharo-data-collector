@@ -50,12 +50,13 @@ EREventUnpacking class >> randomUnpack [
 ]
 
 { #category : 'adding' }
-EREventUnpacking >> addPackingKind: anEventPacking [ 
-	^ self packingsKind addLast: anEventPacking
+EREventUnpacking >> addPackingKind: anEventPacking [
+
+	self packingKinds addLast: anEventPacking
 ]
 
 { #category : 'accessing' }
-EREventUnpacking >> packingsKind [
+EREventUnpacking >> packingKinds [
 	^ packings ifNil: [ packings := OrderedCollection new ]
 ]
 
@@ -77,8 +78,8 @@ EREventUnpacking >> safeUnpackDirectory: aFileReference [
 EREventUnpacking >> unpack: aByteArray [
 
 	| exceptions |
-	exceptions := OrderedCollection new: self packingsKind size.
-	self packingsKind do: [ :eachEventPacking |
+	exceptions := OrderedCollection new: self packingKinds size.
+	self packingKinds do: [ :eachEventPacking |
 		[ ^ eachEventPacking unpack: aByteArray ] on: Error
 			do: [ :exception | exceptions addLast: exception ] ].
 	exceptions
