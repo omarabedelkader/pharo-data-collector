@@ -165,7 +165,7 @@ EREventRecorder class >> sendEntityNamesSettingsOn: aBuilder [
 	(aBuilder setting: #sendEntityNames)
 		label: 'Include package/class/method names';
 		noOrdering;
-		target: EREventRecorder ;
+		target: self ;
 		description: 'Help the Pharo community improve its tools by automatically sending package, class, or method names as part of usage data, e.g., completed method selector, browsed classes, changed methods.';
 		default: false;
 		parent: #privacy
@@ -238,7 +238,7 @@ EREventRecorder class >> urlSettingsOn: aBuilder [
 
 	<systemsettings>
 	(aBuilder setting: #stringUrl)
-		target: EREventRecorder ;
+		target: self ;
 		description: 'The default URL for the EventRecorder server.';
 		label: 'EventRecorder URL';
 		parent: #privacy

@@ -15,7 +15,7 @@ Class {
 	#package : 'EventRecorder-Server-Tests'
 }
 
-{ #category : 'converting' }
+{ #category : 'tests' }
 EREventRecorderDelegateTest >> assertLocation: location input: input [
 	| file output |
 	file := fileSystem workingDirectory resolveString: location.
@@ -126,6 +126,7 @@ EREventRecorderDelegateTest >> testHandleGetFromXP2 [
 { #category : 'tests' }
 EREventRecorderDelegateTest >> testHandleGetFromZip [
 	"It returns 404 if a category does not exist."
+	
 	client 
 		path: '/xp/zip'; 
 		queryAt: 'category' put: 'categoryOne';
@@ -165,6 +166,7 @@ EREventRecorderDelegateTest >> testHandleGetFromZip3 [
 
 { #category : 'tests' }
 EREventRecorderDelegateTest >> testHandlePutOfEventRecorder [
+
 	| recorder collector semaphore files contents unpackedData |
 	semaphore := Semaphore new.
 	server when: ZnConnectionAcceptedEvent do: [ :announcement | semaphore signal ].

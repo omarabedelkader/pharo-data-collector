@@ -38,28 +38,38 @@ Class {
 { #category : 'instance creation' }
 EREventUnpacking class >> default [
 	^ self new
-			addPacking: EREventPacking ston;
+			addPackingKind: EREventPacking ston;
 			yourself
 ]
 
+{ #category : 'instance creation' }
+EREventUnpacking class >> randomUnpack [
+	"self randomUnpack"
+	
+	self default unpackFile: (EREventRecorder localStoragePath allFiles atRandom)
+]
+
 { #category : 'adding' }
-EREventUnpacking >> addPacking: anEventPacking [ 
-	^ self packings addLast: anEventPacking
+EREventUnpacking >> addPackingKind: anEventPacking [ 
+	^ self packingsKind addLast: anEventPacking
 ]
 
 { #category : 'accessing' }
-EREventUnpacking >> packings [
+EREventUnpacking >> packingsKind [
 	^ packings ifNil: [ packings := OrderedCollection new ]
 ]
 
 { #category : 'packing' }
 EREventUnpacking >> safeUnpackDirectory: aFileReference [
-	"self default safeUnpackDirectory: './xp/events/' asFileReference"
+	"self default safeUnpackDirectory: EREventRecorder localStoragePath"
+	
 	| unpackedData exceptions |
 	exceptions := OrderedCollection new.
-	[ unpackedData := self unpackDirectory: aFileReference ] on: EREventUnpackingError do: [ :exception |
-		exceptions addLast: exception.
-		exception resume ].
+	[ unpackedData := self unpackDirectory: aFileReference ] 
+		on: EREventUnpackingError 
+		do: [ :exception |
+			exceptions addLast: exception.
+			exception resume ].
 	^ unpackedData -> exceptions
 ]
 
@@ -67,8 +77,8 @@ EREventUnpacking >> safeUnpackDirectory: aFileReference [
 EREventUnpacking >> unpack: aByteArray [
 
 	| exceptions |
-	exceptions := OrderedCollection new: self packings size.
-	self packings do: [ :eachEventPacking |
+	exceptions := OrderedCollection new: self packingsKind size.
+	self packingsKind do: [ :eachEventPacking |
 		[ ^ eachEventPacking unpack: aByteArray ] on: Error
 			do: [ :exception | exceptions addLast: exception ] ].
 	exceptions
@@ -83,18 +93,18 @@ EREventUnpacking >> unpack: aByteArray [
 
 { #category : 'packing' }
 EREventUnpacking >> unpackDirectory: aFileReference [
-	"self default unpackDirectory: './gt/events/' asFileReference"
+	"self default unpackDirectory: EREventRecorder localStoragePath"
+	
 	^ aFileReference asFileReference allFiles 
-			collect: [ :eachFile | 
-				(eachFile basename = '.DS_Store') 
-					ifTrue: [ nil ]
-					ifFalse: [ self unpackFile: eachFile ] ]
-			thenSelect: #notNil
+			reject:  [ :eachFile | eachFile basename = '.DS_Store' ]
+			thenCollect: [ :eachFile | self unpackFile: eachFile  ]
+			
 ]
 
 { #category : 'packing' }
 EREventUnpacking >> unpackFile: aFileReference [
-	"self default unpackFile: './xp/events/' asFileReference allFiles atRandom"
+	"self default unpackFile: EREventRecorder localStoragePath allFiles atRandom"
+	
 	^ [ self unpack: (aFileReference binaryReadStreamDo: [ :aStream |  aStream contents ]) ]
 		on: EREventUnpackingError do: [ :anException |
 			anException data: aFileReference.
