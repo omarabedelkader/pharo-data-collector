@@ -24,8 +24,3 @@ ERStonPacking >> serialize: anObject [
 		[ STON put: anObject onStreamPretty: gzstream ]
 			ensure: [ gzstream close ] ]) asByteArray
 ]
-
-{ #category : 'accessing' }
-ERStonPacking >> technologyName [
-	^ 'ston'
-]

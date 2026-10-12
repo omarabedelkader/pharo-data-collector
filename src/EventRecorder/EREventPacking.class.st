@@ -83,12 +83,6 @@ EREventPacking >> serialize: anObject [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
-EREventPacking >> technologyName [
-	"It returns a string that identify packing technology."
-	^ self subclassResponsibility
-]
-
 { #category : 'packing' }
 EREventPacking >> unpack: aByteArray [
 	^ self materialize: aByteArray
